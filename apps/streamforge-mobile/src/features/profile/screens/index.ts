@@ -1,7 +1,4 @@
-// profile/screens/index.ts
-export {
-  ProfileHomeScreen,
-  EditProfileScreen,
-  SubscriptionScreen,
-  SettingsScreen,
-} from '../../screens'
+export { ProfileHomeScreen } from "./ProfileHomeScreen";
+export { EditProfileScreen } from "./EditProfileScreen";
+export { SubscriptionScreen } from "./SubscriptionScreen";
+export { SettingsScreen } from "./SettingsScreen";

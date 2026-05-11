@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ChatRoom {
+  id        String   @id @default(uuid())
+  streamId  String
+  createdAt DateTime @default(now())
+}
+
+model ChatMessage {
+  id        String   @id @default(uuid())
+  roomId    String
+  userId    String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model PresenceSession {
+  id         String   @id @default(uuid())
+  userId     String
+  streamId   String
+  isActive   Boolean  @default(true)
+  connectedAt DateTime @default(now())
+}

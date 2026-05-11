@@ -1,2 +1,2 @@
-// library/screens/index.ts
-export { LibraryHomeScreen, AssetDetailScreen } from '../../screens'
+export { LibraryHomeScreen } from "./LibraryHomeScreen";
+export { AssetDetailScreen } from "./AssetDetailScreen";
