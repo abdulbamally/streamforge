@@ -55,6 +55,13 @@ export interface CreateCheckoutDto {
   cancelUrl?:  string
 }
 
+export type PaymentProvider = 'stripe' | 'flutterwave' | 'paystack'
+
+export interface CreateRegionalCheckoutDto extends CreateCheckoutDto {
+  provider: PaymentProvider
+  countryCode?: string
+}
+
 // ─── Response DTOs ────────────────────────────────────────────
 export interface AuthResponse {
   user:        User
@@ -201,6 +208,16 @@ export const subscriptionApi = {
     apiFetch('/api/v1/subscriptions/checkout', {
       method: 'POST',
       body:   JSON.stringify(dto),
+    }),
+
+  /**
+   * Create a regional checkout session for a specific payment provider.
+   * If not implemented server-side yet, callers should gracefully fallback.
+   */
+  createRegionalCheckout: (dto: CreateRegionalCheckoutDto): Promise<{ url: string }> =>
+    apiFetch('/api/v1/subscriptions/checkout/regional', {
+      method: 'POST',
+      body: JSON.stringify(dto),
     }),
 
   /**

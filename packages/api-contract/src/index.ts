@@ -92,6 +92,8 @@ export type {
   ChangePasswordDto,
   UpdateProfileDto,
   CreateCheckoutDto,
+  CreateRegionalCheckoutDto,
+  PaymentProvider,
   AuthResponse,
   RefreshResponse,
 } from './auth.api'

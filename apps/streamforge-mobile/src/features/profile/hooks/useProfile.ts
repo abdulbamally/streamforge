@@ -8,6 +8,7 @@ import { QueryKeys }  from '@core/api/queryClient'
 import { useAuthStore } from '@core/store/authStore'
 import { useToast }   from '@core/hooks/useToast'
 import type { UpdateProfileDto } from '@streamforge/api-contract'
+import type { PaymentProvider } from '../utils/paymentProvider'
 
 // ── Get current user ──────────────────────────────────────────
 export function useMe() {
@@ -67,6 +68,47 @@ export function useCreateCheckout() {
   return useMutation({
     mutationFn: (priceId: string) =>
       subscriptionApi.createCheckout({ priceId }),
+    onError: (err: any) => toast.error(err.message ?? 'Failed to start checkout'),
+  })
+}
+
+// ── Create regional checkout with Stripe fallback ──────────────
+export function useCreateRegionalCheckout() {
+  const toast = useToast()
+
+  return useMutation({
+    mutationFn: async ({
+      priceId,
+      provider,
+      countryCode,
+    }: {
+      priceId: string
+      provider: PaymentProvider
+      countryCode?: string
+    }) => {
+      if (provider === 'stripe') {
+        return subscriptionApi.createCheckout({ priceId })
+      }
+
+      try {
+        const maybeRegionalCheckout = (subscriptionApi as any).createRegionalCheckout as
+          | ((payload: { priceId: string; provider: PaymentProvider; countryCode?: string }) => Promise<{ url: string }>)
+          | undefined
+
+        if (!maybeRegionalCheckout) {
+          throw new Error('Regional checkout endpoint not available')
+        }
+
+        return await maybeRegionalCheckout({
+          priceId,
+          provider,
+          countryCode,
+        })
+      } catch {
+        toast.info(`${provider} checkout unavailable right now. Falling back to Stripe.`)
+        return subscriptionApi.createCheckout({ priceId })
+      }
+    },
     onError: (err: any) => toast.error(err.message ?? 'Failed to start checkout'),
   })
 }
