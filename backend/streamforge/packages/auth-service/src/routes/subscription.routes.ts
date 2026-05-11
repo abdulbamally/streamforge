@@ -200,4 +200,44 @@ export async function subscriptionRoutes(app: FastifyInstance): Promise<void> {
       return reply.send({ received: true })
     }
   )
+
+  // ─── POST /api/subscriptions/webhook/flutterwave ─────────────
+  app.post(
+    '/webhook/flutterwave',
+    {
+      config: {
+        rawBody: true,
+        rateLimit: { max: 1000, timeWindow: '1m' },
+      },
+      schema: {
+        tags: ['Subscription'],
+        summary: 'Flutterwave webhook endpoint (Flutterwave → server)',
+      },
+    },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const signature = request.headers['verif-hash'] as string | undefined
+      await subscriptionService.handleFlutterwaveWebhook((request as any).rawBody, signature)
+      return reply.send({ received: true })
+    }
+  )
+
+  // ─── POST /api/subscriptions/webhook/paystack ────────────────
+  app.post(
+    '/webhook/paystack',
+    {
+      config: {
+        rawBody: true,
+        rateLimit: { max: 1000, timeWindow: '1m' },
+      },
+      schema: {
+        tags: ['Subscription'],
+        summary: 'Paystack webhook endpoint (Paystack → server)',
+      },
+    },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const signature = request.headers['x-paystack-signature'] as string | undefined
+      await subscriptionService.handlePaystackWebhook((request as any).rawBody, signature)
+      return reply.send({ received: true })
+    }
+  )
 }

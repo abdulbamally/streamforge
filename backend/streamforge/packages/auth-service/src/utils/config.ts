@@ -40,6 +40,7 @@ const configSchema = z.object({
   FLUTTERWAVE_SECRET_KEY:      z.string().optional(),
   FLUTTERWAVE_PUBLIC_KEY:      z.string().optional(),
   FLUTTERWAVE_REDIRECT_URL:    z.string().url().optional(),
+  FLUTTERWAVE_WEBHOOK_HASH:    z.string().optional(),
   PAYSTACK_SECRET_KEY:         z.string().optional(),
   PAYSTACK_PUBLIC_KEY:         z.string().optional(),
   PAYSTACK_REDIRECT_URL:       z.string().url().optional(),

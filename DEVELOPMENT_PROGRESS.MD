@@ -113,3 +113,25 @@ Recommended next step
 - Add regional webhook endpoints and signature verification:
   /api/v1/subscriptions/webhook/flutterwave and /api/v1/subscriptions/webhook/paystack
   then persist subscription state transitions to match Stripe webhook parity.
+
+Phase 11 monetization backend webhook parity completed
+Updated backend/streamforge/packages/auth-service/src/routes/subscription.routes.ts
+- added POST /api/subscriptions/webhook/flutterwave
+- added POST /api/subscriptions/webhook/paystack
+- enabled rawBody handling and provider signature header parsing for both
+Updated backend/streamforge/packages/auth-service/src/services/subscription.service.ts
+- added handleFlutterwaveWebhook() with verif-hash validation
+- added handlePaystackWebhook() with HMAC-SHA512 signature validation
+- mapped successful events to subscription activation + invoice write
+- mapped failed events to PAST_DUE and disable events to CANCELLED/FREE
+- added shared helper methods for regional subscription upsert and invoice upsert
+Updated backend/streamforge/packages/auth-service/src/utils/config.ts
+- added FLUTTERWAVE_WEBHOOK_HASH env config entry
+
+Validation
+- ReadLints reports no linter issues in modified backend files.
+- Backend type-check is still blocked by existing tsconfig value:
+  ignoreDeprecations is invalid for the current TypeScript toolchain.
+
+Recommended next step
+- Add automated integration tests for regional webhook signature verification and status transitions.

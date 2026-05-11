@@ -3,6 +3,7 @@
 // ============================================================
 
 import Stripe from 'stripe'
+import crypto from 'node:crypto'
 import { config } from '../utils/config'
 import { prisma } from '../utils/prisma'
 import { logger } from '../utils/logger'
@@ -208,6 +209,132 @@ export class SubscriptionService {
       default:
         logger.debug({ type: event.type }, 'Unhandled Stripe webhook event')
     }
+  }
+
+  // ─── Flutterwave Webhook Handler ──────────────────────────────
+  async handleFlutterwaveWebhook(rawBody: Buffer, signature?: string): Promise<void> {
+    if (!config.FLUTTERWAVE_WEBHOOK_HASH) {
+      throw createAppError(503, ErrorCodes.INTERNAL_ERROR, 'Flutterwave webhook hash not configured')
+    }
+
+    if (!signature || signature !== config.FLUTTERWAVE_WEBHOOK_HASH) {
+      logger.warn('Invalid Flutterwave webhook signature')
+      throw createAppError(400, ErrorCodes.VALIDATION_ERROR, 'Invalid webhook signature')
+    }
+
+    const event = JSON.parse(rawBody.toString('utf8')) as any
+    const eventType = event?.event as string | undefined
+    const payload = event?.data ?? {}
+    const meta = payload?.meta ?? {}
+
+    logger.info({ eventType }, 'Flutterwave webhook received')
+
+    const userId = meta.userId as string | undefined
+    const plan = (meta.plan as Plan | undefined) ?? 'FREE'
+    const transactionRef = (payload?.id ? String(payload.id) : undefined) ?? (payload?.tx_ref as string | undefined)
+
+    if (!userId) {
+      logger.warn({ eventType }, 'Flutterwave webhook ignored: missing metadata.userId')
+      return
+    }
+
+    if (eventType === 'charge.completed' && payload?.status === 'successful') {
+      await this.upsertRegionalSubscription({
+        userId,
+        plan,
+        status: 'ACTIVE',
+        provider: 'flutterwave',
+      })
+
+      await this.createProviderInvoice({
+        userId,
+        provider: 'flutterwave',
+        providerInvoiceId: transactionRef ?? `flw-${userId}-${Date.now()}`,
+        amountCents: Number(payload?.amount ? Math.round(Number(payload.amount) * 100) : 0),
+        currency: String(payload?.currency ?? 'usd').toLowerCase(),
+        status: 'paid',
+      })
+
+      return
+    }
+
+    if (eventType === 'charge.failed') {
+      await this.markRegionalSubscriptionPastDue(userId)
+      return
+    }
+
+    logger.debug({ eventType }, 'Unhandled Flutterwave webhook event')
+  }
+
+  // ─── Paystack Webhook Handler ─────────────────────────────────
+  async handlePaystackWebhook(rawBody: Buffer, signature?: string): Promise<void> {
+    if (!config.PAYSTACK_SECRET_KEY) {
+      throw createAppError(503, ErrorCodes.INTERNAL_ERROR, 'Paystack secret not configured')
+    }
+
+    const computed = crypto
+      .createHmac('sha512', config.PAYSTACK_SECRET_KEY)
+      .update(rawBody)
+      .digest('hex')
+
+    if (!signature || signature !== computed) {
+      logger.warn('Invalid Paystack webhook signature')
+      throw createAppError(400, ErrorCodes.VALIDATION_ERROR, 'Invalid webhook signature')
+    }
+
+    const event = JSON.parse(rawBody.toString('utf8')) as any
+    const eventType = event?.event as string | undefined
+    const payload = event?.data ?? {}
+    const meta = payload?.metadata ?? {}
+
+    logger.info({ eventType }, 'Paystack webhook received')
+
+    const userId = meta.userId as string | undefined
+    const plan = (meta.plan as Plan | undefined) ?? 'FREE'
+    const reference = payload?.reference as string | undefined
+
+    if (!userId) {
+      logger.warn({ eventType }, 'Paystack webhook ignored: missing metadata.userId')
+      return
+    }
+
+    if (eventType === 'charge.success') {
+      await this.upsertRegionalSubscription({
+        userId,
+        plan,
+        status: 'ACTIVE',
+        provider: 'paystack',
+      })
+
+      await this.createProviderInvoice({
+        userId,
+        provider: 'paystack',
+        providerInvoiceId: reference ?? `pay-${userId}-${Date.now()}`,
+        amountCents: Number(payload?.amount ?? 0),
+        currency: String(payload?.currency ?? 'usd').toLowerCase(),
+        status: 'paid',
+      })
+      return
+    }
+
+    if (eventType === 'charge.failed' || eventType === 'invoice.payment_failed') {
+      await this.markRegionalSubscriptionPastDue(userId)
+      return
+    }
+
+    if (eventType === 'subscription.disable') {
+      await prisma.subscription.updateMany({
+        where: { userId },
+        data: {
+          plan: 'FREE',
+          status: 'CANCELLED',
+          stripeSubId: null,
+        },
+      })
+      return
+    }
+
+    logger.debug({ eventType }, 'Unhandled Paystack webhook event')
   }
 
   // ─── Webhook event handlers ───────────────────────────────────
@@ -420,5 +547,69 @@ export class SubscriptionService {
     }
 
     return { url }
+  }
+
+  private async upsertRegionalSubscription(input: {
+    userId: string
+    plan: Plan
+    status: 'ACTIVE' | 'TRIALING' | 'PAST_DUE' | 'INCOMPLETE'
+    provider: 'flutterwave' | 'paystack'
+  }): Promise<void> {
+    const placeholderCustomerId = `pending_${input.provider}_${input.userId}`
+    await prisma.subscription.upsert({
+      where: { userId: input.userId },
+      create: {
+        userId: input.userId,
+        stripeCustomerId: placeholderCustomerId,
+        plan: input.plan,
+        status: input.status,
+        currentPeriodStart: new Date(),
+        currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      },
+      update: {
+        plan: input.plan,
+        status: input.status,
+        currentPeriodStart: new Date(),
+        currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        cancelAtPeriodEnd: false,
+      },
+    })
+  }
+
+  private async markRegionalSubscriptionPastDue(userId: string): Promise<void> {
+    await prisma.subscription.updateMany({
+      where: { userId },
+      data: { status: 'PAST_DUE' },
+    })
+  }
+
+  private async createProviderInvoice(input: {
+    userId: string
+    provider: 'flutterwave' | 'paystack'
+    providerInvoiceId: string
+    amountCents: number
+    currency: string
+    status: string
+  }): Promise<void> {
+    const sub = await prisma.subscription.findUnique({ where: { userId: input.userId } })
+    if (!sub) return
+
+    await prisma.invoice.upsert({
+      where: { stripeInvoiceId: `${input.provider}:${input.providerInvoiceId}` },
+      create: {
+        subscriptionId: sub.id,
+        stripeInvoiceId: `${input.provider}:${input.providerInvoiceId}`,
+        amount: input.amountCents,
+        currency: input.currency,
+        status: input.status,
+        paidAt: input.status === 'paid' ? new Date() : null,
+      },
+      update: {
+        amount: input.amountCents,
+        currency: input.currency,
+        status: input.status,
+        paidAt: input.status === 'paid' ? new Date() : null,
+      },
+    })
   }
 }
