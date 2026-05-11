@@ -1,0 +1,16 @@
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@app/*":     ["src/app/*"],
+      "@features/*": ["src/features/*"],
+      "@core/*":    ["src/core/*"],
+      "@shared/*":  ["src/shared/*"],
+      "@assets/*":  ["assets/*"]
+    }
+  },
+  "include": ["src", "index.js"],
+  "exclude": ["node_modules"]
+}

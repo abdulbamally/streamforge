@@ -1,0 +1,16 @@
+services:
+  auth-service:
+    environment:
+      NODE_ENV: production
+    restart: always
+
+  media-service:
+    environment:
+      NODE_ENV: production
+    restart: always
+
+  postgres:
+    restart: always
+
+  redis:
+    restart: always

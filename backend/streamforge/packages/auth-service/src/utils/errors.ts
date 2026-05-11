@@ -1,0 +1,21 @@
+// ============================================================
+//  Error Utilities
+// ============================================================
+
+import type { ErrorCode } from '@streamforge/shared/types'
+
+export interface AppError extends Error {
+  statusCode: number
+  code: string
+}
+
+export function createAppError(
+  statusCode: number,
+  code: ErrorCode | string,
+  message: string
+): AppError {
+  const err = new Error(message) as AppError
+  err.statusCode = statusCode
+  err.code       = code
+  return err
+}

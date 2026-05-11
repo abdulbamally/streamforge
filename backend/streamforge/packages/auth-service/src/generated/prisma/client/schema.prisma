@@ -1,0 +1,440 @@
+// ============================================================
+//  StreamForge — Prisma Schema
+//  Auth Service owns ALL models (single DB, multiple services
+//  access via @streamforge/auth-service/prisma)
+// ============================================================
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+  output        = "../src/generated/prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────────────────────
+// ENUMS
+// ─────────────────────────────────────────────────────────────
+
+enum Plan {
+  FREE
+  PRO
+  CREATOR
+  ENTERPRISE
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  PAST_DUE
+  TRIALING
+  INCOMPLETE
+}
+
+enum OAuthProvider {
+  GOOGLE
+  APPLE
+  GITHUB
+}
+
+enum Platform {
+  YOUTUBE
+  TWITCH
+  FACEBOOK
+  TIKTOK
+  INSTAGRAM
+  CUSTOM
+}
+
+enum StreamStatus {
+  IDLE
+  LIVE
+  ENDED
+  ERROR
+}
+
+enum SourceType {
+  CAMERA
+  SCREEN
+  IMAGE
+  VIDEO
+  TEXT
+  BROWSER
+  AUDIO
+}
+
+enum ProjectStatus {
+  DRAFT
+  PROCESSING
+  READY
+  ARCHIVED
+}
+
+enum ExportFormat {
+  MP4
+  MOV
+  WEBM
+  MKV
+  GIF
+  MP3
+}
+
+enum JobStatus {
+  PENDING
+  PROCESSING
+  DONE
+  FAILED
+  CANCELLED
+}
+
+enum TokenType {
+  EMAIL_VERIFY
+  PASSWORD_RESET
+  REFRESH
+}
+
+// ─────────────────────────────────────────────────────────────
+// AUTH & IDENTITY
+// ─────────────────────────────────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  username      String    @unique
+  displayName   String?
+  avatarUrl     String?
+  bio           String?
+  passwordHash  String?
+  emailVerified Boolean   @default(false)
+  isActive      Boolean   @default(true)
+  lastLoginAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  oauthAccounts OAuthAccount[]
+  tokens        Token[]
+  subscription  Subscription?
+  streams       Stream[]
+  destinations  Destination[]
+  projects      Project[]
+  mediaAssets   MediaAsset[]
+  auditLogs     AuditLog[]
+
+  @@index([email])
+  @@index([username])
+  @@map("users")
+}
+
+model OAuthAccount {
+  id           String        @id @default(cuid())
+  userId       String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider     OAuthProvider
+  providerUid  String
+  accessToken  String?       @db.Text
+  refreshToken String?       @db.Text
+  expiresAt    DateTime?
+  createdAt    DateTime      @default(now())
+
+  @@unique([provider, providerUid])
+  @@index([userId])
+  @@map("oauth_accounts")
+}
+
+model Token {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      TokenType
+  token     String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([token])
+  @@index([userId, type])
+  @@map("tokens")
+}
+
+// ─────────────────────────────────────────────────────────────
+// SUBSCRIPTIONS & BILLING
+// ─────────────────────────────────────────────────────────────
+
+model Subscription {
+  id                 String             @id @default(cuid())
+  userId             String             @unique
+  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stripeCustomerId   String             @unique
+  stripeSubId        String?            @unique
+  plan               Plan               @default(FREE)
+  status             SubscriptionStatus @default(ACTIVE)
+  currentPeriodStart DateTime?
+  currentPeriodEnd   DateTime?
+  cancelAtPeriodEnd  Boolean            @default(false)
+  trialEnd           DateTime?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  invoices Invoice[]
+
+  @@map("subscriptions")
+}
+
+model Invoice {
+  id              String       @id @default(cuid())
+  subscriptionId  String
+  subscription    Subscription @relation(fields: [subscriptionId], references: [id])
+  stripeInvoiceId String       @unique
+  amount          Int // in cents
+  currency        String       @default("usd")
+  status          String
+  paidAt          DateTime?
+  createdAt       DateTime     @default(now())
+
+  @@map("invoices")
+}
+
+// ─────────────────────────────────────────────────────────────
+// STREAMING
+// ─────────────────────────────────────────────────────────────
+
+model Stream {
+  id           String       @id @default(cuid())
+  userId       String
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title        String
+  description  String?
+  thumbnailUrl String?
+  status       StreamStatus @default(IDLE)
+  streamKey    String       @unique @default(cuid())
+  ingestUrl    String?
+  viewerCount  Int          @default(0)
+  peakViewers  Int          @default(0)
+  startedAt    DateTime?
+  endedAt      DateTime?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  destinations StreamDestination[]
+  scenes       Scene[]
+  recording    Recording?
+  analytics    StreamAnalytic[]
+
+  @@index([userId, status])
+  @@index([streamKey])
+  @@map("streams")
+}
+
+model Destination {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  platform  Platform
+  label     String
+  rtmpUrl   String
+  streamKey String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  streamDestinations StreamDestination[]
+
+  @@index([userId])
+  @@map("destinations")
+}
+
+model StreamDestination {
+  streamId      String
+  destinationId String
+  stream        Stream      @relation(fields: [streamId], references: [id], onDelete: Cascade)
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  status        String      @default("pending") // pending | live | error
+  error         String?
+  startedAt     DateTime?
+
+  @@id([streamId, destinationId])
+  @@map("stream_destinations")
+}
+
+model Scene {
+  id        String   @id @default(cuid())
+  streamId  String
+  stream    Stream   @relation(fields: [streamId], references: [id], onDelete: Cascade)
+  name      String
+  order     Int
+  isActive  Boolean  @default(false)
+  thumbnail String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sources Source[]
+
+  @@index([streamId])
+  @@map("scenes")
+}
+
+model Source {
+  id        String     @id @default(cuid())
+  sceneId   String
+  scene     Scene      @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+  type      SourceType
+  label     String
+  order     Int
+  isVisible Boolean    @default(true)
+  // JSON: { x, y, width, height, rotation, opacity, zIndex, filters[] }
+  config    Json       @default("{}")
+  assetUrl  String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([sceneId])
+  @@map("sources")
+}
+
+model Recording {
+  id        String   @id @default(cuid())
+  streamId  String   @unique
+  stream    Stream   @relation(fields: [streamId], references: [id], onDelete: Cascade)
+  url       String
+  duration  Float? // seconds
+  sizeBytes BigInt?
+  format    String   @default("mp4")
+  createdAt DateTime @default(now())
+
+  @@map("recordings")
+}
+
+model StreamAnalytic {
+  id            String   @id @default(cuid())
+  streamId      String
+  stream        Stream   @relation(fields: [streamId], references: [id], onDelete: Cascade)
+  timestamp     DateTime @default(now())
+  viewerCount   Int
+  bitrate       Int? // kbps
+  droppedFrames Int?
+  latencyMs     Int?
+
+  @@index([streamId, timestamp])
+  @@map("stream_analytics")
+}
+
+// ─────────────────────────────────────────────────────────────
+// MEDIA / OFFLINE EDITOR
+// ─────────────────────────────────────────────────────────────
+
+model MediaAsset {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  filename     String
+  originalName String
+  mimeType     String
+  sizeBytes    BigInt
+  url          String // R2 / S3 URL
+  thumbnailUrl String?
+  duration     Float? // seconds (video/audio only)
+  width        Int?
+  height       Int?
+  metadata     Json? // codec, bitrate, fps, etc.
+  createdAt    DateTime @default(now())
+
+  @@index([userId])
+  @@map("media_assets")
+}
+
+model Project {
+  id           String        @id @default(cuid())
+  userId       String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title        String
+  description  String?
+  thumbnailUrl String?
+  duration     Float? // total timeline duration in seconds
+  resolution   String? // "1920x1080"
+  fps          Int?          @default(30)
+  aspectRatio  String?       @default("16:9")
+  status       ProjectStatus @default(DRAFT)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  clips   Clip[]
+  exports Export[]
+
+  @@index([userId, status])
+  @@map("projects")
+}
+
+model Clip {
+  id          String   @id @default(cuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assetId     String? // references MediaAsset
+  assetUrl    String // direct URL for playback
+  trackIndex  Int      @default(0) // 0 = primary video, 1+ = overlay tracks
+  startTime   Float // position on timeline (seconds)
+  endTime     Float
+  trimIn      Float    @default(0) // trim start within source
+  trimOut     Float? // trim end within source
+  volume      Float    @default(1.0)
+  opacity     Float    @default(1.0)
+  speed       Float    @default(1.0)
+  // JSON: array of { type, params } — blur, glow, vignette, etc.
+  effects     Json     @default("[]")
+  // JSON: { brightness, contrast, saturation, hue, lut }
+  colorGrade  Json     @default("{}")
+  // JSON: { volume, fadeIn, fadeOut, pitch, eq }
+  audioConfig Json     @default("{}")
+  // JSON: { x, y, width, height, rotation } for overlay tracks
+  transform   Json     @default("{}")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([projectId])
+  @@map("clips")
+}
+
+model Export {
+  id           String       @id @default(cuid())
+  projectId    String
+  project      Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  format       ExportFormat @default(MP4)
+  resolution   String       @default("1920x1080")
+  fps          Int          @default(30)
+  videoBitrate Int? // kbps
+  audioBitrate Int? // kbps
+  status       JobStatus    @default(PENDING)
+  progress     Int          @default(0) // 0-100
+  outputUrl    String?
+  sizeBytes    BigInt?
+  error        String?
+  jobId        String? // BullMQ job ID
+  createdAt    DateTime     @default(now())
+  startedAt    DateTime?
+  completedAt  DateTime?
+
+  @@index([projectId, status])
+  @@map("exports")
+}
+
+// ─────────────────────────────────────────────────────────────
+// AUDIT & OBSERVABILITY
+// ─────────────────────────────────────────────────────────────
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    String // "user.login", "stream.start", "export.create"
+  metadata  Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([userId, action])
+  @@index([createdAt])
+  @@map("audit_logs")
+}

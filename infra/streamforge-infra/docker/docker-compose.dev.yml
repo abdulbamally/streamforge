@@ -1,0 +1,14 @@
+services:
+  auth-service:
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ../../../backend/streamforge/packages/auth-service:/app
+    command: pnpm dev
+
+  media-service:
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ../../../backend/streamforge/packages/media-service:/app
+    command: pnpm dev
