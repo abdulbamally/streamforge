@@ -89,3 +89,27 @@ Validation
 Recommended next step
 - Implement backend endpoint /api/v1/subscriptions/checkout/regional with provider adapters:
   Stripe (existing), Flutterwave (first), Paystack (second), then add webhook handlers per provider.
+
+Phase 11 monetization backend integration completed (regional checkout)
+Updated backend/streamforge/packages/auth-service/src/routes/subscription.routes.ts
+- added POST /api/subscriptions/checkout/regional endpoint
+- validates provider (stripe/flutterwave/paystack) + countryCode payload
+Updated backend/streamforge/packages/auth-service/src/schemas/auth.schema.ts
+- added CreateRegionalCheckoutSchema and DTO type
+Updated backend/streamforge/packages/auth-service/src/services/subscription.service.ts
+- added createRegionalCheckoutSession() with provider dispatch
+- implemented Flutterwave checkout initialization API call
+- implemented Paystack checkout initialization API call
+- retained Stripe path via existing createCheckoutSession()
+Updated backend/streamforge/packages/auth-service/src/utils/config.ts
+- added optional env keys for Flutterwave/Paystack credentials and redirect URLs
+
+Validation
+- ReadLints reports no linter issues in modified backend files.
+- Backend build command currently fails before code-check due to existing tsconfig setting:
+  ignoreDeprecations value in auth-service tsconfig is invalid for current TypeScript toolchain.
+
+Recommended next step
+- Add regional webhook endpoints and signature verification:
+  /api/v1/subscriptions/webhook/flutterwave and /api/v1/subscriptions/webhook/paystack
+  then persist subscription state transitions to match Stripe webhook parity.

@@ -16,6 +16,13 @@ const PRICE_TO_PLAN: Record<string, Plan> = {
   [config.STRIPE_ENTERPRISE_PRICE_ID]: 'ENTERPRISE',
 }
 
+const PRICE_TO_AMOUNT_CENTS: Record<string, number> = {
+  [config.STRIPE_PRO_PRICE_ID]: 1499,
+  [config.STRIPE_CREATOR_PRICE_ID]: 2999,
+}
+
+type PaymentProvider = 'stripe' | 'flutterwave' | 'paystack'
+
 export class SubscriptionService {
   private stripe: Stripe
 
@@ -80,6 +87,63 @@ export class SubscriptionService {
     }
 
     return { url: session.url }
+  }
+
+  // ─── Create Regional Checkout Session ─────────────────────────
+  async createRegionalCheckoutSession(
+    userId: string,
+    provider: PaymentProvider,
+    priceId: string,
+    successUrl?: string,
+    cancelUrl?: string,
+    countryCode?: string
+  ): Promise<{ url: string }> {
+    if (provider === 'stripe') {
+      return this.createCheckoutSession(userId, priceId, successUrl, cancelUrl)
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    })
+
+    if (!user) {
+      throw createAppError(404, ErrorCodes.NOT_FOUND, 'User not found')
+    }
+
+    const amountCents = PRICE_TO_AMOUNT_CENTS[priceId]
+    if (!amountCents) {
+      throw createAppError(400, ErrorCodes.VALIDATION_ERROR, 'Unsupported regional priceId')
+    }
+
+    const plan = PRICE_TO_PLAN[priceId]
+    if (!plan || plan === 'FREE') {
+      throw createAppError(400, ErrorCodes.VALIDATION_ERROR, 'Invalid plan for checkout')
+    }
+
+    if (provider === 'flutterwave') {
+      return this.createFlutterwaveCheckout({
+        userId,
+        email: user.email,
+        name: user.displayName ?? user.username,
+        amountCents,
+        plan,
+        priceId,
+        successUrl,
+        cancelUrl,
+        countryCode,
+      })
+    }
+
+    return this.createPaystackCheckout({
+      userId,
+      email: user.email,
+      amountCents,
+      plan,
+      priceId,
+      successUrl,
+      cancelUrl,
+      countryCode,
+    })
   }
 
   // ─── Create Portal Session ───────────────────────────────────
@@ -245,5 +309,116 @@ export class SubscriptionService {
       paused:            'PAST_DUE',
     }
     return map[status] ?? 'ACTIVE'
+  }
+
+  private async createFlutterwaveCheckout(input: {
+    userId: string
+    email: string
+    name: string
+    amountCents: number
+    plan: Plan
+    priceId: string
+    successUrl?: string
+    cancelUrl?: string
+    countryCode?: string
+  }): Promise<{ url: string }> {
+    if (!config.FLUTTERWAVE_SECRET_KEY) {
+      throw createAppError(503, ErrorCodes.INTERNAL_ERROR, 'Flutterwave is not configured')
+    }
+
+    const txRef = `sf-${input.userId}-${Date.now()}`
+    const redirectUrl = input.successUrl ?? config.FLUTTERWAVE_REDIRECT_URL ?? `${config.FRONTEND_URL}/subscription/success`
+    const amount = Number((input.amountCents / 100).toFixed(2))
+
+    const response = await fetch('https://api.flutterwave.com/v3/payments', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${config.FLUTTERWAVE_SECRET_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        tx_ref: txRef,
+        amount,
+        currency: 'USD',
+        redirect_url: redirectUrl,
+        customer: {
+          email: input.email,
+          name: input.name,
+        },
+        customizations: {
+          title: `StreamForge ${input.plan}`,
+          description: `${input.plan} monthly subscription`,
+        },
+        meta: {
+          userId: input.userId,
+          plan: input.plan,
+          priceId: input.priceId,
+          provider: 'flutterwave',
+          countryCode: input.countryCode ?? null,
+          cancelUrl: input.cancelUrl ?? null,
+        },
+      }),
+    })
+
+    const payload = (await response.json()) as any
+    const url = payload?.data?.link as string | undefined
+
+    if (!response.ok || !url) {
+      logger.error({ payload, status: response.status }, 'Flutterwave checkout create failed')
+      throw createAppError(502, ErrorCodes.INTERNAL_ERROR, 'Failed to create Flutterwave checkout')
+    }
+
+    return { url }
+  }
+
+  private async createPaystackCheckout(input: {
+    userId: string
+    email: string
+    amountCents: number
+    plan: Plan
+    priceId: string
+    successUrl?: string
+    cancelUrl?: string
+    countryCode?: string
+  }): Promise<{ url: string }> {
+    if (!config.PAYSTACK_SECRET_KEY) {
+      throw createAppError(503, ErrorCodes.INTERNAL_ERROR, 'Paystack is not configured')
+    }
+
+    const callbackUrl = input.successUrl ?? config.PAYSTACK_REDIRECT_URL ?? `${config.FRONTEND_URL}/subscription/success`
+    const reference = `sf-${input.userId}-${Date.now()}`
+
+    const response = await fetch('https://api.paystack.co/transaction/initialize', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${config.PAYSTACK_SECRET_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: input.email,
+        amount: input.amountCents,
+        currency: 'USD',
+        callback_url: callbackUrl,
+        reference,
+        metadata: {
+          userId: input.userId,
+          plan: input.plan,
+          priceId: input.priceId,
+          provider: 'paystack',
+          countryCode: input.countryCode ?? null,
+          cancelUrl: input.cancelUrl ?? null,
+        },
+      }),
+    })
+
+    const payload = (await response.json()) as any
+    const url = payload?.data?.authorization_url as string | undefined
+
+    if (!response.ok || !url) {
+      logger.error({ payload, status: response.status }, 'Paystack checkout create failed')
+      throw createAppError(502, ErrorCodes.INTERNAL_ERROR, 'Failed to create Paystack checkout')
+    }
+
+    return { url }
   }
 }

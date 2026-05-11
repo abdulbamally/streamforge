@@ -121,3 +121,10 @@ export const CreateCheckoutSchema = z.object({
 })
 
 export type CreateCheckoutDto = z.infer<typeof CreateCheckoutSchema>
+
+export const CreateRegionalCheckoutSchema = CreateCheckoutSchema.extend({
+  provider: z.enum(['stripe', 'flutterwave', 'paystack']),
+  countryCode: z.string().length(2).optional(),
+})
+
+export type CreateRegionalCheckoutDto = z.infer<typeof CreateRegionalCheckoutSchema>

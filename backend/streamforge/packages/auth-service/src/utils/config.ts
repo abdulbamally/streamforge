@@ -36,6 +36,14 @@ const configSchema = z.object({
   STRIPE_CREATOR_PRICE_ID:     z.string(),
   STRIPE_ENTERPRISE_PRICE_ID:  z.string(),
 
+  // Regional payments
+  FLUTTERWAVE_SECRET_KEY:      z.string().optional(),
+  FLUTTERWAVE_PUBLIC_KEY:      z.string().optional(),
+  FLUTTERWAVE_REDIRECT_URL:    z.string().url().optional(),
+  PAYSTACK_SECRET_KEY:         z.string().optional(),
+  PAYSTACK_PUBLIC_KEY:         z.string().optional(),
+  PAYSTACK_REDIRECT_URL:       z.string().url().optional(),
+
   // Email
   SMTP_HOST:   z.string(),
   SMTP_PORT:   z.coerce.number().default(587),

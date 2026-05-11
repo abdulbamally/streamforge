@@ -3,7 +3,7 @@
 // ============================================================
 
 import type { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify'
-import { CreateCheckoutSchema } from '../schemas/auth.schema'
+import { CreateCheckoutSchema, CreateRegionalCheckoutSchema } from '../schemas/auth.schema'
 import { authenticate, validateBody } from '../middleware/auth.middleware'
 import { SubscriptionService } from '../services/subscription.service'
 import { PLAN_LIMITS } from '@streamforge/shared/types'
@@ -111,6 +111,43 @@ export async function subscriptionRoutes(app: FastifyInstance): Promise<void> {
         dto.priceId,
         dto.successUrl,
         dto.cancelUrl
+      )
+
+      return reply.send({ success: true, data: { url } })
+    }
+  )
+
+  // ─── POST /api/subscriptions/checkout/regional ───────────────
+  app.post(
+    '/checkout/regional',
+    {
+      schema: {
+        tags: ['Subscription'],
+        summary: 'Create a regional checkout session (Stripe/Flutterwave/Paystack)',
+        security: [{ BearerAuth: [] }],
+        body: {
+          type: 'object',
+          required: ['priceId', 'provider'],
+          properties: {
+            priceId: { type: 'string' },
+            provider: { type: 'string', enum: ['stripe', 'flutterwave', 'paystack'] },
+            countryCode: { type: 'string', minLength: 2, maxLength: 2 },
+            successUrl: { type: 'string' },
+            cancelUrl: { type: 'string' },
+          },
+        },
+      },
+      preHandler: [authenticate, validateBody(CreateRegionalCheckoutSchema)],
+    },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const dto = CreateRegionalCheckoutSchema.parse(request.body)
+      const { url } = await subscriptionService.createRegionalCheckoutSession(
+        request.user.sub,
+        dto.provider,
+        dto.priceId,
+        dto.successUrl,
+        dto.cancelUrl,
+        dto.countryCode
       )
 
       return reply.send({ success: true, data: { url } })
