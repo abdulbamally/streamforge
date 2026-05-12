@@ -37,6 +37,63 @@ services:
       timeout: 3s
       retries: 10
 
+  # ─── Social service (StreamForge Live) ────────────────────────
+  social-service:
+    build:
+      context: .
+      dockerfile: packages/social-service/Dockerfile
+    container_name: sf_social
+    restart: unless-stopped
+    environment:
+      PORT: "3005"
+      NODE_ENV: development
+      DATABASE_URL: postgresql://streamforge:password@postgres:5432/streamforge_dev
+      JWT_ACCESS_SECRET: "streamforge-dev-shared-jwt-secret-32charsminimum"
+    ports:
+      - "3005:3005"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # ─── Realtime service ────────────────────────────────────────
+  realtime-service:
+    build:
+      context: .
+      dockerfile: packages/realtime-service/Dockerfile
+    container_name: sf_realtime
+    restart: unless-stopped
+    environment:
+      PORT: "3006"
+      NODE_ENV: development
+      DATABASE_URL: postgresql://streamforge:password@postgres:5432/streamforge_dev
+      REDIS_URL: redis://redis:6379
+      JWT_ACCESS_SECRET: "streamforge-dev-shared-jwt-secret-32charsminimum"
+    ports:
+      - "3006:3006"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ─── Monetization service ────────────────────────────────────
+  monetization-service:
+    build:
+      context: .
+      dockerfile: packages/monetization-service/Dockerfile
+    container_name: sf_monetization
+    restart: unless-stopped
+    environment:
+      PORT: "3007"
+      NODE_ENV: development
+      DATABASE_URL: postgresql://streamforge:password@postgres:5432/streamforge_dev
+      JWT_ACCESS_SECRET: "streamforge-dev-shared-jwt-secret-32charsminimum"
+    ports:
+      - "3007:3007"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   # ─── Auth Service ─────────────────────────────────────────────
   auth-service:
     build:
@@ -46,6 +103,8 @@ services:
     restart: unless-stopped
     env_file:
       - packages/auth-service/.env
+    environment:
+      JWT_ACCESS_SECRET: "streamforge-dev-shared-jwt-secret-32charsminimum"
     ports:
       - "3001:3001"
     depends_on:

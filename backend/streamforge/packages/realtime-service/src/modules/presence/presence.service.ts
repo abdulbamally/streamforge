@@ -1,21 +1,23 @@
+import { presenceJoin, presenceLeave } from "../../redis/presence-store";
+
 export class PresenceService {
-  async createPresence(payload: { userId: string; streamId: string }) {
+  async createPresence(payload: { streamId: string; userId: string }) {
+    const approxViewers = await presenceJoin(payload.streamId, payload.userId);
     return {
-      id: "presence-session-id",
-      userId: payload.userId,
       streamId: payload.streamId,
-      isActive: true,
-      connectedAt: new Date().toISOString(),
+      userId: payload.userId,
+      approxViewers,
+      joinedAt: new Date().toISOString(),
     };
   }
 
-  async endPresence(payload: { userId: string; streamId: string }) {
+  async endPresence(payload: { streamId: string; userId: string }) {
+    const approxViewers = await presenceLeave(payload.streamId, payload.userId);
     return {
-      id: "presence-session-id",
-      userId: payload.userId,
       streamId: payload.streamId,
-      isActive: false,
-      disconnectedAt: new Date().toISOString(),
+      userId: payload.userId,
+      approxViewers,
+      leftAt: new Date().toISOString(),
     };
   }
 }

@@ -1,0 +1,2 @@
+-- Optional seed / extensions for local Postgres (StreamForge)
+-- Schema is owned by Prisma migrations in auth-service.

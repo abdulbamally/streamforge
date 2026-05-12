@@ -9,6 +9,12 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@streamforge/auth-service/prisma": [
+        "../auth-service/src/generated/prisma/client"
+      ]
+    },
     "resolveJsonModule": true,
     "sourceMap": true
   },

@@ -1,8 +1,3 @@
-export interface SocialFeedItem {
-  id: string;
-  title: string;
-  creatorName: string;
-  viewers: number;
-  category: string;
-  thumbnailUrl: string | null;
-}
+import type { SocialFeedItem } from "@streamforge/api-contract";
+
+export type { SocialFeedItem };

@@ -1,21 +1,22 @@
-import { FastifyRequest, FastifyReply } from "fastify";
+import type { FastifyReply, FastifyRequest } from "fastify";
 import { FeedService } from "./feed.service";
 
 export class FeedController {
   private service = new FeedService();
 
-  async getFeed(request: FastifyRequest, reply: FastifyReply) {
+  async getFeed(_request: FastifyRequest, reply: FastifyReply) {
     const feed = await this.service.getFeed();
-    return reply.send({ data: feed });
+    return reply.send({ success: true, data: feed });
   }
 
-  async getTrending(request: FastifyRequest, reply: FastifyReply) {
+  async getTrending(_request: FastifyRequest, reply: FastifyReply) {
     const trending = await this.service.getTrending();
-    return reply.send({ data: trending });
+    return reply.send({ success: true, data: trending });
   }
 
   async getRecommended(request: FastifyRequest, reply: FastifyReply) {
-    const recommended = await this.service.getRecommended();
-    return reply.send({ data: recommended });
+    const viewerId = request.user?.sub;
+    const recommended = await this.service.getRecommended(viewerId);
+    return reply.send({ success: true, data: recommended });
   }
 }

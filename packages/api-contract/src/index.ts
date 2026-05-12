@@ -26,8 +26,8 @@
 // ============================================================
 
 // ─── Client configuration ─────────────────────────────────────
-export { configureApiClient, ApiClientError } from './client'
-export type { ClientConfig } from './client'
+export { configureApiClient, ApiClientError, getConfig } from './client'
+export type { ClientConfig, ApiServiceName } from './client'
 
 // ─── All types ────────────────────────────────────────────────
 export type {
@@ -138,3 +138,26 @@ export type {
   SceneDescribeDto,
   SuggestTitlesDto,
 } from './ai.api'
+
+export { socialApi } from './social.api'
+export type {
+  SocialFeedItem,
+  SocialProfile,
+  SocialFollow,
+  StreamComment,
+  StreamReaction,
+} from './social.api'
+
+export { realtimeApi, connectLiveRoomWs } from './realtime.api'
+export type {
+  LiveChatMessageDto,
+  PresenceSessionDto,
+  LiveRoomWsHandlers,
+} from './realtime.api'
+
+export { monetizationApi } from './monetization.api'
+export type {
+  CreatorWalletDto,
+  CreatorGiftDto,
+  PayoutRequestDto,
+} from './monetization.api'

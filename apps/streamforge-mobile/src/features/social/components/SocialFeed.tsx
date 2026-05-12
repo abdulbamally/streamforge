@@ -31,6 +31,7 @@ export function SocialFeed() {
             {item.creatorName}
           </Text>
           <Text style={{ color: "#6ee7b7", marginTop: 8 }}>
+            {item.isLive ? "LIVE · " : ""}
             {item.viewers} viewers · {item.category}
           </Text>
         </View>

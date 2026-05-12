@@ -2,8 +2,12 @@ import React from "react";
 import { View, Text, FlatList } from "react-native";
 import { useLiveChat } from "../hooks/useLiveChat";
 
-export function ChatPanel() {
-  const { messages } = useLiveChat();
+type ChatPanelProps = {
+  streamId?: string;
+};
+
+export function ChatPanel({ streamId }: ChatPanelProps) {
+  const { messages } = useLiveChat(streamId);
 
   return (
     <View

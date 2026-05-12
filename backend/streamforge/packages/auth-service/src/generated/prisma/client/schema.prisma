@@ -90,6 +90,14 @@ enum JobStatus {
   CANCELLED
 }
 
+enum WalletTxType {
+  TOP_UP
+  GIFT_SENT
+  GIFT_RECEIVED
+  PAYOUT
+  ADJUSTMENT
+}
+
 enum TokenType {
   EMAIL_VERIFY
   PASSWORD_RESET
@@ -123,6 +131,16 @@ model User {
   projects      Project[]
   mediaAssets   MediaAsset[]
   auditLogs     AuditLog[]
+
+  socialFollowing  SocialFollow[]    @relation("UserFollowing")
+  socialFollowers  SocialFollow[]    @relation("UserFollowers")
+  streamComments   StreamComment[]
+  streamReactions  StreamReaction[]
+  liveChatMessages LiveChatMessage[]
+  creatorWallet    CreatorWallet?
+  giftsSent        CreatorGift[]     @relation("GiftSender")
+  giftsReceived    CreatorGift[]     @relation("GiftReceiver")
+  payoutRequests   PayoutRequest[]
 
   @@index([email])
   @@index([username])
@@ -223,6 +241,10 @@ model Stream {
   scenes       Scene[]
   recording    Recording?
   analytics    StreamAnalytic[]
+  comments     StreamComment[]
+  reactions    StreamReaction[]
+  chatMessages LiveChatMessage[]
+  gifts        CreatorGift[]
 
   @@index([userId, status])
   @@index([streamKey])
@@ -320,6 +342,126 @@ model StreamAnalytic {
 
   @@index([streamId, timestamp])
   @@map("stream_analytics")
+}
+
+// ─────────────────────────────────────────────────────────────
+// SOCIAL (StreamForge Live — engagement domain)
+// ─────────────────────────────────────────────────────────────
+
+model SocialFollow {
+  id         String   @id @default(cuid())
+  followerId String
+  followeeId String
+  follower   User     @relation("UserFollowing", fields: [followerId], references: [id], onDelete: Cascade)
+  followee   User     @relation("UserFollowers", fields: [followeeId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([followerId, followeeId])
+  @@index([followeeId])
+  @@map("social_follows")
+}
+
+model StreamComment {
+  id        String   @id @default(cuid())
+  streamId  String
+  stream    Stream   @relation(fields: [streamId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content   String   @db.VarChar(2000)
+  createdAt DateTime @default(now())
+
+  @@index([streamId, createdAt])
+  @@map("stream_comments")
+}
+
+model StreamReaction {
+  id        String   @id @default(cuid())
+  streamId  String
+  stream    Stream   @relation(fields: [streamId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String   @db.VarChar(64)
+  createdAt DateTime @default(now())
+
+  @@index([streamId, createdAt])
+  @@map("stream_reactions")
+}
+
+// ─────────────────────────────────────────────────────────────
+// REALTIME PERSISTENCE (chat history; WS still authoritative for live)
+// ─────────────────────────────────────────────────────────────
+
+model LiveChatMessage {
+  id        String   @id @default(cuid())
+  streamId  String
+  stream    Stream   @relation(fields: [streamId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  body      String   @db.VarChar(4000)
+  createdAt DateTime @default(now())
+
+  @@index([streamId, createdAt])
+  @@map("live_chat_messages")
+}
+
+// ─────────────────────────────────────────────────────────────
+// CREATOR ECONOMY (wallet + ledger + gifts + payouts)
+// ─────────────────────────────────────────────────────────────
+
+model CreatorWallet {
+  id           String              @id @default(cuid())
+  userId       String              @unique
+  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  balanceCents Int                 @default(0)
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  ledger       WalletLedgerEntry[]
+
+  @@map("creator_wallets")
+}
+
+model WalletLedgerEntry {
+  id           String        @id @default(cuid())
+  walletId     String
+  wallet       CreatorWallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  type         WalletTxType
+  amountCents  Int
+  balanceAfter Int
+  metadata     Json?
+  createdAt    DateTime      @default(now())
+
+  @@index([walletId, createdAt])
+  @@map("wallet_ledger_entries")
+}
+
+model CreatorGift {
+  id         String   @id @default(cuid())
+  streamId   String?
+  stream     Stream?  @relation(fields: [streamId], references: [id], onDelete: SetNull)
+  senderId   String
+  receiverId String
+  sender     User     @relation("GiftSender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver   User     @relation("GiftReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+  coinAmount Int
+  giftType   String   @db.VarChar(64)
+  createdAt  DateTime @default(now())
+
+  @@index([receiverId, createdAt])
+  @@index([streamId])
+  @@map("creator_gifts")
+}
+
+model PayoutRequest {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amountCents Int
+  status      String    @default("PENDING")
+  requestedAt DateTime  @default(now())
+  processedAt DateTime?
+
+  @@index([userId, status])
+  @@map("payout_requests")
 }
 
 // ─────────────────────────────────────────────────────────────

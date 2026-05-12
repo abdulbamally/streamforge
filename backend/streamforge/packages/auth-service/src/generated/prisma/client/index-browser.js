@@ -265,6 +265,74 @@ exports.Prisma.StreamAnalyticScalarFieldEnum = {
   latencyMs: 'latencyMs'
 };
 
+exports.Prisma.SocialFollowScalarFieldEnum = {
+  id: 'id',
+  followerId: 'followerId',
+  followeeId: 'followeeId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.StreamCommentScalarFieldEnum = {
+  id: 'id',
+  streamId: 'streamId',
+  userId: 'userId',
+  content: 'content',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.StreamReactionScalarFieldEnum = {
+  id: 'id',
+  streamId: 'streamId',
+  userId: 'userId',
+  type: 'type',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.LiveChatMessageScalarFieldEnum = {
+  id: 'id',
+  streamId: 'streamId',
+  userId: 'userId',
+  body: 'body',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.CreatorWalletScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  balanceCents: 'balanceCents',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WalletLedgerEntryScalarFieldEnum = {
+  id: 'id',
+  walletId: 'walletId',
+  type: 'type',
+  amountCents: 'amountCents',
+  balanceAfter: 'balanceAfter',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.CreatorGiftScalarFieldEnum = {
+  id: 'id',
+  streamId: 'streamId',
+  senderId: 'senderId',
+  receiverId: 'receiverId',
+  coinAmount: 'coinAmount',
+  giftType: 'giftType',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PayoutRequestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  amountCents: 'amountCents',
+  status: 'status',
+  requestedAt: 'requestedAt',
+  processedAt: 'processedAt'
+};
+
 exports.Prisma.MediaAssetScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -428,6 +496,14 @@ exports.SourceType = exports.$Enums.SourceType = {
   AUDIO: 'AUDIO'
 };
 
+exports.WalletTxType = exports.$Enums.WalletTxType = {
+  TOP_UP: 'TOP_UP',
+  GIFT_SENT: 'GIFT_SENT',
+  GIFT_RECEIVED: 'GIFT_RECEIVED',
+  PAYOUT: 'PAYOUT',
+  ADJUSTMENT: 'ADJUSTMENT'
+};
+
 exports.ProjectStatus = exports.$Enums.ProjectStatus = {
   DRAFT: 'DRAFT',
   PROCESSING: 'PROCESSING',
@@ -465,6 +541,14 @@ exports.Prisma.ModelName = {
   Source: 'Source',
   Recording: 'Recording',
   StreamAnalytic: 'StreamAnalytic',
+  SocialFollow: 'SocialFollow',
+  StreamComment: 'StreamComment',
+  StreamReaction: 'StreamReaction',
+  LiveChatMessage: 'LiveChatMessage',
+  CreatorWallet: 'CreatorWallet',
+  WalletLedgerEntry: 'WalletLedgerEntry',
+  CreatorGift: 'CreatorGift',
+  PayoutRequest: 'PayoutRequest',
   MediaAsset: 'MediaAsset',
   Project: 'Project',
   Clip: 'Clip',

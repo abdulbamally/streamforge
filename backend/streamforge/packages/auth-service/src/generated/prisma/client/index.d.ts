@@ -74,6 +74,46 @@ export type Recording = $Result.DefaultSelection<Prisma.$RecordingPayload>
  */
 export type StreamAnalytic = $Result.DefaultSelection<Prisma.$StreamAnalyticPayload>
 /**
+ * Model SocialFollow
+ * 
+ */
+export type SocialFollow = $Result.DefaultSelection<Prisma.$SocialFollowPayload>
+/**
+ * Model StreamComment
+ * 
+ */
+export type StreamComment = $Result.DefaultSelection<Prisma.$StreamCommentPayload>
+/**
+ * Model StreamReaction
+ * 
+ */
+export type StreamReaction = $Result.DefaultSelection<Prisma.$StreamReactionPayload>
+/**
+ * Model LiveChatMessage
+ * 
+ */
+export type LiveChatMessage = $Result.DefaultSelection<Prisma.$LiveChatMessagePayload>
+/**
+ * Model CreatorWallet
+ * 
+ */
+export type CreatorWallet = $Result.DefaultSelection<Prisma.$CreatorWalletPayload>
+/**
+ * Model WalletLedgerEntry
+ * 
+ */
+export type WalletLedgerEntry = $Result.DefaultSelection<Prisma.$WalletLedgerEntryPayload>
+/**
+ * Model CreatorGift
+ * 
+ */
+export type CreatorGift = $Result.DefaultSelection<Prisma.$CreatorGiftPayload>
+/**
+ * Model PayoutRequest
+ * 
+ */
+export type PayoutRequest = $Result.DefaultSelection<Prisma.$PayoutRequestPayload>
+/**
  * Model MediaAsset
  * 
  */
@@ -177,6 +217,17 @@ export const SourceType: {
 export type SourceType = (typeof SourceType)[keyof typeof SourceType]
 
 
+export const WalletTxType: {
+  TOP_UP: 'TOP_UP',
+  GIFT_SENT: 'GIFT_SENT',
+  GIFT_RECEIVED: 'GIFT_RECEIVED',
+  PAYOUT: 'PAYOUT',
+  ADJUSTMENT: 'ADJUSTMENT'
+};
+
+export type WalletTxType = (typeof WalletTxType)[keyof typeof WalletTxType]
+
+
 export const ProjectStatus: {
   DRAFT: 'DRAFT',
   PROCESSING: 'PROCESSING',
@@ -238,6 +289,10 @@ export const Platform: typeof $Enums.Platform
 export type SourceType = $Enums.SourceType
 
 export const SourceType: typeof $Enums.SourceType
+
+export type WalletTxType = $Enums.WalletTxType
+
+export const WalletTxType: typeof $Enums.WalletTxType
 
 export type ProjectStatus = $Enums.ProjectStatus
 
@@ -493,6 +548,86 @@ export class PrismaClient<
     * ```
     */
   get streamAnalytic(): Prisma.StreamAnalyticDelegate<ExtArgs>;
+
+  /**
+   * `prisma.socialFollow`: Exposes CRUD operations for the **SocialFollow** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SocialFollows
+    * const socialFollows = await prisma.socialFollow.findMany()
+    * ```
+    */
+  get socialFollow(): Prisma.SocialFollowDelegate<ExtArgs>;
+
+  /**
+   * `prisma.streamComment`: Exposes CRUD operations for the **StreamComment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StreamComments
+    * const streamComments = await prisma.streamComment.findMany()
+    * ```
+    */
+  get streamComment(): Prisma.StreamCommentDelegate<ExtArgs>;
+
+  /**
+   * `prisma.streamReaction`: Exposes CRUD operations for the **StreamReaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StreamReactions
+    * const streamReactions = await prisma.streamReaction.findMany()
+    * ```
+    */
+  get streamReaction(): Prisma.StreamReactionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.liveChatMessage`: Exposes CRUD operations for the **LiveChatMessage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LiveChatMessages
+    * const liveChatMessages = await prisma.liveChatMessage.findMany()
+    * ```
+    */
+  get liveChatMessage(): Prisma.LiveChatMessageDelegate<ExtArgs>;
+
+  /**
+   * `prisma.creatorWallet`: Exposes CRUD operations for the **CreatorWallet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CreatorWallets
+    * const creatorWallets = await prisma.creatorWallet.findMany()
+    * ```
+    */
+  get creatorWallet(): Prisma.CreatorWalletDelegate<ExtArgs>;
+
+  /**
+   * `prisma.walletLedgerEntry`: Exposes CRUD operations for the **WalletLedgerEntry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WalletLedgerEntries
+    * const walletLedgerEntries = await prisma.walletLedgerEntry.findMany()
+    * ```
+    */
+  get walletLedgerEntry(): Prisma.WalletLedgerEntryDelegate<ExtArgs>;
+
+  /**
+   * `prisma.creatorGift`: Exposes CRUD operations for the **CreatorGift** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CreatorGifts
+    * const creatorGifts = await prisma.creatorGift.findMany()
+    * ```
+    */
+  get creatorGift(): Prisma.CreatorGiftDelegate<ExtArgs>;
+
+  /**
+   * `prisma.payoutRequest`: Exposes CRUD operations for the **PayoutRequest** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PayoutRequests
+    * const payoutRequests = await prisma.payoutRequest.findMany()
+    * ```
+    */
+  get payoutRequest(): Prisma.PayoutRequestDelegate<ExtArgs>;
 
   /**
    * `prisma.mediaAsset`: Exposes CRUD operations for the **MediaAsset** model.
@@ -996,6 +1131,14 @@ export namespace Prisma {
     Source: 'Source',
     Recording: 'Recording',
     StreamAnalytic: 'StreamAnalytic',
+    SocialFollow: 'SocialFollow',
+    StreamComment: 'StreamComment',
+    StreamReaction: 'StreamReaction',
+    LiveChatMessage: 'LiveChatMessage',
+    CreatorWallet: 'CreatorWallet',
+    WalletLedgerEntry: 'WalletLedgerEntry',
+    CreatorGift: 'CreatorGift',
+    PayoutRequest: 'PayoutRequest',
     MediaAsset: 'MediaAsset',
     Project: 'Project',
     Clip: 'Clip',
@@ -1016,7 +1159,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "oAuthAccount" | "token" | "subscription" | "invoice" | "stream" | "destination" | "streamDestination" | "scene" | "source" | "recording" | "streamAnalytic" | "mediaAsset" | "project" | "clip" | "export" | "auditLog"
+      modelProps: "user" | "oAuthAccount" | "token" | "subscription" | "invoice" | "stream" | "destination" | "streamDestination" | "scene" | "source" | "recording" | "streamAnalytic" | "socialFollow" | "streamComment" | "streamReaction" | "liveChatMessage" | "creatorWallet" | "walletLedgerEntry" | "creatorGift" | "payoutRequest" | "mediaAsset" | "project" | "clip" | "export" | "auditLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1860,6 +2003,566 @@ export namespace Prisma {
           }
         }
       }
+      SocialFollow: {
+        payload: Prisma.$SocialFollowPayload<ExtArgs>
+        fields: Prisma.SocialFollowFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SocialFollowFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialFollowPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SocialFollowFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialFollowPayload>
+          }
+          findFirst: {
+            args: Prisma.SocialFollowFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialFollowPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SocialFollowFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialFollowPayload>
+          }
+          findMany: {
+            args: Prisma.SocialFollowFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialFollowPayload>[]
+          }
+          create: {
+            args: Prisma.SocialFollowCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialFollowPayload>
+          }
+          createMany: {
+            args: Prisma.SocialFollowCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SocialFollowCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialFollowPayload>[]
+          }
+          delete: {
+            args: Prisma.SocialFollowDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialFollowPayload>
+          }
+          update: {
+            args: Prisma.SocialFollowUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialFollowPayload>
+          }
+          deleteMany: {
+            args: Prisma.SocialFollowDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SocialFollowUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SocialFollowUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialFollowPayload>
+          }
+          aggregate: {
+            args: Prisma.SocialFollowAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSocialFollow>
+          }
+          groupBy: {
+            args: Prisma.SocialFollowGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SocialFollowGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SocialFollowCountArgs<ExtArgs>
+            result: $Utils.Optional<SocialFollowCountAggregateOutputType> | number
+          }
+        }
+      }
+      StreamComment: {
+        payload: Prisma.$StreamCommentPayload<ExtArgs>
+        fields: Prisma.StreamCommentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StreamCommentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamCommentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StreamCommentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamCommentPayload>
+          }
+          findFirst: {
+            args: Prisma.StreamCommentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamCommentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StreamCommentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamCommentPayload>
+          }
+          findMany: {
+            args: Prisma.StreamCommentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamCommentPayload>[]
+          }
+          create: {
+            args: Prisma.StreamCommentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamCommentPayload>
+          }
+          createMany: {
+            args: Prisma.StreamCommentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StreamCommentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamCommentPayload>[]
+          }
+          delete: {
+            args: Prisma.StreamCommentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamCommentPayload>
+          }
+          update: {
+            args: Prisma.StreamCommentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamCommentPayload>
+          }
+          deleteMany: {
+            args: Prisma.StreamCommentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StreamCommentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StreamCommentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamCommentPayload>
+          }
+          aggregate: {
+            args: Prisma.StreamCommentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStreamComment>
+          }
+          groupBy: {
+            args: Prisma.StreamCommentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StreamCommentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StreamCommentCountArgs<ExtArgs>
+            result: $Utils.Optional<StreamCommentCountAggregateOutputType> | number
+          }
+        }
+      }
+      StreamReaction: {
+        payload: Prisma.$StreamReactionPayload<ExtArgs>
+        fields: Prisma.StreamReactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StreamReactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamReactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StreamReactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamReactionPayload>
+          }
+          findFirst: {
+            args: Prisma.StreamReactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamReactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StreamReactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamReactionPayload>
+          }
+          findMany: {
+            args: Prisma.StreamReactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamReactionPayload>[]
+          }
+          create: {
+            args: Prisma.StreamReactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamReactionPayload>
+          }
+          createMany: {
+            args: Prisma.StreamReactionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StreamReactionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamReactionPayload>[]
+          }
+          delete: {
+            args: Prisma.StreamReactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamReactionPayload>
+          }
+          update: {
+            args: Prisma.StreamReactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamReactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.StreamReactionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StreamReactionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StreamReactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StreamReactionPayload>
+          }
+          aggregate: {
+            args: Prisma.StreamReactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStreamReaction>
+          }
+          groupBy: {
+            args: Prisma.StreamReactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StreamReactionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StreamReactionCountArgs<ExtArgs>
+            result: $Utils.Optional<StreamReactionCountAggregateOutputType> | number
+          }
+        }
+      }
+      LiveChatMessage: {
+        payload: Prisma.$LiveChatMessagePayload<ExtArgs>
+        fields: Prisma.LiveChatMessageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LiveChatMessageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiveChatMessagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LiveChatMessageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiveChatMessagePayload>
+          }
+          findFirst: {
+            args: Prisma.LiveChatMessageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiveChatMessagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LiveChatMessageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiveChatMessagePayload>
+          }
+          findMany: {
+            args: Prisma.LiveChatMessageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiveChatMessagePayload>[]
+          }
+          create: {
+            args: Prisma.LiveChatMessageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiveChatMessagePayload>
+          }
+          createMany: {
+            args: Prisma.LiveChatMessageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LiveChatMessageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiveChatMessagePayload>[]
+          }
+          delete: {
+            args: Prisma.LiveChatMessageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiveChatMessagePayload>
+          }
+          update: {
+            args: Prisma.LiveChatMessageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiveChatMessagePayload>
+          }
+          deleteMany: {
+            args: Prisma.LiveChatMessageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LiveChatMessageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.LiveChatMessageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiveChatMessagePayload>
+          }
+          aggregate: {
+            args: Prisma.LiveChatMessageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLiveChatMessage>
+          }
+          groupBy: {
+            args: Prisma.LiveChatMessageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LiveChatMessageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LiveChatMessageCountArgs<ExtArgs>
+            result: $Utils.Optional<LiveChatMessageCountAggregateOutputType> | number
+          }
+        }
+      }
+      CreatorWallet: {
+        payload: Prisma.$CreatorWalletPayload<ExtArgs>
+        fields: Prisma.CreatorWalletFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CreatorWalletFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorWalletPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CreatorWalletFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorWalletPayload>
+          }
+          findFirst: {
+            args: Prisma.CreatorWalletFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorWalletPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CreatorWalletFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorWalletPayload>
+          }
+          findMany: {
+            args: Prisma.CreatorWalletFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorWalletPayload>[]
+          }
+          create: {
+            args: Prisma.CreatorWalletCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorWalletPayload>
+          }
+          createMany: {
+            args: Prisma.CreatorWalletCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CreatorWalletCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorWalletPayload>[]
+          }
+          delete: {
+            args: Prisma.CreatorWalletDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorWalletPayload>
+          }
+          update: {
+            args: Prisma.CreatorWalletUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorWalletPayload>
+          }
+          deleteMany: {
+            args: Prisma.CreatorWalletDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CreatorWalletUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CreatorWalletUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorWalletPayload>
+          }
+          aggregate: {
+            args: Prisma.CreatorWalletAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCreatorWallet>
+          }
+          groupBy: {
+            args: Prisma.CreatorWalletGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CreatorWalletGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CreatorWalletCountArgs<ExtArgs>
+            result: $Utils.Optional<CreatorWalletCountAggregateOutputType> | number
+          }
+        }
+      }
+      WalletLedgerEntry: {
+        payload: Prisma.$WalletLedgerEntryPayload<ExtArgs>
+        fields: Prisma.WalletLedgerEntryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WalletLedgerEntryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletLedgerEntryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WalletLedgerEntryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletLedgerEntryPayload>
+          }
+          findFirst: {
+            args: Prisma.WalletLedgerEntryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletLedgerEntryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WalletLedgerEntryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletLedgerEntryPayload>
+          }
+          findMany: {
+            args: Prisma.WalletLedgerEntryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletLedgerEntryPayload>[]
+          }
+          create: {
+            args: Prisma.WalletLedgerEntryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletLedgerEntryPayload>
+          }
+          createMany: {
+            args: Prisma.WalletLedgerEntryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WalletLedgerEntryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletLedgerEntryPayload>[]
+          }
+          delete: {
+            args: Prisma.WalletLedgerEntryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletLedgerEntryPayload>
+          }
+          update: {
+            args: Prisma.WalletLedgerEntryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletLedgerEntryPayload>
+          }
+          deleteMany: {
+            args: Prisma.WalletLedgerEntryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WalletLedgerEntryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.WalletLedgerEntryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletLedgerEntryPayload>
+          }
+          aggregate: {
+            args: Prisma.WalletLedgerEntryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWalletLedgerEntry>
+          }
+          groupBy: {
+            args: Prisma.WalletLedgerEntryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WalletLedgerEntryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WalletLedgerEntryCountArgs<ExtArgs>
+            result: $Utils.Optional<WalletLedgerEntryCountAggregateOutputType> | number
+          }
+        }
+      }
+      CreatorGift: {
+        payload: Prisma.$CreatorGiftPayload<ExtArgs>
+        fields: Prisma.CreatorGiftFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CreatorGiftFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorGiftPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CreatorGiftFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorGiftPayload>
+          }
+          findFirst: {
+            args: Prisma.CreatorGiftFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorGiftPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CreatorGiftFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorGiftPayload>
+          }
+          findMany: {
+            args: Prisma.CreatorGiftFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorGiftPayload>[]
+          }
+          create: {
+            args: Prisma.CreatorGiftCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorGiftPayload>
+          }
+          createMany: {
+            args: Prisma.CreatorGiftCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CreatorGiftCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorGiftPayload>[]
+          }
+          delete: {
+            args: Prisma.CreatorGiftDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorGiftPayload>
+          }
+          update: {
+            args: Prisma.CreatorGiftUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorGiftPayload>
+          }
+          deleteMany: {
+            args: Prisma.CreatorGiftDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CreatorGiftUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CreatorGiftUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreatorGiftPayload>
+          }
+          aggregate: {
+            args: Prisma.CreatorGiftAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCreatorGift>
+          }
+          groupBy: {
+            args: Prisma.CreatorGiftGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CreatorGiftGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CreatorGiftCountArgs<ExtArgs>
+            result: $Utils.Optional<CreatorGiftCountAggregateOutputType> | number
+          }
+        }
+      }
+      PayoutRequest: {
+        payload: Prisma.$PayoutRequestPayload<ExtArgs>
+        fields: Prisma.PayoutRequestFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PayoutRequestFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRequestPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PayoutRequestFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRequestPayload>
+          }
+          findFirst: {
+            args: Prisma.PayoutRequestFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRequestPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PayoutRequestFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRequestPayload>
+          }
+          findMany: {
+            args: Prisma.PayoutRequestFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRequestPayload>[]
+          }
+          create: {
+            args: Prisma.PayoutRequestCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRequestPayload>
+          }
+          createMany: {
+            args: Prisma.PayoutRequestCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PayoutRequestCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRequestPayload>[]
+          }
+          delete: {
+            args: Prisma.PayoutRequestDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRequestPayload>
+          }
+          update: {
+            args: Prisma.PayoutRequestUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRequestPayload>
+          }
+          deleteMany: {
+            args: Prisma.PayoutRequestDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PayoutRequestUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PayoutRequestUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PayoutRequestPayload>
+          }
+          aggregate: {
+            args: Prisma.PayoutRequestAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePayoutRequest>
+          }
+          groupBy: {
+            args: Prisma.PayoutRequestGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PayoutRequestGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PayoutRequestCountArgs<ExtArgs>
+            result: $Utils.Optional<PayoutRequestCountAggregateOutputType> | number
+          }
+        }
+      }
       MediaAsset: {
         payload: Prisma.$MediaAssetPayload<ExtArgs>
         fields: Prisma.MediaAssetFieldRefs
@@ -2378,6 +3081,14 @@ export namespace Prisma {
     projects: number
     mediaAssets: number
     auditLogs: number
+    socialFollowing: number
+    socialFollowers: number
+    streamComments: number
+    streamReactions: number
+    liveChatMessages: number
+    giftsSent: number
+    giftsReceived: number
+    payoutRequests: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2388,6 +3099,14 @@ export namespace Prisma {
     projects?: boolean | UserCountOutputTypeCountProjectsArgs
     mediaAssets?: boolean | UserCountOutputTypeCountMediaAssetsArgs
     auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
+    socialFollowing?: boolean | UserCountOutputTypeCountSocialFollowingArgs
+    socialFollowers?: boolean | UserCountOutputTypeCountSocialFollowersArgs
+    streamComments?: boolean | UserCountOutputTypeCountStreamCommentsArgs
+    streamReactions?: boolean | UserCountOutputTypeCountStreamReactionsArgs
+    liveChatMessages?: boolean | UserCountOutputTypeCountLiveChatMessagesArgs
+    giftsSent?: boolean | UserCountOutputTypeCountGiftsSentArgs
+    giftsReceived?: boolean | UserCountOutputTypeCountGiftsReceivedArgs
+    payoutRequests?: boolean | UserCountOutputTypeCountPayoutRequestsArgs
   }
 
   // Custom InputTypes
@@ -2450,6 +3169,62 @@ export namespace Prisma {
     where?: AuditLogWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSocialFollowingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SocialFollowWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSocialFollowersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SocialFollowWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountStreamCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StreamCommentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountStreamReactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StreamReactionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLiveChatMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LiveChatMessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountGiftsSentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreatorGiftWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountGiftsReceivedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreatorGiftWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPayoutRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PayoutRequestWhereInput
+  }
+
 
   /**
    * Count Type SubscriptionCountOutputType
@@ -2490,12 +3265,20 @@ export namespace Prisma {
     destinations: number
     scenes: number
     analytics: number
+    comments: number
+    reactions: number
+    chatMessages: number
+    gifts: number
   }
 
   export type StreamCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     destinations?: boolean | StreamCountOutputTypeCountDestinationsArgs
     scenes?: boolean | StreamCountOutputTypeCountScenesArgs
     analytics?: boolean | StreamCountOutputTypeCountAnalyticsArgs
+    comments?: boolean | StreamCountOutputTypeCountCommentsArgs
+    reactions?: boolean | StreamCountOutputTypeCountReactionsArgs
+    chatMessages?: boolean | StreamCountOutputTypeCountChatMessagesArgs
+    gifts?: boolean | StreamCountOutputTypeCountGiftsArgs
   }
 
   // Custom InputTypes
@@ -2528,6 +3311,34 @@ export namespace Prisma {
    */
   export type StreamCountOutputTypeCountAnalyticsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: StreamAnalyticWhereInput
+  }
+
+  /**
+   * StreamCountOutputType without action
+   */
+  export type StreamCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StreamCommentWhereInput
+  }
+
+  /**
+   * StreamCountOutputType without action
+   */
+  export type StreamCountOutputTypeCountReactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StreamReactionWhereInput
+  }
+
+  /**
+   * StreamCountOutputType without action
+   */
+  export type StreamCountOutputTypeCountChatMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LiveChatMessageWhereInput
+  }
+
+  /**
+   * StreamCountOutputType without action
+   */
+  export type StreamCountOutputTypeCountGiftsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreatorGiftWhereInput
   }
 
 
@@ -2590,6 +3401,37 @@ export namespace Prisma {
    */
   export type SceneCountOutputTypeCountSourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SourceWhereInput
+  }
+
+
+  /**
+   * Count Type CreatorWalletCountOutputType
+   */
+
+  export type CreatorWalletCountOutputType = {
+    ledger: number
+  }
+
+  export type CreatorWalletCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ledger?: boolean | CreatorWalletCountOutputTypeCountLedgerArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CreatorWalletCountOutputType without action
+   */
+  export type CreatorWalletCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorWalletCountOutputType
+     */
+    select?: CreatorWalletCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CreatorWalletCountOutputType without action
+   */
+  export type CreatorWalletCountOutputTypeCountLedgerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WalletLedgerEntryWhereInput
   }
 
 
@@ -2865,6 +3707,15 @@ export namespace Prisma {
     projects?: boolean | User$projectsArgs<ExtArgs>
     mediaAssets?: boolean | User$mediaAssetsArgs<ExtArgs>
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
+    socialFollowing?: boolean | User$socialFollowingArgs<ExtArgs>
+    socialFollowers?: boolean | User$socialFollowersArgs<ExtArgs>
+    streamComments?: boolean | User$streamCommentsArgs<ExtArgs>
+    streamReactions?: boolean | User$streamReactionsArgs<ExtArgs>
+    liveChatMessages?: boolean | User$liveChatMessagesArgs<ExtArgs>
+    creatorWallet?: boolean | User$creatorWalletArgs<ExtArgs>
+    giftsSent?: boolean | User$giftsSentArgs<ExtArgs>
+    giftsReceived?: boolean | User$giftsReceivedArgs<ExtArgs>
+    payoutRequests?: boolean | User$payoutRequestsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2907,6 +3758,15 @@ export namespace Prisma {
     projects?: boolean | User$projectsArgs<ExtArgs>
     mediaAssets?: boolean | User$mediaAssetsArgs<ExtArgs>
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
+    socialFollowing?: boolean | User$socialFollowingArgs<ExtArgs>
+    socialFollowers?: boolean | User$socialFollowersArgs<ExtArgs>
+    streamComments?: boolean | User$streamCommentsArgs<ExtArgs>
+    streamReactions?: boolean | User$streamReactionsArgs<ExtArgs>
+    liveChatMessages?: boolean | User$liveChatMessagesArgs<ExtArgs>
+    creatorWallet?: boolean | User$creatorWalletArgs<ExtArgs>
+    giftsSent?: boolean | User$giftsSentArgs<ExtArgs>
+    giftsReceived?: boolean | User$giftsReceivedArgs<ExtArgs>
+    payoutRequests?: boolean | User$payoutRequestsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2922,6 +3782,15 @@ export namespace Prisma {
       projects: Prisma.$ProjectPayload<ExtArgs>[]
       mediaAssets: Prisma.$MediaAssetPayload<ExtArgs>[]
       auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+      socialFollowing: Prisma.$SocialFollowPayload<ExtArgs>[]
+      socialFollowers: Prisma.$SocialFollowPayload<ExtArgs>[]
+      streamComments: Prisma.$StreamCommentPayload<ExtArgs>[]
+      streamReactions: Prisma.$StreamReactionPayload<ExtArgs>[]
+      liveChatMessages: Prisma.$LiveChatMessagePayload<ExtArgs>[]
+      creatorWallet: Prisma.$CreatorWalletPayload<ExtArgs> | null
+      giftsSent: Prisma.$CreatorGiftPayload<ExtArgs>[]
+      giftsReceived: Prisma.$CreatorGiftPayload<ExtArgs>[]
+      payoutRequests: Prisma.$PayoutRequestPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3308,6 +4177,15 @@ export namespace Prisma {
     projects<T extends User$projectsArgs<ExtArgs> = {}>(args?: Subset<T, User$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany"> | Null>
     mediaAssets<T extends User$mediaAssetsArgs<ExtArgs> = {}>(args?: Subset<T, User$mediaAssetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findMany"> | Null>
     auditLogs<T extends User$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany"> | Null>
+    socialFollowing<T extends User$socialFollowingArgs<ExtArgs> = {}>(args?: Subset<T, User$socialFollowingArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SocialFollowPayload<ExtArgs>, T, "findMany"> | Null>
+    socialFollowers<T extends User$socialFollowersArgs<ExtArgs> = {}>(args?: Subset<T, User$socialFollowersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SocialFollowPayload<ExtArgs>, T, "findMany"> | Null>
+    streamComments<T extends User$streamCommentsArgs<ExtArgs> = {}>(args?: Subset<T, User$streamCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StreamCommentPayload<ExtArgs>, T, "findMany"> | Null>
+    streamReactions<T extends User$streamReactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$streamReactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StreamReactionPayload<ExtArgs>, T, "findMany"> | Null>
+    liveChatMessages<T extends User$liveChatMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$liveChatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LiveChatMessagePayload<ExtArgs>, T, "findMany"> | Null>
+    creatorWallet<T extends User$creatorWalletArgs<ExtArgs> = {}>(args?: Subset<T, User$creatorWalletArgs<ExtArgs>>): Prisma__CreatorWalletClient<$Result.GetResult<Prisma.$CreatorWalletPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    giftsSent<T extends User$giftsSentArgs<ExtArgs> = {}>(args?: Subset<T, User$giftsSentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreatorGiftPayload<ExtArgs>, T, "findMany"> | Null>
+    giftsReceived<T extends User$giftsReceivedArgs<ExtArgs> = {}>(args?: Subset<T, User$giftsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreatorGiftPayload<ExtArgs>, T, "findMany"> | Null>
+    payoutRequests<T extends User$payoutRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$payoutRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayoutRequestPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3815,6 +4693,181 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.socialFollowing
+   */
+  export type User$socialFollowingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialFollow
+     */
+    select?: SocialFollowSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialFollowInclude<ExtArgs> | null
+    where?: SocialFollowWhereInput
+    orderBy?: SocialFollowOrderByWithRelationInput | SocialFollowOrderByWithRelationInput[]
+    cursor?: SocialFollowWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SocialFollowScalarFieldEnum | SocialFollowScalarFieldEnum[]
+  }
+
+  /**
+   * User.socialFollowers
+   */
+  export type User$socialFollowersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialFollow
+     */
+    select?: SocialFollowSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialFollowInclude<ExtArgs> | null
+    where?: SocialFollowWhereInput
+    orderBy?: SocialFollowOrderByWithRelationInput | SocialFollowOrderByWithRelationInput[]
+    cursor?: SocialFollowWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SocialFollowScalarFieldEnum | SocialFollowScalarFieldEnum[]
+  }
+
+  /**
+   * User.streamComments
+   */
+  export type User$streamCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamComment
+     */
+    select?: StreamCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamCommentInclude<ExtArgs> | null
+    where?: StreamCommentWhereInput
+    orderBy?: StreamCommentOrderByWithRelationInput | StreamCommentOrderByWithRelationInput[]
+    cursor?: StreamCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StreamCommentScalarFieldEnum | StreamCommentScalarFieldEnum[]
+  }
+
+  /**
+   * User.streamReactions
+   */
+  export type User$streamReactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamReaction
+     */
+    select?: StreamReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamReactionInclude<ExtArgs> | null
+    where?: StreamReactionWhereInput
+    orderBy?: StreamReactionOrderByWithRelationInput | StreamReactionOrderByWithRelationInput[]
+    cursor?: StreamReactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StreamReactionScalarFieldEnum | StreamReactionScalarFieldEnum[]
+  }
+
+  /**
+   * User.liveChatMessages
+   */
+  export type User$liveChatMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiveChatMessage
+     */
+    select?: LiveChatMessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LiveChatMessageInclude<ExtArgs> | null
+    where?: LiveChatMessageWhereInput
+    orderBy?: LiveChatMessageOrderByWithRelationInput | LiveChatMessageOrderByWithRelationInput[]
+    cursor?: LiveChatMessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LiveChatMessageScalarFieldEnum | LiveChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.creatorWallet
+   */
+  export type User$creatorWalletArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorWallet
+     */
+    select?: CreatorWalletSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorWalletInclude<ExtArgs> | null
+    where?: CreatorWalletWhereInput
+  }
+
+  /**
+   * User.giftsSent
+   */
+  export type User$giftsSentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorGift
+     */
+    select?: CreatorGiftSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorGiftInclude<ExtArgs> | null
+    where?: CreatorGiftWhereInput
+    orderBy?: CreatorGiftOrderByWithRelationInput | CreatorGiftOrderByWithRelationInput[]
+    cursor?: CreatorGiftWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CreatorGiftScalarFieldEnum | CreatorGiftScalarFieldEnum[]
+  }
+
+  /**
+   * User.giftsReceived
+   */
+  export type User$giftsReceivedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorGift
+     */
+    select?: CreatorGiftSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorGiftInclude<ExtArgs> | null
+    where?: CreatorGiftWhereInput
+    orderBy?: CreatorGiftOrderByWithRelationInput | CreatorGiftOrderByWithRelationInput[]
+    cursor?: CreatorGiftWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CreatorGiftScalarFieldEnum | CreatorGiftScalarFieldEnum[]
+  }
+
+  /**
+   * User.payoutRequests
+   */
+  export type User$payoutRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRequest
+     */
+    select?: PayoutRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRequestInclude<ExtArgs> | null
+    where?: PayoutRequestWhereInput
+    orderBy?: PayoutRequestOrderByWithRelationInput | PayoutRequestOrderByWithRelationInput[]
+    cursor?: PayoutRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PayoutRequestScalarFieldEnum | PayoutRequestScalarFieldEnum[]
   }
 
   /**
@@ -8083,6 +9136,10 @@ export namespace Prisma {
     scenes?: boolean | Stream$scenesArgs<ExtArgs>
     recording?: boolean | Stream$recordingArgs<ExtArgs>
     analytics?: boolean | Stream$analyticsArgs<ExtArgs>
+    comments?: boolean | Stream$commentsArgs<ExtArgs>
+    reactions?: boolean | Stream$reactionsArgs<ExtArgs>
+    chatMessages?: boolean | Stream$chatMessagesArgs<ExtArgs>
+    gifts?: boolean | Stream$giftsArgs<ExtArgs>
     _count?: boolean | StreamCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["stream"]>
 
@@ -8127,6 +9184,10 @@ export namespace Prisma {
     scenes?: boolean | Stream$scenesArgs<ExtArgs>
     recording?: boolean | Stream$recordingArgs<ExtArgs>
     analytics?: boolean | Stream$analyticsArgs<ExtArgs>
+    comments?: boolean | Stream$commentsArgs<ExtArgs>
+    reactions?: boolean | Stream$reactionsArgs<ExtArgs>
+    chatMessages?: boolean | Stream$chatMessagesArgs<ExtArgs>
+    gifts?: boolean | Stream$giftsArgs<ExtArgs>
     _count?: boolean | StreamCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StreamIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8141,6 +9202,10 @@ export namespace Prisma {
       scenes: Prisma.$ScenePayload<ExtArgs>[]
       recording: Prisma.$RecordingPayload<ExtArgs> | null
       analytics: Prisma.$StreamAnalyticPayload<ExtArgs>[]
+      comments: Prisma.$StreamCommentPayload<ExtArgs>[]
+      reactions: Prisma.$StreamReactionPayload<ExtArgs>[]
+      chatMessages: Prisma.$LiveChatMessagePayload<ExtArgs>[]
+      gifts: Prisma.$CreatorGiftPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8526,6 +9591,10 @@ export namespace Prisma {
     scenes<T extends Stream$scenesArgs<ExtArgs> = {}>(args?: Subset<T, Stream$scenesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScenePayload<ExtArgs>, T, "findMany"> | Null>
     recording<T extends Stream$recordingArgs<ExtArgs> = {}>(args?: Subset<T, Stream$recordingArgs<ExtArgs>>): Prisma__RecordingClient<$Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     analytics<T extends Stream$analyticsArgs<ExtArgs> = {}>(args?: Subset<T, Stream$analyticsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StreamAnalyticPayload<ExtArgs>, T, "findMany"> | Null>
+    comments<T extends Stream$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Stream$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StreamCommentPayload<ExtArgs>, T, "findMany"> | Null>
+    reactions<T extends Stream$reactionsArgs<ExtArgs> = {}>(args?: Subset<T, Stream$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StreamReactionPayload<ExtArgs>, T, "findMany"> | Null>
+    chatMessages<T extends Stream$chatMessagesArgs<ExtArgs> = {}>(args?: Subset<T, Stream$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LiveChatMessagePayload<ExtArgs>, T, "findMany"> | Null>
+    gifts<T extends Stream$giftsArgs<ExtArgs> = {}>(args?: Subset<T, Stream$giftsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreatorGiftPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8959,6 +10028,86 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: StreamAnalyticScalarFieldEnum | StreamAnalyticScalarFieldEnum[]
+  }
+
+  /**
+   * Stream.comments
+   */
+  export type Stream$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamComment
+     */
+    select?: StreamCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamCommentInclude<ExtArgs> | null
+    where?: StreamCommentWhereInput
+    orderBy?: StreamCommentOrderByWithRelationInput | StreamCommentOrderByWithRelationInput[]
+    cursor?: StreamCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StreamCommentScalarFieldEnum | StreamCommentScalarFieldEnum[]
+  }
+
+  /**
+   * Stream.reactions
+   */
+  export type Stream$reactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamReaction
+     */
+    select?: StreamReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamReactionInclude<ExtArgs> | null
+    where?: StreamReactionWhereInput
+    orderBy?: StreamReactionOrderByWithRelationInput | StreamReactionOrderByWithRelationInput[]
+    cursor?: StreamReactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StreamReactionScalarFieldEnum | StreamReactionScalarFieldEnum[]
+  }
+
+  /**
+   * Stream.chatMessages
+   */
+  export type Stream$chatMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiveChatMessage
+     */
+    select?: LiveChatMessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LiveChatMessageInclude<ExtArgs> | null
+    where?: LiveChatMessageWhereInput
+    orderBy?: LiveChatMessageOrderByWithRelationInput | LiveChatMessageOrderByWithRelationInput[]
+    cursor?: LiveChatMessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LiveChatMessageScalarFieldEnum | LiveChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * Stream.gifts
+   */
+  export type Stream$giftsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorGift
+     */
+    select?: CreatorGiftSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorGiftInclude<ExtArgs> | null
+    where?: CreatorGiftWhereInput
+    orderBy?: CreatorGiftOrderByWithRelationInput | CreatorGiftOrderByWithRelationInput[]
+    cursor?: CreatorGiftWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CreatorGiftScalarFieldEnum | CreatorGiftScalarFieldEnum[]
   }
 
   /**
@@ -14973,6 +16122,7731 @@ export namespace Prisma {
 
 
   /**
+   * Model SocialFollow
+   */
+
+  export type AggregateSocialFollow = {
+    _count: SocialFollowCountAggregateOutputType | null
+    _min: SocialFollowMinAggregateOutputType | null
+    _max: SocialFollowMaxAggregateOutputType | null
+  }
+
+  export type SocialFollowMinAggregateOutputType = {
+    id: string | null
+    followerId: string | null
+    followeeId: string | null
+    createdAt: Date | null
+  }
+
+  export type SocialFollowMaxAggregateOutputType = {
+    id: string | null
+    followerId: string | null
+    followeeId: string | null
+    createdAt: Date | null
+  }
+
+  export type SocialFollowCountAggregateOutputType = {
+    id: number
+    followerId: number
+    followeeId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SocialFollowMinAggregateInputType = {
+    id?: true
+    followerId?: true
+    followeeId?: true
+    createdAt?: true
+  }
+
+  export type SocialFollowMaxAggregateInputType = {
+    id?: true
+    followerId?: true
+    followeeId?: true
+    createdAt?: true
+  }
+
+  export type SocialFollowCountAggregateInputType = {
+    id?: true
+    followerId?: true
+    followeeId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SocialFollowAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SocialFollow to aggregate.
+     */
+    where?: SocialFollowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SocialFollows to fetch.
+     */
+    orderBy?: SocialFollowOrderByWithRelationInput | SocialFollowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SocialFollowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SocialFollows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SocialFollows.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SocialFollows
+    **/
+    _count?: true | SocialFollowCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SocialFollowMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SocialFollowMaxAggregateInputType
+  }
+
+  export type GetSocialFollowAggregateType<T extends SocialFollowAggregateArgs> = {
+        [P in keyof T & keyof AggregateSocialFollow]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSocialFollow[P]>
+      : GetScalarType<T[P], AggregateSocialFollow[P]>
+  }
+
+
+
+
+  export type SocialFollowGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SocialFollowWhereInput
+    orderBy?: SocialFollowOrderByWithAggregationInput | SocialFollowOrderByWithAggregationInput[]
+    by: SocialFollowScalarFieldEnum[] | SocialFollowScalarFieldEnum
+    having?: SocialFollowScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SocialFollowCountAggregateInputType | true
+    _min?: SocialFollowMinAggregateInputType
+    _max?: SocialFollowMaxAggregateInputType
+  }
+
+  export type SocialFollowGroupByOutputType = {
+    id: string
+    followerId: string
+    followeeId: string
+    createdAt: Date
+    _count: SocialFollowCountAggregateOutputType | null
+    _min: SocialFollowMinAggregateOutputType | null
+    _max: SocialFollowMaxAggregateOutputType | null
+  }
+
+  type GetSocialFollowGroupByPayload<T extends SocialFollowGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SocialFollowGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SocialFollowGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SocialFollowGroupByOutputType[P]>
+            : GetScalarType<T[P], SocialFollowGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SocialFollowSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    followerId?: boolean
+    followeeId?: boolean
+    createdAt?: boolean
+    follower?: boolean | UserDefaultArgs<ExtArgs>
+    followee?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["socialFollow"]>
+
+  export type SocialFollowSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    followerId?: boolean
+    followeeId?: boolean
+    createdAt?: boolean
+    follower?: boolean | UserDefaultArgs<ExtArgs>
+    followee?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["socialFollow"]>
+
+  export type SocialFollowSelectScalar = {
+    id?: boolean
+    followerId?: boolean
+    followeeId?: boolean
+    createdAt?: boolean
+  }
+
+  export type SocialFollowInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    follower?: boolean | UserDefaultArgs<ExtArgs>
+    followee?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SocialFollowIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    follower?: boolean | UserDefaultArgs<ExtArgs>
+    followee?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $SocialFollowPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SocialFollow"
+    objects: {
+      follower: Prisma.$UserPayload<ExtArgs>
+      followee: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      followerId: string
+      followeeId: string
+      createdAt: Date
+    }, ExtArgs["result"]["socialFollow"]>
+    composites: {}
+  }
+
+  type SocialFollowGetPayload<S extends boolean | null | undefined | SocialFollowDefaultArgs> = $Result.GetResult<Prisma.$SocialFollowPayload, S>
+
+  type SocialFollowCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SocialFollowFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SocialFollowCountAggregateInputType | true
+    }
+
+  export interface SocialFollowDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SocialFollow'], meta: { name: 'SocialFollow' } }
+    /**
+     * Find zero or one SocialFollow that matches the filter.
+     * @param {SocialFollowFindUniqueArgs} args - Arguments to find a SocialFollow
+     * @example
+     * // Get one SocialFollow
+     * const socialFollow = await prisma.socialFollow.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SocialFollowFindUniqueArgs>(args: SelectSubset<T, SocialFollowFindUniqueArgs<ExtArgs>>): Prisma__SocialFollowClient<$Result.GetResult<Prisma.$SocialFollowPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SocialFollow that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SocialFollowFindUniqueOrThrowArgs} args - Arguments to find a SocialFollow
+     * @example
+     * // Get one SocialFollow
+     * const socialFollow = await prisma.socialFollow.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SocialFollowFindUniqueOrThrowArgs>(args: SelectSubset<T, SocialFollowFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SocialFollowClient<$Result.GetResult<Prisma.$SocialFollowPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SocialFollow that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocialFollowFindFirstArgs} args - Arguments to find a SocialFollow
+     * @example
+     * // Get one SocialFollow
+     * const socialFollow = await prisma.socialFollow.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SocialFollowFindFirstArgs>(args?: SelectSubset<T, SocialFollowFindFirstArgs<ExtArgs>>): Prisma__SocialFollowClient<$Result.GetResult<Prisma.$SocialFollowPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SocialFollow that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocialFollowFindFirstOrThrowArgs} args - Arguments to find a SocialFollow
+     * @example
+     * // Get one SocialFollow
+     * const socialFollow = await prisma.socialFollow.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SocialFollowFindFirstOrThrowArgs>(args?: SelectSubset<T, SocialFollowFindFirstOrThrowArgs<ExtArgs>>): Prisma__SocialFollowClient<$Result.GetResult<Prisma.$SocialFollowPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SocialFollows that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocialFollowFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SocialFollows
+     * const socialFollows = await prisma.socialFollow.findMany()
+     * 
+     * // Get first 10 SocialFollows
+     * const socialFollows = await prisma.socialFollow.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const socialFollowWithIdOnly = await prisma.socialFollow.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SocialFollowFindManyArgs>(args?: SelectSubset<T, SocialFollowFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SocialFollowPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SocialFollow.
+     * @param {SocialFollowCreateArgs} args - Arguments to create a SocialFollow.
+     * @example
+     * // Create one SocialFollow
+     * const SocialFollow = await prisma.socialFollow.create({
+     *   data: {
+     *     // ... data to create a SocialFollow
+     *   }
+     * })
+     * 
+     */
+    create<T extends SocialFollowCreateArgs>(args: SelectSubset<T, SocialFollowCreateArgs<ExtArgs>>): Prisma__SocialFollowClient<$Result.GetResult<Prisma.$SocialFollowPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SocialFollows.
+     * @param {SocialFollowCreateManyArgs} args - Arguments to create many SocialFollows.
+     * @example
+     * // Create many SocialFollows
+     * const socialFollow = await prisma.socialFollow.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SocialFollowCreateManyArgs>(args?: SelectSubset<T, SocialFollowCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SocialFollows and returns the data saved in the database.
+     * @param {SocialFollowCreateManyAndReturnArgs} args - Arguments to create many SocialFollows.
+     * @example
+     * // Create many SocialFollows
+     * const socialFollow = await prisma.socialFollow.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SocialFollows and only return the `id`
+     * const socialFollowWithIdOnly = await prisma.socialFollow.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SocialFollowCreateManyAndReturnArgs>(args?: SelectSubset<T, SocialFollowCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SocialFollowPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SocialFollow.
+     * @param {SocialFollowDeleteArgs} args - Arguments to delete one SocialFollow.
+     * @example
+     * // Delete one SocialFollow
+     * const SocialFollow = await prisma.socialFollow.delete({
+     *   where: {
+     *     // ... filter to delete one SocialFollow
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SocialFollowDeleteArgs>(args: SelectSubset<T, SocialFollowDeleteArgs<ExtArgs>>): Prisma__SocialFollowClient<$Result.GetResult<Prisma.$SocialFollowPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SocialFollow.
+     * @param {SocialFollowUpdateArgs} args - Arguments to update one SocialFollow.
+     * @example
+     * // Update one SocialFollow
+     * const socialFollow = await prisma.socialFollow.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SocialFollowUpdateArgs>(args: SelectSubset<T, SocialFollowUpdateArgs<ExtArgs>>): Prisma__SocialFollowClient<$Result.GetResult<Prisma.$SocialFollowPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SocialFollows.
+     * @param {SocialFollowDeleteManyArgs} args - Arguments to filter SocialFollows to delete.
+     * @example
+     * // Delete a few SocialFollows
+     * const { count } = await prisma.socialFollow.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SocialFollowDeleteManyArgs>(args?: SelectSubset<T, SocialFollowDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SocialFollows.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocialFollowUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SocialFollows
+     * const socialFollow = await prisma.socialFollow.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SocialFollowUpdateManyArgs>(args: SelectSubset<T, SocialFollowUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SocialFollow.
+     * @param {SocialFollowUpsertArgs} args - Arguments to update or create a SocialFollow.
+     * @example
+     * // Update or create a SocialFollow
+     * const socialFollow = await prisma.socialFollow.upsert({
+     *   create: {
+     *     // ... data to create a SocialFollow
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SocialFollow we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SocialFollowUpsertArgs>(args: SelectSubset<T, SocialFollowUpsertArgs<ExtArgs>>): Prisma__SocialFollowClient<$Result.GetResult<Prisma.$SocialFollowPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SocialFollows.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocialFollowCountArgs} args - Arguments to filter SocialFollows to count.
+     * @example
+     * // Count the number of SocialFollows
+     * const count = await prisma.socialFollow.count({
+     *   where: {
+     *     // ... the filter for the SocialFollows we want to count
+     *   }
+     * })
+    **/
+    count<T extends SocialFollowCountArgs>(
+      args?: Subset<T, SocialFollowCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SocialFollowCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SocialFollow.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocialFollowAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SocialFollowAggregateArgs>(args: Subset<T, SocialFollowAggregateArgs>): Prisma.PrismaPromise<GetSocialFollowAggregateType<T>>
+
+    /**
+     * Group by SocialFollow.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocialFollowGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SocialFollowGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SocialFollowGroupByArgs['orderBy'] }
+        : { orderBy?: SocialFollowGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SocialFollowGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSocialFollowGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SocialFollow model
+   */
+  readonly fields: SocialFollowFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SocialFollow.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SocialFollowClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    follower<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    followee<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SocialFollow model
+   */ 
+  interface SocialFollowFieldRefs {
+    readonly id: FieldRef<"SocialFollow", 'String'>
+    readonly followerId: FieldRef<"SocialFollow", 'String'>
+    readonly followeeId: FieldRef<"SocialFollow", 'String'>
+    readonly createdAt: FieldRef<"SocialFollow", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SocialFollow findUnique
+   */
+  export type SocialFollowFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialFollow
+     */
+    select?: SocialFollowSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialFollowInclude<ExtArgs> | null
+    /**
+     * Filter, which SocialFollow to fetch.
+     */
+    where: SocialFollowWhereUniqueInput
+  }
+
+  /**
+   * SocialFollow findUniqueOrThrow
+   */
+  export type SocialFollowFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialFollow
+     */
+    select?: SocialFollowSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialFollowInclude<ExtArgs> | null
+    /**
+     * Filter, which SocialFollow to fetch.
+     */
+    where: SocialFollowWhereUniqueInput
+  }
+
+  /**
+   * SocialFollow findFirst
+   */
+  export type SocialFollowFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialFollow
+     */
+    select?: SocialFollowSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialFollowInclude<ExtArgs> | null
+    /**
+     * Filter, which SocialFollow to fetch.
+     */
+    where?: SocialFollowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SocialFollows to fetch.
+     */
+    orderBy?: SocialFollowOrderByWithRelationInput | SocialFollowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SocialFollows.
+     */
+    cursor?: SocialFollowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SocialFollows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SocialFollows.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SocialFollows.
+     */
+    distinct?: SocialFollowScalarFieldEnum | SocialFollowScalarFieldEnum[]
+  }
+
+  /**
+   * SocialFollow findFirstOrThrow
+   */
+  export type SocialFollowFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialFollow
+     */
+    select?: SocialFollowSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialFollowInclude<ExtArgs> | null
+    /**
+     * Filter, which SocialFollow to fetch.
+     */
+    where?: SocialFollowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SocialFollows to fetch.
+     */
+    orderBy?: SocialFollowOrderByWithRelationInput | SocialFollowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SocialFollows.
+     */
+    cursor?: SocialFollowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SocialFollows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SocialFollows.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SocialFollows.
+     */
+    distinct?: SocialFollowScalarFieldEnum | SocialFollowScalarFieldEnum[]
+  }
+
+  /**
+   * SocialFollow findMany
+   */
+  export type SocialFollowFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialFollow
+     */
+    select?: SocialFollowSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialFollowInclude<ExtArgs> | null
+    /**
+     * Filter, which SocialFollows to fetch.
+     */
+    where?: SocialFollowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SocialFollows to fetch.
+     */
+    orderBy?: SocialFollowOrderByWithRelationInput | SocialFollowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SocialFollows.
+     */
+    cursor?: SocialFollowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SocialFollows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SocialFollows.
+     */
+    skip?: number
+    distinct?: SocialFollowScalarFieldEnum | SocialFollowScalarFieldEnum[]
+  }
+
+  /**
+   * SocialFollow create
+   */
+  export type SocialFollowCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialFollow
+     */
+    select?: SocialFollowSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialFollowInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SocialFollow.
+     */
+    data: XOR<SocialFollowCreateInput, SocialFollowUncheckedCreateInput>
+  }
+
+  /**
+   * SocialFollow createMany
+   */
+  export type SocialFollowCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SocialFollows.
+     */
+    data: SocialFollowCreateManyInput | SocialFollowCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SocialFollow createManyAndReturn
+   */
+  export type SocialFollowCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialFollow
+     */
+    select?: SocialFollowSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SocialFollows.
+     */
+    data: SocialFollowCreateManyInput | SocialFollowCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialFollowIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SocialFollow update
+   */
+  export type SocialFollowUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialFollow
+     */
+    select?: SocialFollowSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialFollowInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SocialFollow.
+     */
+    data: XOR<SocialFollowUpdateInput, SocialFollowUncheckedUpdateInput>
+    /**
+     * Choose, which SocialFollow to update.
+     */
+    where: SocialFollowWhereUniqueInput
+  }
+
+  /**
+   * SocialFollow updateMany
+   */
+  export type SocialFollowUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SocialFollows.
+     */
+    data: XOR<SocialFollowUpdateManyMutationInput, SocialFollowUncheckedUpdateManyInput>
+    /**
+     * Filter which SocialFollows to update
+     */
+    where?: SocialFollowWhereInput
+  }
+
+  /**
+   * SocialFollow upsert
+   */
+  export type SocialFollowUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialFollow
+     */
+    select?: SocialFollowSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialFollowInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SocialFollow to update in case it exists.
+     */
+    where: SocialFollowWhereUniqueInput
+    /**
+     * In case the SocialFollow found by the `where` argument doesn't exist, create a new SocialFollow with this data.
+     */
+    create: XOR<SocialFollowCreateInput, SocialFollowUncheckedCreateInput>
+    /**
+     * In case the SocialFollow was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SocialFollowUpdateInput, SocialFollowUncheckedUpdateInput>
+  }
+
+  /**
+   * SocialFollow delete
+   */
+  export type SocialFollowDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialFollow
+     */
+    select?: SocialFollowSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialFollowInclude<ExtArgs> | null
+    /**
+     * Filter which SocialFollow to delete.
+     */
+    where: SocialFollowWhereUniqueInput
+  }
+
+  /**
+   * SocialFollow deleteMany
+   */
+  export type SocialFollowDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SocialFollows to delete
+     */
+    where?: SocialFollowWhereInput
+  }
+
+  /**
+   * SocialFollow without action
+   */
+  export type SocialFollowDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialFollow
+     */
+    select?: SocialFollowSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialFollowInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StreamComment
+   */
+
+  export type AggregateStreamComment = {
+    _count: StreamCommentCountAggregateOutputType | null
+    _min: StreamCommentMinAggregateOutputType | null
+    _max: StreamCommentMaxAggregateOutputType | null
+  }
+
+  export type StreamCommentMinAggregateOutputType = {
+    id: string | null
+    streamId: string | null
+    userId: string | null
+    content: string | null
+    createdAt: Date | null
+  }
+
+  export type StreamCommentMaxAggregateOutputType = {
+    id: string | null
+    streamId: string | null
+    userId: string | null
+    content: string | null
+    createdAt: Date | null
+  }
+
+  export type StreamCommentCountAggregateOutputType = {
+    id: number
+    streamId: number
+    userId: number
+    content: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type StreamCommentMinAggregateInputType = {
+    id?: true
+    streamId?: true
+    userId?: true
+    content?: true
+    createdAt?: true
+  }
+
+  export type StreamCommentMaxAggregateInputType = {
+    id?: true
+    streamId?: true
+    userId?: true
+    content?: true
+    createdAt?: true
+  }
+
+  export type StreamCommentCountAggregateInputType = {
+    id?: true
+    streamId?: true
+    userId?: true
+    content?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type StreamCommentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StreamComment to aggregate.
+     */
+    where?: StreamCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StreamComments to fetch.
+     */
+    orderBy?: StreamCommentOrderByWithRelationInput | StreamCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StreamCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StreamComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StreamComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StreamComments
+    **/
+    _count?: true | StreamCommentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StreamCommentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StreamCommentMaxAggregateInputType
+  }
+
+  export type GetStreamCommentAggregateType<T extends StreamCommentAggregateArgs> = {
+        [P in keyof T & keyof AggregateStreamComment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStreamComment[P]>
+      : GetScalarType<T[P], AggregateStreamComment[P]>
+  }
+
+
+
+
+  export type StreamCommentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StreamCommentWhereInput
+    orderBy?: StreamCommentOrderByWithAggregationInput | StreamCommentOrderByWithAggregationInput[]
+    by: StreamCommentScalarFieldEnum[] | StreamCommentScalarFieldEnum
+    having?: StreamCommentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StreamCommentCountAggregateInputType | true
+    _min?: StreamCommentMinAggregateInputType
+    _max?: StreamCommentMaxAggregateInputType
+  }
+
+  export type StreamCommentGroupByOutputType = {
+    id: string
+    streamId: string
+    userId: string
+    content: string
+    createdAt: Date
+    _count: StreamCommentCountAggregateOutputType | null
+    _min: StreamCommentMinAggregateOutputType | null
+    _max: StreamCommentMaxAggregateOutputType | null
+  }
+
+  type GetStreamCommentGroupByPayload<T extends StreamCommentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StreamCommentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StreamCommentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StreamCommentGroupByOutputType[P]>
+            : GetScalarType<T[P], StreamCommentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StreamCommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    streamId?: boolean
+    userId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    stream?: boolean | StreamDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["streamComment"]>
+
+  export type StreamCommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    streamId?: boolean
+    userId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    stream?: boolean | StreamDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["streamComment"]>
+
+  export type StreamCommentSelectScalar = {
+    id?: boolean
+    streamId?: boolean
+    userId?: boolean
+    content?: boolean
+    createdAt?: boolean
+  }
+
+  export type StreamCommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stream?: boolean | StreamDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type StreamCommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stream?: boolean | StreamDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $StreamCommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StreamComment"
+    objects: {
+      stream: Prisma.$StreamPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      streamId: string
+      userId: string
+      content: string
+      createdAt: Date
+    }, ExtArgs["result"]["streamComment"]>
+    composites: {}
+  }
+
+  type StreamCommentGetPayload<S extends boolean | null | undefined | StreamCommentDefaultArgs> = $Result.GetResult<Prisma.$StreamCommentPayload, S>
+
+  type StreamCommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<StreamCommentFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: StreamCommentCountAggregateInputType | true
+    }
+
+  export interface StreamCommentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StreamComment'], meta: { name: 'StreamComment' } }
+    /**
+     * Find zero or one StreamComment that matches the filter.
+     * @param {StreamCommentFindUniqueArgs} args - Arguments to find a StreamComment
+     * @example
+     * // Get one StreamComment
+     * const streamComment = await prisma.streamComment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StreamCommentFindUniqueArgs>(args: SelectSubset<T, StreamCommentFindUniqueArgs<ExtArgs>>): Prisma__StreamCommentClient<$Result.GetResult<Prisma.$StreamCommentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one StreamComment that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {StreamCommentFindUniqueOrThrowArgs} args - Arguments to find a StreamComment
+     * @example
+     * // Get one StreamComment
+     * const streamComment = await prisma.streamComment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StreamCommentFindUniqueOrThrowArgs>(args: SelectSubset<T, StreamCommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StreamCommentClient<$Result.GetResult<Prisma.$StreamCommentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first StreamComment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StreamCommentFindFirstArgs} args - Arguments to find a StreamComment
+     * @example
+     * // Get one StreamComment
+     * const streamComment = await prisma.streamComment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StreamCommentFindFirstArgs>(args?: SelectSubset<T, StreamCommentFindFirstArgs<ExtArgs>>): Prisma__StreamCommentClient<$Result.GetResult<Prisma.$StreamCommentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first StreamComment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StreamCommentFindFirstOrThrowArgs} args - Arguments to find a StreamComment
+     * @example
+     * // Get one StreamComment
+     * const streamComment = await prisma.streamComment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StreamCommentFindFirstOrThrowArgs>(args?: SelectSubset<T, StreamCommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__StreamCommentClient<$Result.GetResult<Prisma.$StreamCommentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more StreamComments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StreamCommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StreamComments
+     * const streamComments = await prisma.streamComment.findMany()
+     * 
+     * // Get first 10 StreamComments
+     * const streamComments = await prisma.streamComment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const streamCommentWithIdOnly = await prisma.streamComment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StreamCommentFindManyArgs>(args?: SelectSubset<T, StreamCommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StreamCommentPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a StreamComment.
+     * @param {StreamCommentCreateArgs} args - Arguments to create a StreamComment.
+     * @example
+     * // Create one StreamComment
+     * const StreamComment = await prisma.streamComment.create({
+     *   data: {
+     *     // ... data to create a StreamComment
+     *   }
+     * })
+     * 
+     */
+    create<T extends StreamCommentCreateArgs>(args: SelectSubset<T, StreamCommentCreateArgs<ExtArgs>>): Prisma__StreamCommentClient<$Result.GetResult<Prisma.$StreamCommentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many StreamComments.
+     * @param {StreamCommentCreateManyArgs} args - Arguments to create many StreamComments.
+     * @example
+     * // Create many StreamComments
+     * const streamComment = await prisma.streamComment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StreamCommentCreateManyArgs>(args?: SelectSubset<T, StreamCommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StreamComments and returns the data saved in the database.
+     * @param {StreamCommentCreateManyAndReturnArgs} args - Arguments to create many StreamComments.
+     * @example
+     * // Create many StreamComments
+     * const streamComment = await prisma.streamComment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StreamComments and only return the `id`
+     * const streamCommentWithIdOnly = await prisma.streamComment.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StreamCommentCreateManyAndReturnArgs>(args?: SelectSubset<T, StreamCommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StreamCommentPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a StreamComment.
+     * @param {StreamCommentDeleteArgs} args - Arguments to delete one StreamComment.
+     * @example
+     * // Delete one StreamComment
+     * const StreamComment = await prisma.streamComment.delete({
+     *   where: {
+     *     // ... filter to delete one StreamComment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StreamCommentDeleteArgs>(args: SelectSubset<T, StreamCommentDeleteArgs<ExtArgs>>): Prisma__StreamCommentClient<$Result.GetResult<Prisma.$StreamCommentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one StreamComment.
+     * @param {StreamCommentUpdateArgs} args - Arguments to update one StreamComment.
+     * @example
+     * // Update one StreamComment
+     * const streamComment = await prisma.streamComment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StreamCommentUpdateArgs>(args: SelectSubset<T, StreamCommentUpdateArgs<ExtArgs>>): Prisma__StreamCommentClient<$Result.GetResult<Prisma.$StreamCommentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more StreamComments.
+     * @param {StreamCommentDeleteManyArgs} args - Arguments to filter StreamComments to delete.
+     * @example
+     * // Delete a few StreamComments
+     * const { count } = await prisma.streamComment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StreamCommentDeleteManyArgs>(args?: SelectSubset<T, StreamCommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StreamComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StreamCommentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StreamComments
+     * const streamComment = await prisma.streamComment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StreamCommentUpdateManyArgs>(args: SelectSubset<T, StreamCommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one StreamComment.
+     * @param {StreamCommentUpsertArgs} args - Arguments to update or create a StreamComment.
+     * @example
+     * // Update or create a StreamComment
+     * const streamComment = await prisma.streamComment.upsert({
+     *   create: {
+     *     // ... data to create a StreamComment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StreamComment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StreamCommentUpsertArgs>(args: SelectSubset<T, StreamCommentUpsertArgs<ExtArgs>>): Prisma__StreamCommentClient<$Result.GetResult<Prisma.$StreamCommentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of StreamComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StreamCommentCountArgs} args - Arguments to filter StreamComments to count.
+     * @example
+     * // Count the number of StreamComments
+     * const count = await prisma.streamComment.count({
+     *   where: {
+     *     // ... the filter for the StreamComments we want to count
+     *   }
+     * })
+    **/
+    count<T extends StreamCommentCountArgs>(
+      args?: Subset<T, StreamCommentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StreamCommentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StreamComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StreamCommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StreamCommentAggregateArgs>(args: Subset<T, StreamCommentAggregateArgs>): Prisma.PrismaPromise<GetStreamCommentAggregateType<T>>
+
+    /**
+     * Group by StreamComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StreamCommentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StreamCommentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StreamCommentGroupByArgs['orderBy'] }
+        : { orderBy?: StreamCommentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StreamCommentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStreamCommentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StreamComment model
+   */
+  readonly fields: StreamCommentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StreamComment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StreamCommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    stream<T extends StreamDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StreamDefaultArgs<ExtArgs>>): Prisma__StreamClient<$Result.GetResult<Prisma.$StreamPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StreamComment model
+   */ 
+  interface StreamCommentFieldRefs {
+    readonly id: FieldRef<"StreamComment", 'String'>
+    readonly streamId: FieldRef<"StreamComment", 'String'>
+    readonly userId: FieldRef<"StreamComment", 'String'>
+    readonly content: FieldRef<"StreamComment", 'String'>
+    readonly createdAt: FieldRef<"StreamComment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StreamComment findUnique
+   */
+  export type StreamCommentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamComment
+     */
+    select?: StreamCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which StreamComment to fetch.
+     */
+    where: StreamCommentWhereUniqueInput
+  }
+
+  /**
+   * StreamComment findUniqueOrThrow
+   */
+  export type StreamCommentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamComment
+     */
+    select?: StreamCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which StreamComment to fetch.
+     */
+    where: StreamCommentWhereUniqueInput
+  }
+
+  /**
+   * StreamComment findFirst
+   */
+  export type StreamCommentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamComment
+     */
+    select?: StreamCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which StreamComment to fetch.
+     */
+    where?: StreamCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StreamComments to fetch.
+     */
+    orderBy?: StreamCommentOrderByWithRelationInput | StreamCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StreamComments.
+     */
+    cursor?: StreamCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StreamComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StreamComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StreamComments.
+     */
+    distinct?: StreamCommentScalarFieldEnum | StreamCommentScalarFieldEnum[]
+  }
+
+  /**
+   * StreamComment findFirstOrThrow
+   */
+  export type StreamCommentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamComment
+     */
+    select?: StreamCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which StreamComment to fetch.
+     */
+    where?: StreamCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StreamComments to fetch.
+     */
+    orderBy?: StreamCommentOrderByWithRelationInput | StreamCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StreamComments.
+     */
+    cursor?: StreamCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StreamComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StreamComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StreamComments.
+     */
+    distinct?: StreamCommentScalarFieldEnum | StreamCommentScalarFieldEnum[]
+  }
+
+  /**
+   * StreamComment findMany
+   */
+  export type StreamCommentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamComment
+     */
+    select?: StreamCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which StreamComments to fetch.
+     */
+    where?: StreamCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StreamComments to fetch.
+     */
+    orderBy?: StreamCommentOrderByWithRelationInput | StreamCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StreamComments.
+     */
+    cursor?: StreamCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StreamComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StreamComments.
+     */
+    skip?: number
+    distinct?: StreamCommentScalarFieldEnum | StreamCommentScalarFieldEnum[]
+  }
+
+  /**
+   * StreamComment create
+   */
+  export type StreamCommentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamComment
+     */
+    select?: StreamCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StreamComment.
+     */
+    data: XOR<StreamCommentCreateInput, StreamCommentUncheckedCreateInput>
+  }
+
+  /**
+   * StreamComment createMany
+   */
+  export type StreamCommentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StreamComments.
+     */
+    data: StreamCommentCreateManyInput | StreamCommentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StreamComment createManyAndReturn
+   */
+  export type StreamCommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamComment
+     */
+    select?: StreamCommentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many StreamComments.
+     */
+    data: StreamCommentCreateManyInput | StreamCommentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamCommentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StreamComment update
+   */
+  export type StreamCommentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamComment
+     */
+    select?: StreamCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StreamComment.
+     */
+    data: XOR<StreamCommentUpdateInput, StreamCommentUncheckedUpdateInput>
+    /**
+     * Choose, which StreamComment to update.
+     */
+    where: StreamCommentWhereUniqueInput
+  }
+
+  /**
+   * StreamComment updateMany
+   */
+  export type StreamCommentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StreamComments.
+     */
+    data: XOR<StreamCommentUpdateManyMutationInput, StreamCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which StreamComments to update
+     */
+    where?: StreamCommentWhereInput
+  }
+
+  /**
+   * StreamComment upsert
+   */
+  export type StreamCommentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamComment
+     */
+    select?: StreamCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamCommentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StreamComment to update in case it exists.
+     */
+    where: StreamCommentWhereUniqueInput
+    /**
+     * In case the StreamComment found by the `where` argument doesn't exist, create a new StreamComment with this data.
+     */
+    create: XOR<StreamCommentCreateInput, StreamCommentUncheckedCreateInput>
+    /**
+     * In case the StreamComment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StreamCommentUpdateInput, StreamCommentUncheckedUpdateInput>
+  }
+
+  /**
+   * StreamComment delete
+   */
+  export type StreamCommentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamComment
+     */
+    select?: StreamCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamCommentInclude<ExtArgs> | null
+    /**
+     * Filter which StreamComment to delete.
+     */
+    where: StreamCommentWhereUniqueInput
+  }
+
+  /**
+   * StreamComment deleteMany
+   */
+  export type StreamCommentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StreamComments to delete
+     */
+    where?: StreamCommentWhereInput
+  }
+
+  /**
+   * StreamComment without action
+   */
+  export type StreamCommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamComment
+     */
+    select?: StreamCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamCommentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StreamReaction
+   */
+
+  export type AggregateStreamReaction = {
+    _count: StreamReactionCountAggregateOutputType | null
+    _min: StreamReactionMinAggregateOutputType | null
+    _max: StreamReactionMaxAggregateOutputType | null
+  }
+
+  export type StreamReactionMinAggregateOutputType = {
+    id: string | null
+    streamId: string | null
+    userId: string | null
+    type: string | null
+    createdAt: Date | null
+  }
+
+  export type StreamReactionMaxAggregateOutputType = {
+    id: string | null
+    streamId: string | null
+    userId: string | null
+    type: string | null
+    createdAt: Date | null
+  }
+
+  export type StreamReactionCountAggregateOutputType = {
+    id: number
+    streamId: number
+    userId: number
+    type: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type StreamReactionMinAggregateInputType = {
+    id?: true
+    streamId?: true
+    userId?: true
+    type?: true
+    createdAt?: true
+  }
+
+  export type StreamReactionMaxAggregateInputType = {
+    id?: true
+    streamId?: true
+    userId?: true
+    type?: true
+    createdAt?: true
+  }
+
+  export type StreamReactionCountAggregateInputType = {
+    id?: true
+    streamId?: true
+    userId?: true
+    type?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type StreamReactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StreamReaction to aggregate.
+     */
+    where?: StreamReactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StreamReactions to fetch.
+     */
+    orderBy?: StreamReactionOrderByWithRelationInput | StreamReactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StreamReactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StreamReactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StreamReactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StreamReactions
+    **/
+    _count?: true | StreamReactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StreamReactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StreamReactionMaxAggregateInputType
+  }
+
+  export type GetStreamReactionAggregateType<T extends StreamReactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateStreamReaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStreamReaction[P]>
+      : GetScalarType<T[P], AggregateStreamReaction[P]>
+  }
+
+
+
+
+  export type StreamReactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StreamReactionWhereInput
+    orderBy?: StreamReactionOrderByWithAggregationInput | StreamReactionOrderByWithAggregationInput[]
+    by: StreamReactionScalarFieldEnum[] | StreamReactionScalarFieldEnum
+    having?: StreamReactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StreamReactionCountAggregateInputType | true
+    _min?: StreamReactionMinAggregateInputType
+    _max?: StreamReactionMaxAggregateInputType
+  }
+
+  export type StreamReactionGroupByOutputType = {
+    id: string
+    streamId: string
+    userId: string
+    type: string
+    createdAt: Date
+    _count: StreamReactionCountAggregateOutputType | null
+    _min: StreamReactionMinAggregateOutputType | null
+    _max: StreamReactionMaxAggregateOutputType | null
+  }
+
+  type GetStreamReactionGroupByPayload<T extends StreamReactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StreamReactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StreamReactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StreamReactionGroupByOutputType[P]>
+            : GetScalarType<T[P], StreamReactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StreamReactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    streamId?: boolean
+    userId?: boolean
+    type?: boolean
+    createdAt?: boolean
+    stream?: boolean | StreamDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["streamReaction"]>
+
+  export type StreamReactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    streamId?: boolean
+    userId?: boolean
+    type?: boolean
+    createdAt?: boolean
+    stream?: boolean | StreamDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["streamReaction"]>
+
+  export type StreamReactionSelectScalar = {
+    id?: boolean
+    streamId?: boolean
+    userId?: boolean
+    type?: boolean
+    createdAt?: boolean
+  }
+
+  export type StreamReactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stream?: boolean | StreamDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type StreamReactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stream?: boolean | StreamDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $StreamReactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StreamReaction"
+    objects: {
+      stream: Prisma.$StreamPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      streamId: string
+      userId: string
+      type: string
+      createdAt: Date
+    }, ExtArgs["result"]["streamReaction"]>
+    composites: {}
+  }
+
+  type StreamReactionGetPayload<S extends boolean | null | undefined | StreamReactionDefaultArgs> = $Result.GetResult<Prisma.$StreamReactionPayload, S>
+
+  type StreamReactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<StreamReactionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: StreamReactionCountAggregateInputType | true
+    }
+
+  export interface StreamReactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StreamReaction'], meta: { name: 'StreamReaction' } }
+    /**
+     * Find zero or one StreamReaction that matches the filter.
+     * @param {StreamReactionFindUniqueArgs} args - Arguments to find a StreamReaction
+     * @example
+     * // Get one StreamReaction
+     * const streamReaction = await prisma.streamReaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StreamReactionFindUniqueArgs>(args: SelectSubset<T, StreamReactionFindUniqueArgs<ExtArgs>>): Prisma__StreamReactionClient<$Result.GetResult<Prisma.$StreamReactionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one StreamReaction that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {StreamReactionFindUniqueOrThrowArgs} args - Arguments to find a StreamReaction
+     * @example
+     * // Get one StreamReaction
+     * const streamReaction = await prisma.streamReaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StreamReactionFindUniqueOrThrowArgs>(args: SelectSubset<T, StreamReactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StreamReactionClient<$Result.GetResult<Prisma.$StreamReactionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first StreamReaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StreamReactionFindFirstArgs} args - Arguments to find a StreamReaction
+     * @example
+     * // Get one StreamReaction
+     * const streamReaction = await prisma.streamReaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StreamReactionFindFirstArgs>(args?: SelectSubset<T, StreamReactionFindFirstArgs<ExtArgs>>): Prisma__StreamReactionClient<$Result.GetResult<Prisma.$StreamReactionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first StreamReaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StreamReactionFindFirstOrThrowArgs} args - Arguments to find a StreamReaction
+     * @example
+     * // Get one StreamReaction
+     * const streamReaction = await prisma.streamReaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StreamReactionFindFirstOrThrowArgs>(args?: SelectSubset<T, StreamReactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__StreamReactionClient<$Result.GetResult<Prisma.$StreamReactionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more StreamReactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StreamReactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StreamReactions
+     * const streamReactions = await prisma.streamReaction.findMany()
+     * 
+     * // Get first 10 StreamReactions
+     * const streamReactions = await prisma.streamReaction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const streamReactionWithIdOnly = await prisma.streamReaction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StreamReactionFindManyArgs>(args?: SelectSubset<T, StreamReactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StreamReactionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a StreamReaction.
+     * @param {StreamReactionCreateArgs} args - Arguments to create a StreamReaction.
+     * @example
+     * // Create one StreamReaction
+     * const StreamReaction = await prisma.streamReaction.create({
+     *   data: {
+     *     // ... data to create a StreamReaction
+     *   }
+     * })
+     * 
+     */
+    create<T extends StreamReactionCreateArgs>(args: SelectSubset<T, StreamReactionCreateArgs<ExtArgs>>): Prisma__StreamReactionClient<$Result.GetResult<Prisma.$StreamReactionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many StreamReactions.
+     * @param {StreamReactionCreateManyArgs} args - Arguments to create many StreamReactions.
+     * @example
+     * // Create many StreamReactions
+     * const streamReaction = await prisma.streamReaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StreamReactionCreateManyArgs>(args?: SelectSubset<T, StreamReactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StreamReactions and returns the data saved in the database.
+     * @param {StreamReactionCreateManyAndReturnArgs} args - Arguments to create many StreamReactions.
+     * @example
+     * // Create many StreamReactions
+     * const streamReaction = await prisma.streamReaction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StreamReactions and only return the `id`
+     * const streamReactionWithIdOnly = await prisma.streamReaction.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StreamReactionCreateManyAndReturnArgs>(args?: SelectSubset<T, StreamReactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StreamReactionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a StreamReaction.
+     * @param {StreamReactionDeleteArgs} args - Arguments to delete one StreamReaction.
+     * @example
+     * // Delete one StreamReaction
+     * const StreamReaction = await prisma.streamReaction.delete({
+     *   where: {
+     *     // ... filter to delete one StreamReaction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StreamReactionDeleteArgs>(args: SelectSubset<T, StreamReactionDeleteArgs<ExtArgs>>): Prisma__StreamReactionClient<$Result.GetResult<Prisma.$StreamReactionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one StreamReaction.
+     * @param {StreamReactionUpdateArgs} args - Arguments to update one StreamReaction.
+     * @example
+     * // Update one StreamReaction
+     * const streamReaction = await prisma.streamReaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StreamReactionUpdateArgs>(args: SelectSubset<T, StreamReactionUpdateArgs<ExtArgs>>): Prisma__StreamReactionClient<$Result.GetResult<Prisma.$StreamReactionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more StreamReactions.
+     * @param {StreamReactionDeleteManyArgs} args - Arguments to filter StreamReactions to delete.
+     * @example
+     * // Delete a few StreamReactions
+     * const { count } = await prisma.streamReaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StreamReactionDeleteManyArgs>(args?: SelectSubset<T, StreamReactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StreamReactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StreamReactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StreamReactions
+     * const streamReaction = await prisma.streamReaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StreamReactionUpdateManyArgs>(args: SelectSubset<T, StreamReactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one StreamReaction.
+     * @param {StreamReactionUpsertArgs} args - Arguments to update or create a StreamReaction.
+     * @example
+     * // Update or create a StreamReaction
+     * const streamReaction = await prisma.streamReaction.upsert({
+     *   create: {
+     *     // ... data to create a StreamReaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StreamReaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StreamReactionUpsertArgs>(args: SelectSubset<T, StreamReactionUpsertArgs<ExtArgs>>): Prisma__StreamReactionClient<$Result.GetResult<Prisma.$StreamReactionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of StreamReactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StreamReactionCountArgs} args - Arguments to filter StreamReactions to count.
+     * @example
+     * // Count the number of StreamReactions
+     * const count = await prisma.streamReaction.count({
+     *   where: {
+     *     // ... the filter for the StreamReactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends StreamReactionCountArgs>(
+      args?: Subset<T, StreamReactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StreamReactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StreamReaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StreamReactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StreamReactionAggregateArgs>(args: Subset<T, StreamReactionAggregateArgs>): Prisma.PrismaPromise<GetStreamReactionAggregateType<T>>
+
+    /**
+     * Group by StreamReaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StreamReactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StreamReactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StreamReactionGroupByArgs['orderBy'] }
+        : { orderBy?: StreamReactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StreamReactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStreamReactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StreamReaction model
+   */
+  readonly fields: StreamReactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StreamReaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StreamReactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    stream<T extends StreamDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StreamDefaultArgs<ExtArgs>>): Prisma__StreamClient<$Result.GetResult<Prisma.$StreamPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StreamReaction model
+   */ 
+  interface StreamReactionFieldRefs {
+    readonly id: FieldRef<"StreamReaction", 'String'>
+    readonly streamId: FieldRef<"StreamReaction", 'String'>
+    readonly userId: FieldRef<"StreamReaction", 'String'>
+    readonly type: FieldRef<"StreamReaction", 'String'>
+    readonly createdAt: FieldRef<"StreamReaction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StreamReaction findUnique
+   */
+  export type StreamReactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamReaction
+     */
+    select?: StreamReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which StreamReaction to fetch.
+     */
+    where: StreamReactionWhereUniqueInput
+  }
+
+  /**
+   * StreamReaction findUniqueOrThrow
+   */
+  export type StreamReactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamReaction
+     */
+    select?: StreamReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which StreamReaction to fetch.
+     */
+    where: StreamReactionWhereUniqueInput
+  }
+
+  /**
+   * StreamReaction findFirst
+   */
+  export type StreamReactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamReaction
+     */
+    select?: StreamReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which StreamReaction to fetch.
+     */
+    where?: StreamReactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StreamReactions to fetch.
+     */
+    orderBy?: StreamReactionOrderByWithRelationInput | StreamReactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StreamReactions.
+     */
+    cursor?: StreamReactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StreamReactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StreamReactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StreamReactions.
+     */
+    distinct?: StreamReactionScalarFieldEnum | StreamReactionScalarFieldEnum[]
+  }
+
+  /**
+   * StreamReaction findFirstOrThrow
+   */
+  export type StreamReactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamReaction
+     */
+    select?: StreamReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which StreamReaction to fetch.
+     */
+    where?: StreamReactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StreamReactions to fetch.
+     */
+    orderBy?: StreamReactionOrderByWithRelationInput | StreamReactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StreamReactions.
+     */
+    cursor?: StreamReactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StreamReactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StreamReactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StreamReactions.
+     */
+    distinct?: StreamReactionScalarFieldEnum | StreamReactionScalarFieldEnum[]
+  }
+
+  /**
+   * StreamReaction findMany
+   */
+  export type StreamReactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamReaction
+     */
+    select?: StreamReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which StreamReactions to fetch.
+     */
+    where?: StreamReactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StreamReactions to fetch.
+     */
+    orderBy?: StreamReactionOrderByWithRelationInput | StreamReactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StreamReactions.
+     */
+    cursor?: StreamReactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StreamReactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StreamReactions.
+     */
+    skip?: number
+    distinct?: StreamReactionScalarFieldEnum | StreamReactionScalarFieldEnum[]
+  }
+
+  /**
+   * StreamReaction create
+   */
+  export type StreamReactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamReaction
+     */
+    select?: StreamReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamReactionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StreamReaction.
+     */
+    data: XOR<StreamReactionCreateInput, StreamReactionUncheckedCreateInput>
+  }
+
+  /**
+   * StreamReaction createMany
+   */
+  export type StreamReactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StreamReactions.
+     */
+    data: StreamReactionCreateManyInput | StreamReactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StreamReaction createManyAndReturn
+   */
+  export type StreamReactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamReaction
+     */
+    select?: StreamReactionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many StreamReactions.
+     */
+    data: StreamReactionCreateManyInput | StreamReactionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamReactionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StreamReaction update
+   */
+  export type StreamReactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamReaction
+     */
+    select?: StreamReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamReactionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StreamReaction.
+     */
+    data: XOR<StreamReactionUpdateInput, StreamReactionUncheckedUpdateInput>
+    /**
+     * Choose, which StreamReaction to update.
+     */
+    where: StreamReactionWhereUniqueInput
+  }
+
+  /**
+   * StreamReaction updateMany
+   */
+  export type StreamReactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StreamReactions.
+     */
+    data: XOR<StreamReactionUpdateManyMutationInput, StreamReactionUncheckedUpdateManyInput>
+    /**
+     * Filter which StreamReactions to update
+     */
+    where?: StreamReactionWhereInput
+  }
+
+  /**
+   * StreamReaction upsert
+   */
+  export type StreamReactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamReaction
+     */
+    select?: StreamReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamReactionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StreamReaction to update in case it exists.
+     */
+    where: StreamReactionWhereUniqueInput
+    /**
+     * In case the StreamReaction found by the `where` argument doesn't exist, create a new StreamReaction with this data.
+     */
+    create: XOR<StreamReactionCreateInput, StreamReactionUncheckedCreateInput>
+    /**
+     * In case the StreamReaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StreamReactionUpdateInput, StreamReactionUncheckedUpdateInput>
+  }
+
+  /**
+   * StreamReaction delete
+   */
+  export type StreamReactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamReaction
+     */
+    select?: StreamReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamReactionInclude<ExtArgs> | null
+    /**
+     * Filter which StreamReaction to delete.
+     */
+    where: StreamReactionWhereUniqueInput
+  }
+
+  /**
+   * StreamReaction deleteMany
+   */
+  export type StreamReactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StreamReactions to delete
+     */
+    where?: StreamReactionWhereInput
+  }
+
+  /**
+   * StreamReaction without action
+   */
+  export type StreamReactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StreamReaction
+     */
+    select?: StreamReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamReactionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LiveChatMessage
+   */
+
+  export type AggregateLiveChatMessage = {
+    _count: LiveChatMessageCountAggregateOutputType | null
+    _min: LiveChatMessageMinAggregateOutputType | null
+    _max: LiveChatMessageMaxAggregateOutputType | null
+  }
+
+  export type LiveChatMessageMinAggregateOutputType = {
+    id: string | null
+    streamId: string | null
+    userId: string | null
+    body: string | null
+    createdAt: Date | null
+  }
+
+  export type LiveChatMessageMaxAggregateOutputType = {
+    id: string | null
+    streamId: string | null
+    userId: string | null
+    body: string | null
+    createdAt: Date | null
+  }
+
+  export type LiveChatMessageCountAggregateOutputType = {
+    id: number
+    streamId: number
+    userId: number
+    body: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type LiveChatMessageMinAggregateInputType = {
+    id?: true
+    streamId?: true
+    userId?: true
+    body?: true
+    createdAt?: true
+  }
+
+  export type LiveChatMessageMaxAggregateInputType = {
+    id?: true
+    streamId?: true
+    userId?: true
+    body?: true
+    createdAt?: true
+  }
+
+  export type LiveChatMessageCountAggregateInputType = {
+    id?: true
+    streamId?: true
+    userId?: true
+    body?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type LiveChatMessageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LiveChatMessage to aggregate.
+     */
+    where?: LiveChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LiveChatMessages to fetch.
+     */
+    orderBy?: LiveChatMessageOrderByWithRelationInput | LiveChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LiveChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LiveChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LiveChatMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LiveChatMessages
+    **/
+    _count?: true | LiveChatMessageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LiveChatMessageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LiveChatMessageMaxAggregateInputType
+  }
+
+  export type GetLiveChatMessageAggregateType<T extends LiveChatMessageAggregateArgs> = {
+        [P in keyof T & keyof AggregateLiveChatMessage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLiveChatMessage[P]>
+      : GetScalarType<T[P], AggregateLiveChatMessage[P]>
+  }
+
+
+
+
+  export type LiveChatMessageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LiveChatMessageWhereInput
+    orderBy?: LiveChatMessageOrderByWithAggregationInput | LiveChatMessageOrderByWithAggregationInput[]
+    by: LiveChatMessageScalarFieldEnum[] | LiveChatMessageScalarFieldEnum
+    having?: LiveChatMessageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LiveChatMessageCountAggregateInputType | true
+    _min?: LiveChatMessageMinAggregateInputType
+    _max?: LiveChatMessageMaxAggregateInputType
+  }
+
+  export type LiveChatMessageGroupByOutputType = {
+    id: string
+    streamId: string
+    userId: string
+    body: string
+    createdAt: Date
+    _count: LiveChatMessageCountAggregateOutputType | null
+    _min: LiveChatMessageMinAggregateOutputType | null
+    _max: LiveChatMessageMaxAggregateOutputType | null
+  }
+
+  type GetLiveChatMessageGroupByPayload<T extends LiveChatMessageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LiveChatMessageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LiveChatMessageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LiveChatMessageGroupByOutputType[P]>
+            : GetScalarType<T[P], LiveChatMessageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LiveChatMessageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    streamId?: boolean
+    userId?: boolean
+    body?: boolean
+    createdAt?: boolean
+    stream?: boolean | StreamDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["liveChatMessage"]>
+
+  export type LiveChatMessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    streamId?: boolean
+    userId?: boolean
+    body?: boolean
+    createdAt?: boolean
+    stream?: boolean | StreamDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["liveChatMessage"]>
+
+  export type LiveChatMessageSelectScalar = {
+    id?: boolean
+    streamId?: boolean
+    userId?: boolean
+    body?: boolean
+    createdAt?: boolean
+  }
+
+  export type LiveChatMessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stream?: boolean | StreamDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LiveChatMessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stream?: boolean | StreamDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $LiveChatMessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LiveChatMessage"
+    objects: {
+      stream: Prisma.$StreamPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      streamId: string
+      userId: string
+      body: string
+      createdAt: Date
+    }, ExtArgs["result"]["liveChatMessage"]>
+    composites: {}
+  }
+
+  type LiveChatMessageGetPayload<S extends boolean | null | undefined | LiveChatMessageDefaultArgs> = $Result.GetResult<Prisma.$LiveChatMessagePayload, S>
+
+  type LiveChatMessageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<LiveChatMessageFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: LiveChatMessageCountAggregateInputType | true
+    }
+
+  export interface LiveChatMessageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LiveChatMessage'], meta: { name: 'LiveChatMessage' } }
+    /**
+     * Find zero or one LiveChatMessage that matches the filter.
+     * @param {LiveChatMessageFindUniqueArgs} args - Arguments to find a LiveChatMessage
+     * @example
+     * // Get one LiveChatMessage
+     * const liveChatMessage = await prisma.liveChatMessage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LiveChatMessageFindUniqueArgs>(args: SelectSubset<T, LiveChatMessageFindUniqueArgs<ExtArgs>>): Prisma__LiveChatMessageClient<$Result.GetResult<Prisma.$LiveChatMessagePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one LiveChatMessage that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {LiveChatMessageFindUniqueOrThrowArgs} args - Arguments to find a LiveChatMessage
+     * @example
+     * // Get one LiveChatMessage
+     * const liveChatMessage = await prisma.liveChatMessage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LiveChatMessageFindUniqueOrThrowArgs>(args: SelectSubset<T, LiveChatMessageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LiveChatMessageClient<$Result.GetResult<Prisma.$LiveChatMessagePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first LiveChatMessage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LiveChatMessageFindFirstArgs} args - Arguments to find a LiveChatMessage
+     * @example
+     * // Get one LiveChatMessage
+     * const liveChatMessage = await prisma.liveChatMessage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LiveChatMessageFindFirstArgs>(args?: SelectSubset<T, LiveChatMessageFindFirstArgs<ExtArgs>>): Prisma__LiveChatMessageClient<$Result.GetResult<Prisma.$LiveChatMessagePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first LiveChatMessage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LiveChatMessageFindFirstOrThrowArgs} args - Arguments to find a LiveChatMessage
+     * @example
+     * // Get one LiveChatMessage
+     * const liveChatMessage = await prisma.liveChatMessage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LiveChatMessageFindFirstOrThrowArgs>(args?: SelectSubset<T, LiveChatMessageFindFirstOrThrowArgs<ExtArgs>>): Prisma__LiveChatMessageClient<$Result.GetResult<Prisma.$LiveChatMessagePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more LiveChatMessages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LiveChatMessageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LiveChatMessages
+     * const liveChatMessages = await prisma.liveChatMessage.findMany()
+     * 
+     * // Get first 10 LiveChatMessages
+     * const liveChatMessages = await prisma.liveChatMessage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const liveChatMessageWithIdOnly = await prisma.liveChatMessage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LiveChatMessageFindManyArgs>(args?: SelectSubset<T, LiveChatMessageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LiveChatMessagePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a LiveChatMessage.
+     * @param {LiveChatMessageCreateArgs} args - Arguments to create a LiveChatMessage.
+     * @example
+     * // Create one LiveChatMessage
+     * const LiveChatMessage = await prisma.liveChatMessage.create({
+     *   data: {
+     *     // ... data to create a LiveChatMessage
+     *   }
+     * })
+     * 
+     */
+    create<T extends LiveChatMessageCreateArgs>(args: SelectSubset<T, LiveChatMessageCreateArgs<ExtArgs>>): Prisma__LiveChatMessageClient<$Result.GetResult<Prisma.$LiveChatMessagePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many LiveChatMessages.
+     * @param {LiveChatMessageCreateManyArgs} args - Arguments to create many LiveChatMessages.
+     * @example
+     * // Create many LiveChatMessages
+     * const liveChatMessage = await prisma.liveChatMessage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LiveChatMessageCreateManyArgs>(args?: SelectSubset<T, LiveChatMessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LiveChatMessages and returns the data saved in the database.
+     * @param {LiveChatMessageCreateManyAndReturnArgs} args - Arguments to create many LiveChatMessages.
+     * @example
+     * // Create many LiveChatMessages
+     * const liveChatMessage = await prisma.liveChatMessage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LiveChatMessages and only return the `id`
+     * const liveChatMessageWithIdOnly = await prisma.liveChatMessage.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LiveChatMessageCreateManyAndReturnArgs>(args?: SelectSubset<T, LiveChatMessageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LiveChatMessagePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a LiveChatMessage.
+     * @param {LiveChatMessageDeleteArgs} args - Arguments to delete one LiveChatMessage.
+     * @example
+     * // Delete one LiveChatMessage
+     * const LiveChatMessage = await prisma.liveChatMessage.delete({
+     *   where: {
+     *     // ... filter to delete one LiveChatMessage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LiveChatMessageDeleteArgs>(args: SelectSubset<T, LiveChatMessageDeleteArgs<ExtArgs>>): Prisma__LiveChatMessageClient<$Result.GetResult<Prisma.$LiveChatMessagePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one LiveChatMessage.
+     * @param {LiveChatMessageUpdateArgs} args - Arguments to update one LiveChatMessage.
+     * @example
+     * // Update one LiveChatMessage
+     * const liveChatMessage = await prisma.liveChatMessage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LiveChatMessageUpdateArgs>(args: SelectSubset<T, LiveChatMessageUpdateArgs<ExtArgs>>): Prisma__LiveChatMessageClient<$Result.GetResult<Prisma.$LiveChatMessagePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more LiveChatMessages.
+     * @param {LiveChatMessageDeleteManyArgs} args - Arguments to filter LiveChatMessages to delete.
+     * @example
+     * // Delete a few LiveChatMessages
+     * const { count } = await prisma.liveChatMessage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LiveChatMessageDeleteManyArgs>(args?: SelectSubset<T, LiveChatMessageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LiveChatMessages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LiveChatMessageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LiveChatMessages
+     * const liveChatMessage = await prisma.liveChatMessage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LiveChatMessageUpdateManyArgs>(args: SelectSubset<T, LiveChatMessageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one LiveChatMessage.
+     * @param {LiveChatMessageUpsertArgs} args - Arguments to update or create a LiveChatMessage.
+     * @example
+     * // Update or create a LiveChatMessage
+     * const liveChatMessage = await prisma.liveChatMessage.upsert({
+     *   create: {
+     *     // ... data to create a LiveChatMessage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LiveChatMessage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LiveChatMessageUpsertArgs>(args: SelectSubset<T, LiveChatMessageUpsertArgs<ExtArgs>>): Prisma__LiveChatMessageClient<$Result.GetResult<Prisma.$LiveChatMessagePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of LiveChatMessages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LiveChatMessageCountArgs} args - Arguments to filter LiveChatMessages to count.
+     * @example
+     * // Count the number of LiveChatMessages
+     * const count = await prisma.liveChatMessage.count({
+     *   where: {
+     *     // ... the filter for the LiveChatMessages we want to count
+     *   }
+     * })
+    **/
+    count<T extends LiveChatMessageCountArgs>(
+      args?: Subset<T, LiveChatMessageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LiveChatMessageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LiveChatMessage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LiveChatMessageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LiveChatMessageAggregateArgs>(args: Subset<T, LiveChatMessageAggregateArgs>): Prisma.PrismaPromise<GetLiveChatMessageAggregateType<T>>
+
+    /**
+     * Group by LiveChatMessage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LiveChatMessageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LiveChatMessageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LiveChatMessageGroupByArgs['orderBy'] }
+        : { orderBy?: LiveChatMessageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LiveChatMessageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLiveChatMessageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LiveChatMessage model
+   */
+  readonly fields: LiveChatMessageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LiveChatMessage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LiveChatMessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    stream<T extends StreamDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StreamDefaultArgs<ExtArgs>>): Prisma__StreamClient<$Result.GetResult<Prisma.$StreamPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LiveChatMessage model
+   */ 
+  interface LiveChatMessageFieldRefs {
+    readonly id: FieldRef<"LiveChatMessage", 'String'>
+    readonly streamId: FieldRef<"LiveChatMessage", 'String'>
+    readonly userId: FieldRef<"LiveChatMessage", 'String'>
+    readonly body: FieldRef<"LiveChatMessage", 'String'>
+    readonly createdAt: FieldRef<"LiveChatMessage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LiveChatMessage findUnique
+   */
+  export type LiveChatMessageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiveChatMessage
+     */
+    select?: LiveChatMessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LiveChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which LiveChatMessage to fetch.
+     */
+    where: LiveChatMessageWhereUniqueInput
+  }
+
+  /**
+   * LiveChatMessage findUniqueOrThrow
+   */
+  export type LiveChatMessageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiveChatMessage
+     */
+    select?: LiveChatMessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LiveChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which LiveChatMessage to fetch.
+     */
+    where: LiveChatMessageWhereUniqueInput
+  }
+
+  /**
+   * LiveChatMessage findFirst
+   */
+  export type LiveChatMessageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiveChatMessage
+     */
+    select?: LiveChatMessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LiveChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which LiveChatMessage to fetch.
+     */
+    where?: LiveChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LiveChatMessages to fetch.
+     */
+    orderBy?: LiveChatMessageOrderByWithRelationInput | LiveChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LiveChatMessages.
+     */
+    cursor?: LiveChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LiveChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LiveChatMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LiveChatMessages.
+     */
+    distinct?: LiveChatMessageScalarFieldEnum | LiveChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * LiveChatMessage findFirstOrThrow
+   */
+  export type LiveChatMessageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiveChatMessage
+     */
+    select?: LiveChatMessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LiveChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which LiveChatMessage to fetch.
+     */
+    where?: LiveChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LiveChatMessages to fetch.
+     */
+    orderBy?: LiveChatMessageOrderByWithRelationInput | LiveChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LiveChatMessages.
+     */
+    cursor?: LiveChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LiveChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LiveChatMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LiveChatMessages.
+     */
+    distinct?: LiveChatMessageScalarFieldEnum | LiveChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * LiveChatMessage findMany
+   */
+  export type LiveChatMessageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiveChatMessage
+     */
+    select?: LiveChatMessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LiveChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which LiveChatMessages to fetch.
+     */
+    where?: LiveChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LiveChatMessages to fetch.
+     */
+    orderBy?: LiveChatMessageOrderByWithRelationInput | LiveChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LiveChatMessages.
+     */
+    cursor?: LiveChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LiveChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LiveChatMessages.
+     */
+    skip?: number
+    distinct?: LiveChatMessageScalarFieldEnum | LiveChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * LiveChatMessage create
+   */
+  export type LiveChatMessageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiveChatMessage
+     */
+    select?: LiveChatMessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LiveChatMessageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LiveChatMessage.
+     */
+    data: XOR<LiveChatMessageCreateInput, LiveChatMessageUncheckedCreateInput>
+  }
+
+  /**
+   * LiveChatMessage createMany
+   */
+  export type LiveChatMessageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LiveChatMessages.
+     */
+    data: LiveChatMessageCreateManyInput | LiveChatMessageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LiveChatMessage createManyAndReturn
+   */
+  export type LiveChatMessageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiveChatMessage
+     */
+    select?: LiveChatMessageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many LiveChatMessages.
+     */
+    data: LiveChatMessageCreateManyInput | LiveChatMessageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LiveChatMessageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LiveChatMessage update
+   */
+  export type LiveChatMessageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiveChatMessage
+     */
+    select?: LiveChatMessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LiveChatMessageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LiveChatMessage.
+     */
+    data: XOR<LiveChatMessageUpdateInput, LiveChatMessageUncheckedUpdateInput>
+    /**
+     * Choose, which LiveChatMessage to update.
+     */
+    where: LiveChatMessageWhereUniqueInput
+  }
+
+  /**
+   * LiveChatMessage updateMany
+   */
+  export type LiveChatMessageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LiveChatMessages.
+     */
+    data: XOR<LiveChatMessageUpdateManyMutationInput, LiveChatMessageUncheckedUpdateManyInput>
+    /**
+     * Filter which LiveChatMessages to update
+     */
+    where?: LiveChatMessageWhereInput
+  }
+
+  /**
+   * LiveChatMessage upsert
+   */
+  export type LiveChatMessageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiveChatMessage
+     */
+    select?: LiveChatMessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LiveChatMessageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LiveChatMessage to update in case it exists.
+     */
+    where: LiveChatMessageWhereUniqueInput
+    /**
+     * In case the LiveChatMessage found by the `where` argument doesn't exist, create a new LiveChatMessage with this data.
+     */
+    create: XOR<LiveChatMessageCreateInput, LiveChatMessageUncheckedCreateInput>
+    /**
+     * In case the LiveChatMessage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LiveChatMessageUpdateInput, LiveChatMessageUncheckedUpdateInput>
+  }
+
+  /**
+   * LiveChatMessage delete
+   */
+  export type LiveChatMessageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiveChatMessage
+     */
+    select?: LiveChatMessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LiveChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter which LiveChatMessage to delete.
+     */
+    where: LiveChatMessageWhereUniqueInput
+  }
+
+  /**
+   * LiveChatMessage deleteMany
+   */
+  export type LiveChatMessageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LiveChatMessages to delete
+     */
+    where?: LiveChatMessageWhereInput
+  }
+
+  /**
+   * LiveChatMessage without action
+   */
+  export type LiveChatMessageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiveChatMessage
+     */
+    select?: LiveChatMessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LiveChatMessageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CreatorWallet
+   */
+
+  export type AggregateCreatorWallet = {
+    _count: CreatorWalletCountAggregateOutputType | null
+    _avg: CreatorWalletAvgAggregateOutputType | null
+    _sum: CreatorWalletSumAggregateOutputType | null
+    _min: CreatorWalletMinAggregateOutputType | null
+    _max: CreatorWalletMaxAggregateOutputType | null
+  }
+
+  export type CreatorWalletAvgAggregateOutputType = {
+    balanceCents: number | null
+  }
+
+  export type CreatorWalletSumAggregateOutputType = {
+    balanceCents: number | null
+  }
+
+  export type CreatorWalletMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    balanceCents: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CreatorWalletMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    balanceCents: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CreatorWalletCountAggregateOutputType = {
+    id: number
+    userId: number
+    balanceCents: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CreatorWalletAvgAggregateInputType = {
+    balanceCents?: true
+  }
+
+  export type CreatorWalletSumAggregateInputType = {
+    balanceCents?: true
+  }
+
+  export type CreatorWalletMinAggregateInputType = {
+    id?: true
+    userId?: true
+    balanceCents?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CreatorWalletMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    balanceCents?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CreatorWalletCountAggregateInputType = {
+    id?: true
+    userId?: true
+    balanceCents?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CreatorWalletAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CreatorWallet to aggregate.
+     */
+    where?: CreatorWalletWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreatorWallets to fetch.
+     */
+    orderBy?: CreatorWalletOrderByWithRelationInput | CreatorWalletOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CreatorWalletWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreatorWallets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreatorWallets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CreatorWallets
+    **/
+    _count?: true | CreatorWalletCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CreatorWalletAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CreatorWalletSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CreatorWalletMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CreatorWalletMaxAggregateInputType
+  }
+
+  export type GetCreatorWalletAggregateType<T extends CreatorWalletAggregateArgs> = {
+        [P in keyof T & keyof AggregateCreatorWallet]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCreatorWallet[P]>
+      : GetScalarType<T[P], AggregateCreatorWallet[P]>
+  }
+
+
+
+
+  export type CreatorWalletGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreatorWalletWhereInput
+    orderBy?: CreatorWalletOrderByWithAggregationInput | CreatorWalletOrderByWithAggregationInput[]
+    by: CreatorWalletScalarFieldEnum[] | CreatorWalletScalarFieldEnum
+    having?: CreatorWalletScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CreatorWalletCountAggregateInputType | true
+    _avg?: CreatorWalletAvgAggregateInputType
+    _sum?: CreatorWalletSumAggregateInputType
+    _min?: CreatorWalletMinAggregateInputType
+    _max?: CreatorWalletMaxAggregateInputType
+  }
+
+  export type CreatorWalletGroupByOutputType = {
+    id: string
+    userId: string
+    balanceCents: number
+    createdAt: Date
+    updatedAt: Date
+    _count: CreatorWalletCountAggregateOutputType | null
+    _avg: CreatorWalletAvgAggregateOutputType | null
+    _sum: CreatorWalletSumAggregateOutputType | null
+    _min: CreatorWalletMinAggregateOutputType | null
+    _max: CreatorWalletMaxAggregateOutputType | null
+  }
+
+  type GetCreatorWalletGroupByPayload<T extends CreatorWalletGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CreatorWalletGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CreatorWalletGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CreatorWalletGroupByOutputType[P]>
+            : GetScalarType<T[P], CreatorWalletGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CreatorWalletSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    balanceCents?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    ledger?: boolean | CreatorWallet$ledgerArgs<ExtArgs>
+    _count?: boolean | CreatorWalletCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creatorWallet"]>
+
+  export type CreatorWalletSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    balanceCents?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creatorWallet"]>
+
+  export type CreatorWalletSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    balanceCents?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CreatorWalletInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    ledger?: boolean | CreatorWallet$ledgerArgs<ExtArgs>
+    _count?: boolean | CreatorWalletCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CreatorWalletIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CreatorWalletPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CreatorWallet"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      ledger: Prisma.$WalletLedgerEntryPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      balanceCents: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["creatorWallet"]>
+    composites: {}
+  }
+
+  type CreatorWalletGetPayload<S extends boolean | null | undefined | CreatorWalletDefaultArgs> = $Result.GetResult<Prisma.$CreatorWalletPayload, S>
+
+  type CreatorWalletCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CreatorWalletFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CreatorWalletCountAggregateInputType | true
+    }
+
+  export interface CreatorWalletDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CreatorWallet'], meta: { name: 'CreatorWallet' } }
+    /**
+     * Find zero or one CreatorWallet that matches the filter.
+     * @param {CreatorWalletFindUniqueArgs} args - Arguments to find a CreatorWallet
+     * @example
+     * // Get one CreatorWallet
+     * const creatorWallet = await prisma.creatorWallet.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CreatorWalletFindUniqueArgs>(args: SelectSubset<T, CreatorWalletFindUniqueArgs<ExtArgs>>): Prisma__CreatorWalletClient<$Result.GetResult<Prisma.$CreatorWalletPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CreatorWallet that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CreatorWalletFindUniqueOrThrowArgs} args - Arguments to find a CreatorWallet
+     * @example
+     * // Get one CreatorWallet
+     * const creatorWallet = await prisma.creatorWallet.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CreatorWalletFindUniqueOrThrowArgs>(args: SelectSubset<T, CreatorWalletFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CreatorWalletClient<$Result.GetResult<Prisma.$CreatorWalletPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CreatorWallet that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreatorWalletFindFirstArgs} args - Arguments to find a CreatorWallet
+     * @example
+     * // Get one CreatorWallet
+     * const creatorWallet = await prisma.creatorWallet.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CreatorWalletFindFirstArgs>(args?: SelectSubset<T, CreatorWalletFindFirstArgs<ExtArgs>>): Prisma__CreatorWalletClient<$Result.GetResult<Prisma.$CreatorWalletPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CreatorWallet that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreatorWalletFindFirstOrThrowArgs} args - Arguments to find a CreatorWallet
+     * @example
+     * // Get one CreatorWallet
+     * const creatorWallet = await prisma.creatorWallet.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CreatorWalletFindFirstOrThrowArgs>(args?: SelectSubset<T, CreatorWalletFindFirstOrThrowArgs<ExtArgs>>): Prisma__CreatorWalletClient<$Result.GetResult<Prisma.$CreatorWalletPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CreatorWallets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreatorWalletFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CreatorWallets
+     * const creatorWallets = await prisma.creatorWallet.findMany()
+     * 
+     * // Get first 10 CreatorWallets
+     * const creatorWallets = await prisma.creatorWallet.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const creatorWalletWithIdOnly = await prisma.creatorWallet.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CreatorWalletFindManyArgs>(args?: SelectSubset<T, CreatorWalletFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreatorWalletPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CreatorWallet.
+     * @param {CreatorWalletCreateArgs} args - Arguments to create a CreatorWallet.
+     * @example
+     * // Create one CreatorWallet
+     * const CreatorWallet = await prisma.creatorWallet.create({
+     *   data: {
+     *     // ... data to create a CreatorWallet
+     *   }
+     * })
+     * 
+     */
+    create<T extends CreatorWalletCreateArgs>(args: SelectSubset<T, CreatorWalletCreateArgs<ExtArgs>>): Prisma__CreatorWalletClient<$Result.GetResult<Prisma.$CreatorWalletPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CreatorWallets.
+     * @param {CreatorWalletCreateManyArgs} args - Arguments to create many CreatorWallets.
+     * @example
+     * // Create many CreatorWallets
+     * const creatorWallet = await prisma.creatorWallet.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CreatorWalletCreateManyArgs>(args?: SelectSubset<T, CreatorWalletCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CreatorWallets and returns the data saved in the database.
+     * @param {CreatorWalletCreateManyAndReturnArgs} args - Arguments to create many CreatorWallets.
+     * @example
+     * // Create many CreatorWallets
+     * const creatorWallet = await prisma.creatorWallet.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CreatorWallets and only return the `id`
+     * const creatorWalletWithIdOnly = await prisma.creatorWallet.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CreatorWalletCreateManyAndReturnArgs>(args?: SelectSubset<T, CreatorWalletCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreatorWalletPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CreatorWallet.
+     * @param {CreatorWalletDeleteArgs} args - Arguments to delete one CreatorWallet.
+     * @example
+     * // Delete one CreatorWallet
+     * const CreatorWallet = await prisma.creatorWallet.delete({
+     *   where: {
+     *     // ... filter to delete one CreatorWallet
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CreatorWalletDeleteArgs>(args: SelectSubset<T, CreatorWalletDeleteArgs<ExtArgs>>): Prisma__CreatorWalletClient<$Result.GetResult<Prisma.$CreatorWalletPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CreatorWallet.
+     * @param {CreatorWalletUpdateArgs} args - Arguments to update one CreatorWallet.
+     * @example
+     * // Update one CreatorWallet
+     * const creatorWallet = await prisma.creatorWallet.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CreatorWalletUpdateArgs>(args: SelectSubset<T, CreatorWalletUpdateArgs<ExtArgs>>): Prisma__CreatorWalletClient<$Result.GetResult<Prisma.$CreatorWalletPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CreatorWallets.
+     * @param {CreatorWalletDeleteManyArgs} args - Arguments to filter CreatorWallets to delete.
+     * @example
+     * // Delete a few CreatorWallets
+     * const { count } = await prisma.creatorWallet.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CreatorWalletDeleteManyArgs>(args?: SelectSubset<T, CreatorWalletDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CreatorWallets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreatorWalletUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CreatorWallets
+     * const creatorWallet = await prisma.creatorWallet.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CreatorWalletUpdateManyArgs>(args: SelectSubset<T, CreatorWalletUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CreatorWallet.
+     * @param {CreatorWalletUpsertArgs} args - Arguments to update or create a CreatorWallet.
+     * @example
+     * // Update or create a CreatorWallet
+     * const creatorWallet = await prisma.creatorWallet.upsert({
+     *   create: {
+     *     // ... data to create a CreatorWallet
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CreatorWallet we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CreatorWalletUpsertArgs>(args: SelectSubset<T, CreatorWalletUpsertArgs<ExtArgs>>): Prisma__CreatorWalletClient<$Result.GetResult<Prisma.$CreatorWalletPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CreatorWallets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreatorWalletCountArgs} args - Arguments to filter CreatorWallets to count.
+     * @example
+     * // Count the number of CreatorWallets
+     * const count = await prisma.creatorWallet.count({
+     *   where: {
+     *     // ... the filter for the CreatorWallets we want to count
+     *   }
+     * })
+    **/
+    count<T extends CreatorWalletCountArgs>(
+      args?: Subset<T, CreatorWalletCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CreatorWalletCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CreatorWallet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreatorWalletAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CreatorWalletAggregateArgs>(args: Subset<T, CreatorWalletAggregateArgs>): Prisma.PrismaPromise<GetCreatorWalletAggregateType<T>>
+
+    /**
+     * Group by CreatorWallet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreatorWalletGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CreatorWalletGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CreatorWalletGroupByArgs['orderBy'] }
+        : { orderBy?: CreatorWalletGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CreatorWalletGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCreatorWalletGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CreatorWallet model
+   */
+  readonly fields: CreatorWalletFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CreatorWallet.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CreatorWalletClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    ledger<T extends CreatorWallet$ledgerArgs<ExtArgs> = {}>(args?: Subset<T, CreatorWallet$ledgerArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletLedgerEntryPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CreatorWallet model
+   */ 
+  interface CreatorWalletFieldRefs {
+    readonly id: FieldRef<"CreatorWallet", 'String'>
+    readonly userId: FieldRef<"CreatorWallet", 'String'>
+    readonly balanceCents: FieldRef<"CreatorWallet", 'Int'>
+    readonly createdAt: FieldRef<"CreatorWallet", 'DateTime'>
+    readonly updatedAt: FieldRef<"CreatorWallet", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CreatorWallet findUnique
+   */
+  export type CreatorWalletFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorWallet
+     */
+    select?: CreatorWalletSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorWalletInclude<ExtArgs> | null
+    /**
+     * Filter, which CreatorWallet to fetch.
+     */
+    where: CreatorWalletWhereUniqueInput
+  }
+
+  /**
+   * CreatorWallet findUniqueOrThrow
+   */
+  export type CreatorWalletFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorWallet
+     */
+    select?: CreatorWalletSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorWalletInclude<ExtArgs> | null
+    /**
+     * Filter, which CreatorWallet to fetch.
+     */
+    where: CreatorWalletWhereUniqueInput
+  }
+
+  /**
+   * CreatorWallet findFirst
+   */
+  export type CreatorWalletFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorWallet
+     */
+    select?: CreatorWalletSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorWalletInclude<ExtArgs> | null
+    /**
+     * Filter, which CreatorWallet to fetch.
+     */
+    where?: CreatorWalletWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreatorWallets to fetch.
+     */
+    orderBy?: CreatorWalletOrderByWithRelationInput | CreatorWalletOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CreatorWallets.
+     */
+    cursor?: CreatorWalletWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreatorWallets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreatorWallets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreatorWallets.
+     */
+    distinct?: CreatorWalletScalarFieldEnum | CreatorWalletScalarFieldEnum[]
+  }
+
+  /**
+   * CreatorWallet findFirstOrThrow
+   */
+  export type CreatorWalletFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorWallet
+     */
+    select?: CreatorWalletSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorWalletInclude<ExtArgs> | null
+    /**
+     * Filter, which CreatorWallet to fetch.
+     */
+    where?: CreatorWalletWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreatorWallets to fetch.
+     */
+    orderBy?: CreatorWalletOrderByWithRelationInput | CreatorWalletOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CreatorWallets.
+     */
+    cursor?: CreatorWalletWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreatorWallets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreatorWallets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreatorWallets.
+     */
+    distinct?: CreatorWalletScalarFieldEnum | CreatorWalletScalarFieldEnum[]
+  }
+
+  /**
+   * CreatorWallet findMany
+   */
+  export type CreatorWalletFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorWallet
+     */
+    select?: CreatorWalletSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorWalletInclude<ExtArgs> | null
+    /**
+     * Filter, which CreatorWallets to fetch.
+     */
+    where?: CreatorWalletWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreatorWallets to fetch.
+     */
+    orderBy?: CreatorWalletOrderByWithRelationInput | CreatorWalletOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CreatorWallets.
+     */
+    cursor?: CreatorWalletWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreatorWallets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreatorWallets.
+     */
+    skip?: number
+    distinct?: CreatorWalletScalarFieldEnum | CreatorWalletScalarFieldEnum[]
+  }
+
+  /**
+   * CreatorWallet create
+   */
+  export type CreatorWalletCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorWallet
+     */
+    select?: CreatorWalletSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorWalletInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CreatorWallet.
+     */
+    data: XOR<CreatorWalletCreateInput, CreatorWalletUncheckedCreateInput>
+  }
+
+  /**
+   * CreatorWallet createMany
+   */
+  export type CreatorWalletCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CreatorWallets.
+     */
+    data: CreatorWalletCreateManyInput | CreatorWalletCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CreatorWallet createManyAndReturn
+   */
+  export type CreatorWalletCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorWallet
+     */
+    select?: CreatorWalletSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CreatorWallets.
+     */
+    data: CreatorWalletCreateManyInput | CreatorWalletCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorWalletIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CreatorWallet update
+   */
+  export type CreatorWalletUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorWallet
+     */
+    select?: CreatorWalletSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorWalletInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CreatorWallet.
+     */
+    data: XOR<CreatorWalletUpdateInput, CreatorWalletUncheckedUpdateInput>
+    /**
+     * Choose, which CreatorWallet to update.
+     */
+    where: CreatorWalletWhereUniqueInput
+  }
+
+  /**
+   * CreatorWallet updateMany
+   */
+  export type CreatorWalletUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CreatorWallets.
+     */
+    data: XOR<CreatorWalletUpdateManyMutationInput, CreatorWalletUncheckedUpdateManyInput>
+    /**
+     * Filter which CreatorWallets to update
+     */
+    where?: CreatorWalletWhereInput
+  }
+
+  /**
+   * CreatorWallet upsert
+   */
+  export type CreatorWalletUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorWallet
+     */
+    select?: CreatorWalletSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorWalletInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CreatorWallet to update in case it exists.
+     */
+    where: CreatorWalletWhereUniqueInput
+    /**
+     * In case the CreatorWallet found by the `where` argument doesn't exist, create a new CreatorWallet with this data.
+     */
+    create: XOR<CreatorWalletCreateInput, CreatorWalletUncheckedCreateInput>
+    /**
+     * In case the CreatorWallet was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CreatorWalletUpdateInput, CreatorWalletUncheckedUpdateInput>
+  }
+
+  /**
+   * CreatorWallet delete
+   */
+  export type CreatorWalletDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorWallet
+     */
+    select?: CreatorWalletSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorWalletInclude<ExtArgs> | null
+    /**
+     * Filter which CreatorWallet to delete.
+     */
+    where: CreatorWalletWhereUniqueInput
+  }
+
+  /**
+   * CreatorWallet deleteMany
+   */
+  export type CreatorWalletDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CreatorWallets to delete
+     */
+    where?: CreatorWalletWhereInput
+  }
+
+  /**
+   * CreatorWallet.ledger
+   */
+  export type CreatorWallet$ledgerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletLedgerEntry
+     */
+    select?: WalletLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WalletLedgerEntryInclude<ExtArgs> | null
+    where?: WalletLedgerEntryWhereInput
+    orderBy?: WalletLedgerEntryOrderByWithRelationInput | WalletLedgerEntryOrderByWithRelationInput[]
+    cursor?: WalletLedgerEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WalletLedgerEntryScalarFieldEnum | WalletLedgerEntryScalarFieldEnum[]
+  }
+
+  /**
+   * CreatorWallet without action
+   */
+  export type CreatorWalletDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorWallet
+     */
+    select?: CreatorWalletSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorWalletInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WalletLedgerEntry
+   */
+
+  export type AggregateWalletLedgerEntry = {
+    _count: WalletLedgerEntryCountAggregateOutputType | null
+    _avg: WalletLedgerEntryAvgAggregateOutputType | null
+    _sum: WalletLedgerEntrySumAggregateOutputType | null
+    _min: WalletLedgerEntryMinAggregateOutputType | null
+    _max: WalletLedgerEntryMaxAggregateOutputType | null
+  }
+
+  export type WalletLedgerEntryAvgAggregateOutputType = {
+    amountCents: number | null
+    balanceAfter: number | null
+  }
+
+  export type WalletLedgerEntrySumAggregateOutputType = {
+    amountCents: number | null
+    balanceAfter: number | null
+  }
+
+  export type WalletLedgerEntryMinAggregateOutputType = {
+    id: string | null
+    walletId: string | null
+    type: $Enums.WalletTxType | null
+    amountCents: number | null
+    balanceAfter: number | null
+    createdAt: Date | null
+  }
+
+  export type WalletLedgerEntryMaxAggregateOutputType = {
+    id: string | null
+    walletId: string | null
+    type: $Enums.WalletTxType | null
+    amountCents: number | null
+    balanceAfter: number | null
+    createdAt: Date | null
+  }
+
+  export type WalletLedgerEntryCountAggregateOutputType = {
+    id: number
+    walletId: number
+    type: number
+    amountCents: number
+    balanceAfter: number
+    metadata: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type WalletLedgerEntryAvgAggregateInputType = {
+    amountCents?: true
+    balanceAfter?: true
+  }
+
+  export type WalletLedgerEntrySumAggregateInputType = {
+    amountCents?: true
+    balanceAfter?: true
+  }
+
+  export type WalletLedgerEntryMinAggregateInputType = {
+    id?: true
+    walletId?: true
+    type?: true
+    amountCents?: true
+    balanceAfter?: true
+    createdAt?: true
+  }
+
+  export type WalletLedgerEntryMaxAggregateInputType = {
+    id?: true
+    walletId?: true
+    type?: true
+    amountCents?: true
+    balanceAfter?: true
+    createdAt?: true
+  }
+
+  export type WalletLedgerEntryCountAggregateInputType = {
+    id?: true
+    walletId?: true
+    type?: true
+    amountCents?: true
+    balanceAfter?: true
+    metadata?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type WalletLedgerEntryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WalletLedgerEntry to aggregate.
+     */
+    where?: WalletLedgerEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WalletLedgerEntries to fetch.
+     */
+    orderBy?: WalletLedgerEntryOrderByWithRelationInput | WalletLedgerEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WalletLedgerEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WalletLedgerEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WalletLedgerEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WalletLedgerEntries
+    **/
+    _count?: true | WalletLedgerEntryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: WalletLedgerEntryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: WalletLedgerEntrySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WalletLedgerEntryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WalletLedgerEntryMaxAggregateInputType
+  }
+
+  export type GetWalletLedgerEntryAggregateType<T extends WalletLedgerEntryAggregateArgs> = {
+        [P in keyof T & keyof AggregateWalletLedgerEntry]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWalletLedgerEntry[P]>
+      : GetScalarType<T[P], AggregateWalletLedgerEntry[P]>
+  }
+
+
+
+
+  export type WalletLedgerEntryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WalletLedgerEntryWhereInput
+    orderBy?: WalletLedgerEntryOrderByWithAggregationInput | WalletLedgerEntryOrderByWithAggregationInput[]
+    by: WalletLedgerEntryScalarFieldEnum[] | WalletLedgerEntryScalarFieldEnum
+    having?: WalletLedgerEntryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WalletLedgerEntryCountAggregateInputType | true
+    _avg?: WalletLedgerEntryAvgAggregateInputType
+    _sum?: WalletLedgerEntrySumAggregateInputType
+    _min?: WalletLedgerEntryMinAggregateInputType
+    _max?: WalletLedgerEntryMaxAggregateInputType
+  }
+
+  export type WalletLedgerEntryGroupByOutputType = {
+    id: string
+    walletId: string
+    type: $Enums.WalletTxType
+    amountCents: number
+    balanceAfter: number
+    metadata: JsonValue | null
+    createdAt: Date
+    _count: WalletLedgerEntryCountAggregateOutputType | null
+    _avg: WalletLedgerEntryAvgAggregateOutputType | null
+    _sum: WalletLedgerEntrySumAggregateOutputType | null
+    _min: WalletLedgerEntryMinAggregateOutputType | null
+    _max: WalletLedgerEntryMaxAggregateOutputType | null
+  }
+
+  type GetWalletLedgerEntryGroupByPayload<T extends WalletLedgerEntryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WalletLedgerEntryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WalletLedgerEntryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WalletLedgerEntryGroupByOutputType[P]>
+            : GetScalarType<T[P], WalletLedgerEntryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WalletLedgerEntrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    walletId?: boolean
+    type?: boolean
+    amountCents?: boolean
+    balanceAfter?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    wallet?: boolean | CreatorWalletDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["walletLedgerEntry"]>
+
+  export type WalletLedgerEntrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    walletId?: boolean
+    type?: boolean
+    amountCents?: boolean
+    balanceAfter?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    wallet?: boolean | CreatorWalletDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["walletLedgerEntry"]>
+
+  export type WalletLedgerEntrySelectScalar = {
+    id?: boolean
+    walletId?: boolean
+    type?: boolean
+    amountCents?: boolean
+    balanceAfter?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+  }
+
+  export type WalletLedgerEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    wallet?: boolean | CreatorWalletDefaultArgs<ExtArgs>
+  }
+  export type WalletLedgerEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    wallet?: boolean | CreatorWalletDefaultArgs<ExtArgs>
+  }
+
+  export type $WalletLedgerEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WalletLedgerEntry"
+    objects: {
+      wallet: Prisma.$CreatorWalletPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      walletId: string
+      type: $Enums.WalletTxType
+      amountCents: number
+      balanceAfter: number
+      metadata: Prisma.JsonValue | null
+      createdAt: Date
+    }, ExtArgs["result"]["walletLedgerEntry"]>
+    composites: {}
+  }
+
+  type WalletLedgerEntryGetPayload<S extends boolean | null | undefined | WalletLedgerEntryDefaultArgs> = $Result.GetResult<Prisma.$WalletLedgerEntryPayload, S>
+
+  type WalletLedgerEntryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<WalletLedgerEntryFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: WalletLedgerEntryCountAggregateInputType | true
+    }
+
+  export interface WalletLedgerEntryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WalletLedgerEntry'], meta: { name: 'WalletLedgerEntry' } }
+    /**
+     * Find zero or one WalletLedgerEntry that matches the filter.
+     * @param {WalletLedgerEntryFindUniqueArgs} args - Arguments to find a WalletLedgerEntry
+     * @example
+     * // Get one WalletLedgerEntry
+     * const walletLedgerEntry = await prisma.walletLedgerEntry.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WalletLedgerEntryFindUniqueArgs>(args: SelectSubset<T, WalletLedgerEntryFindUniqueArgs<ExtArgs>>): Prisma__WalletLedgerEntryClient<$Result.GetResult<Prisma.$WalletLedgerEntryPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one WalletLedgerEntry that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {WalletLedgerEntryFindUniqueOrThrowArgs} args - Arguments to find a WalletLedgerEntry
+     * @example
+     * // Get one WalletLedgerEntry
+     * const walletLedgerEntry = await prisma.walletLedgerEntry.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WalletLedgerEntryFindUniqueOrThrowArgs>(args: SelectSubset<T, WalletLedgerEntryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WalletLedgerEntryClient<$Result.GetResult<Prisma.$WalletLedgerEntryPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first WalletLedgerEntry that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WalletLedgerEntryFindFirstArgs} args - Arguments to find a WalletLedgerEntry
+     * @example
+     * // Get one WalletLedgerEntry
+     * const walletLedgerEntry = await prisma.walletLedgerEntry.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WalletLedgerEntryFindFirstArgs>(args?: SelectSubset<T, WalletLedgerEntryFindFirstArgs<ExtArgs>>): Prisma__WalletLedgerEntryClient<$Result.GetResult<Prisma.$WalletLedgerEntryPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first WalletLedgerEntry that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WalletLedgerEntryFindFirstOrThrowArgs} args - Arguments to find a WalletLedgerEntry
+     * @example
+     * // Get one WalletLedgerEntry
+     * const walletLedgerEntry = await prisma.walletLedgerEntry.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WalletLedgerEntryFindFirstOrThrowArgs>(args?: SelectSubset<T, WalletLedgerEntryFindFirstOrThrowArgs<ExtArgs>>): Prisma__WalletLedgerEntryClient<$Result.GetResult<Prisma.$WalletLedgerEntryPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more WalletLedgerEntries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WalletLedgerEntryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WalletLedgerEntries
+     * const walletLedgerEntries = await prisma.walletLedgerEntry.findMany()
+     * 
+     * // Get first 10 WalletLedgerEntries
+     * const walletLedgerEntries = await prisma.walletLedgerEntry.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const walletLedgerEntryWithIdOnly = await prisma.walletLedgerEntry.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WalletLedgerEntryFindManyArgs>(args?: SelectSubset<T, WalletLedgerEntryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletLedgerEntryPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a WalletLedgerEntry.
+     * @param {WalletLedgerEntryCreateArgs} args - Arguments to create a WalletLedgerEntry.
+     * @example
+     * // Create one WalletLedgerEntry
+     * const WalletLedgerEntry = await prisma.walletLedgerEntry.create({
+     *   data: {
+     *     // ... data to create a WalletLedgerEntry
+     *   }
+     * })
+     * 
+     */
+    create<T extends WalletLedgerEntryCreateArgs>(args: SelectSubset<T, WalletLedgerEntryCreateArgs<ExtArgs>>): Prisma__WalletLedgerEntryClient<$Result.GetResult<Prisma.$WalletLedgerEntryPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many WalletLedgerEntries.
+     * @param {WalletLedgerEntryCreateManyArgs} args - Arguments to create many WalletLedgerEntries.
+     * @example
+     * // Create many WalletLedgerEntries
+     * const walletLedgerEntry = await prisma.walletLedgerEntry.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WalletLedgerEntryCreateManyArgs>(args?: SelectSubset<T, WalletLedgerEntryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WalletLedgerEntries and returns the data saved in the database.
+     * @param {WalletLedgerEntryCreateManyAndReturnArgs} args - Arguments to create many WalletLedgerEntries.
+     * @example
+     * // Create many WalletLedgerEntries
+     * const walletLedgerEntry = await prisma.walletLedgerEntry.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WalletLedgerEntries and only return the `id`
+     * const walletLedgerEntryWithIdOnly = await prisma.walletLedgerEntry.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WalletLedgerEntryCreateManyAndReturnArgs>(args?: SelectSubset<T, WalletLedgerEntryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletLedgerEntryPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a WalletLedgerEntry.
+     * @param {WalletLedgerEntryDeleteArgs} args - Arguments to delete one WalletLedgerEntry.
+     * @example
+     * // Delete one WalletLedgerEntry
+     * const WalletLedgerEntry = await prisma.walletLedgerEntry.delete({
+     *   where: {
+     *     // ... filter to delete one WalletLedgerEntry
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WalletLedgerEntryDeleteArgs>(args: SelectSubset<T, WalletLedgerEntryDeleteArgs<ExtArgs>>): Prisma__WalletLedgerEntryClient<$Result.GetResult<Prisma.$WalletLedgerEntryPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one WalletLedgerEntry.
+     * @param {WalletLedgerEntryUpdateArgs} args - Arguments to update one WalletLedgerEntry.
+     * @example
+     * // Update one WalletLedgerEntry
+     * const walletLedgerEntry = await prisma.walletLedgerEntry.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WalletLedgerEntryUpdateArgs>(args: SelectSubset<T, WalletLedgerEntryUpdateArgs<ExtArgs>>): Prisma__WalletLedgerEntryClient<$Result.GetResult<Prisma.$WalletLedgerEntryPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more WalletLedgerEntries.
+     * @param {WalletLedgerEntryDeleteManyArgs} args - Arguments to filter WalletLedgerEntries to delete.
+     * @example
+     * // Delete a few WalletLedgerEntries
+     * const { count } = await prisma.walletLedgerEntry.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WalletLedgerEntryDeleteManyArgs>(args?: SelectSubset<T, WalletLedgerEntryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WalletLedgerEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WalletLedgerEntryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WalletLedgerEntries
+     * const walletLedgerEntry = await prisma.walletLedgerEntry.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WalletLedgerEntryUpdateManyArgs>(args: SelectSubset<T, WalletLedgerEntryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one WalletLedgerEntry.
+     * @param {WalletLedgerEntryUpsertArgs} args - Arguments to update or create a WalletLedgerEntry.
+     * @example
+     * // Update or create a WalletLedgerEntry
+     * const walletLedgerEntry = await prisma.walletLedgerEntry.upsert({
+     *   create: {
+     *     // ... data to create a WalletLedgerEntry
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WalletLedgerEntry we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WalletLedgerEntryUpsertArgs>(args: SelectSubset<T, WalletLedgerEntryUpsertArgs<ExtArgs>>): Prisma__WalletLedgerEntryClient<$Result.GetResult<Prisma.$WalletLedgerEntryPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of WalletLedgerEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WalletLedgerEntryCountArgs} args - Arguments to filter WalletLedgerEntries to count.
+     * @example
+     * // Count the number of WalletLedgerEntries
+     * const count = await prisma.walletLedgerEntry.count({
+     *   where: {
+     *     // ... the filter for the WalletLedgerEntries we want to count
+     *   }
+     * })
+    **/
+    count<T extends WalletLedgerEntryCountArgs>(
+      args?: Subset<T, WalletLedgerEntryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WalletLedgerEntryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WalletLedgerEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WalletLedgerEntryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WalletLedgerEntryAggregateArgs>(args: Subset<T, WalletLedgerEntryAggregateArgs>): Prisma.PrismaPromise<GetWalletLedgerEntryAggregateType<T>>
+
+    /**
+     * Group by WalletLedgerEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WalletLedgerEntryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WalletLedgerEntryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WalletLedgerEntryGroupByArgs['orderBy'] }
+        : { orderBy?: WalletLedgerEntryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WalletLedgerEntryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWalletLedgerEntryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WalletLedgerEntry model
+   */
+  readonly fields: WalletLedgerEntryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WalletLedgerEntry.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WalletLedgerEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    wallet<T extends CreatorWalletDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CreatorWalletDefaultArgs<ExtArgs>>): Prisma__CreatorWalletClient<$Result.GetResult<Prisma.$CreatorWalletPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WalletLedgerEntry model
+   */ 
+  interface WalletLedgerEntryFieldRefs {
+    readonly id: FieldRef<"WalletLedgerEntry", 'String'>
+    readonly walletId: FieldRef<"WalletLedgerEntry", 'String'>
+    readonly type: FieldRef<"WalletLedgerEntry", 'WalletTxType'>
+    readonly amountCents: FieldRef<"WalletLedgerEntry", 'Int'>
+    readonly balanceAfter: FieldRef<"WalletLedgerEntry", 'Int'>
+    readonly metadata: FieldRef<"WalletLedgerEntry", 'Json'>
+    readonly createdAt: FieldRef<"WalletLedgerEntry", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WalletLedgerEntry findUnique
+   */
+  export type WalletLedgerEntryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletLedgerEntry
+     */
+    select?: WalletLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WalletLedgerEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which WalletLedgerEntry to fetch.
+     */
+    where: WalletLedgerEntryWhereUniqueInput
+  }
+
+  /**
+   * WalletLedgerEntry findUniqueOrThrow
+   */
+  export type WalletLedgerEntryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletLedgerEntry
+     */
+    select?: WalletLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WalletLedgerEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which WalletLedgerEntry to fetch.
+     */
+    where: WalletLedgerEntryWhereUniqueInput
+  }
+
+  /**
+   * WalletLedgerEntry findFirst
+   */
+  export type WalletLedgerEntryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletLedgerEntry
+     */
+    select?: WalletLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WalletLedgerEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which WalletLedgerEntry to fetch.
+     */
+    where?: WalletLedgerEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WalletLedgerEntries to fetch.
+     */
+    orderBy?: WalletLedgerEntryOrderByWithRelationInput | WalletLedgerEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WalletLedgerEntries.
+     */
+    cursor?: WalletLedgerEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WalletLedgerEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WalletLedgerEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WalletLedgerEntries.
+     */
+    distinct?: WalletLedgerEntryScalarFieldEnum | WalletLedgerEntryScalarFieldEnum[]
+  }
+
+  /**
+   * WalletLedgerEntry findFirstOrThrow
+   */
+  export type WalletLedgerEntryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletLedgerEntry
+     */
+    select?: WalletLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WalletLedgerEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which WalletLedgerEntry to fetch.
+     */
+    where?: WalletLedgerEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WalletLedgerEntries to fetch.
+     */
+    orderBy?: WalletLedgerEntryOrderByWithRelationInput | WalletLedgerEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WalletLedgerEntries.
+     */
+    cursor?: WalletLedgerEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WalletLedgerEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WalletLedgerEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WalletLedgerEntries.
+     */
+    distinct?: WalletLedgerEntryScalarFieldEnum | WalletLedgerEntryScalarFieldEnum[]
+  }
+
+  /**
+   * WalletLedgerEntry findMany
+   */
+  export type WalletLedgerEntryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletLedgerEntry
+     */
+    select?: WalletLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WalletLedgerEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which WalletLedgerEntries to fetch.
+     */
+    where?: WalletLedgerEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WalletLedgerEntries to fetch.
+     */
+    orderBy?: WalletLedgerEntryOrderByWithRelationInput | WalletLedgerEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WalletLedgerEntries.
+     */
+    cursor?: WalletLedgerEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WalletLedgerEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WalletLedgerEntries.
+     */
+    skip?: number
+    distinct?: WalletLedgerEntryScalarFieldEnum | WalletLedgerEntryScalarFieldEnum[]
+  }
+
+  /**
+   * WalletLedgerEntry create
+   */
+  export type WalletLedgerEntryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletLedgerEntry
+     */
+    select?: WalletLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WalletLedgerEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WalletLedgerEntry.
+     */
+    data: XOR<WalletLedgerEntryCreateInput, WalletLedgerEntryUncheckedCreateInput>
+  }
+
+  /**
+   * WalletLedgerEntry createMany
+   */
+  export type WalletLedgerEntryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WalletLedgerEntries.
+     */
+    data: WalletLedgerEntryCreateManyInput | WalletLedgerEntryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WalletLedgerEntry createManyAndReturn
+   */
+  export type WalletLedgerEntryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletLedgerEntry
+     */
+    select?: WalletLedgerEntrySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many WalletLedgerEntries.
+     */
+    data: WalletLedgerEntryCreateManyInput | WalletLedgerEntryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WalletLedgerEntryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WalletLedgerEntry update
+   */
+  export type WalletLedgerEntryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletLedgerEntry
+     */
+    select?: WalletLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WalletLedgerEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WalletLedgerEntry.
+     */
+    data: XOR<WalletLedgerEntryUpdateInput, WalletLedgerEntryUncheckedUpdateInput>
+    /**
+     * Choose, which WalletLedgerEntry to update.
+     */
+    where: WalletLedgerEntryWhereUniqueInput
+  }
+
+  /**
+   * WalletLedgerEntry updateMany
+   */
+  export type WalletLedgerEntryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WalletLedgerEntries.
+     */
+    data: XOR<WalletLedgerEntryUpdateManyMutationInput, WalletLedgerEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which WalletLedgerEntries to update
+     */
+    where?: WalletLedgerEntryWhereInput
+  }
+
+  /**
+   * WalletLedgerEntry upsert
+   */
+  export type WalletLedgerEntryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletLedgerEntry
+     */
+    select?: WalletLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WalletLedgerEntryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WalletLedgerEntry to update in case it exists.
+     */
+    where: WalletLedgerEntryWhereUniqueInput
+    /**
+     * In case the WalletLedgerEntry found by the `where` argument doesn't exist, create a new WalletLedgerEntry with this data.
+     */
+    create: XOR<WalletLedgerEntryCreateInput, WalletLedgerEntryUncheckedCreateInput>
+    /**
+     * In case the WalletLedgerEntry was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WalletLedgerEntryUpdateInput, WalletLedgerEntryUncheckedUpdateInput>
+  }
+
+  /**
+   * WalletLedgerEntry delete
+   */
+  export type WalletLedgerEntryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletLedgerEntry
+     */
+    select?: WalletLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WalletLedgerEntryInclude<ExtArgs> | null
+    /**
+     * Filter which WalletLedgerEntry to delete.
+     */
+    where: WalletLedgerEntryWhereUniqueInput
+  }
+
+  /**
+   * WalletLedgerEntry deleteMany
+   */
+  export type WalletLedgerEntryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WalletLedgerEntries to delete
+     */
+    where?: WalletLedgerEntryWhereInput
+  }
+
+  /**
+   * WalletLedgerEntry without action
+   */
+  export type WalletLedgerEntryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletLedgerEntry
+     */
+    select?: WalletLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WalletLedgerEntryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CreatorGift
+   */
+
+  export type AggregateCreatorGift = {
+    _count: CreatorGiftCountAggregateOutputType | null
+    _avg: CreatorGiftAvgAggregateOutputType | null
+    _sum: CreatorGiftSumAggregateOutputType | null
+    _min: CreatorGiftMinAggregateOutputType | null
+    _max: CreatorGiftMaxAggregateOutputType | null
+  }
+
+  export type CreatorGiftAvgAggregateOutputType = {
+    coinAmount: number | null
+  }
+
+  export type CreatorGiftSumAggregateOutputType = {
+    coinAmount: number | null
+  }
+
+  export type CreatorGiftMinAggregateOutputType = {
+    id: string | null
+    streamId: string | null
+    senderId: string | null
+    receiverId: string | null
+    coinAmount: number | null
+    giftType: string | null
+    createdAt: Date | null
+  }
+
+  export type CreatorGiftMaxAggregateOutputType = {
+    id: string | null
+    streamId: string | null
+    senderId: string | null
+    receiverId: string | null
+    coinAmount: number | null
+    giftType: string | null
+    createdAt: Date | null
+  }
+
+  export type CreatorGiftCountAggregateOutputType = {
+    id: number
+    streamId: number
+    senderId: number
+    receiverId: number
+    coinAmount: number
+    giftType: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CreatorGiftAvgAggregateInputType = {
+    coinAmount?: true
+  }
+
+  export type CreatorGiftSumAggregateInputType = {
+    coinAmount?: true
+  }
+
+  export type CreatorGiftMinAggregateInputType = {
+    id?: true
+    streamId?: true
+    senderId?: true
+    receiverId?: true
+    coinAmount?: true
+    giftType?: true
+    createdAt?: true
+  }
+
+  export type CreatorGiftMaxAggregateInputType = {
+    id?: true
+    streamId?: true
+    senderId?: true
+    receiverId?: true
+    coinAmount?: true
+    giftType?: true
+    createdAt?: true
+  }
+
+  export type CreatorGiftCountAggregateInputType = {
+    id?: true
+    streamId?: true
+    senderId?: true
+    receiverId?: true
+    coinAmount?: true
+    giftType?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CreatorGiftAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CreatorGift to aggregate.
+     */
+    where?: CreatorGiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreatorGifts to fetch.
+     */
+    orderBy?: CreatorGiftOrderByWithRelationInput | CreatorGiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CreatorGiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreatorGifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreatorGifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CreatorGifts
+    **/
+    _count?: true | CreatorGiftCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CreatorGiftAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CreatorGiftSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CreatorGiftMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CreatorGiftMaxAggregateInputType
+  }
+
+  export type GetCreatorGiftAggregateType<T extends CreatorGiftAggregateArgs> = {
+        [P in keyof T & keyof AggregateCreatorGift]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCreatorGift[P]>
+      : GetScalarType<T[P], AggregateCreatorGift[P]>
+  }
+
+
+
+
+  export type CreatorGiftGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreatorGiftWhereInput
+    orderBy?: CreatorGiftOrderByWithAggregationInput | CreatorGiftOrderByWithAggregationInput[]
+    by: CreatorGiftScalarFieldEnum[] | CreatorGiftScalarFieldEnum
+    having?: CreatorGiftScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CreatorGiftCountAggregateInputType | true
+    _avg?: CreatorGiftAvgAggregateInputType
+    _sum?: CreatorGiftSumAggregateInputType
+    _min?: CreatorGiftMinAggregateInputType
+    _max?: CreatorGiftMaxAggregateInputType
+  }
+
+  export type CreatorGiftGroupByOutputType = {
+    id: string
+    streamId: string | null
+    senderId: string
+    receiverId: string
+    coinAmount: number
+    giftType: string
+    createdAt: Date
+    _count: CreatorGiftCountAggregateOutputType | null
+    _avg: CreatorGiftAvgAggregateOutputType | null
+    _sum: CreatorGiftSumAggregateOutputType | null
+    _min: CreatorGiftMinAggregateOutputType | null
+    _max: CreatorGiftMaxAggregateOutputType | null
+  }
+
+  type GetCreatorGiftGroupByPayload<T extends CreatorGiftGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CreatorGiftGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CreatorGiftGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CreatorGiftGroupByOutputType[P]>
+            : GetScalarType<T[P], CreatorGiftGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CreatorGiftSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    streamId?: boolean
+    senderId?: boolean
+    receiverId?: boolean
+    coinAmount?: boolean
+    giftType?: boolean
+    createdAt?: boolean
+    stream?: boolean | CreatorGift$streamArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creatorGift"]>
+
+  export type CreatorGiftSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    streamId?: boolean
+    senderId?: boolean
+    receiverId?: boolean
+    coinAmount?: boolean
+    giftType?: boolean
+    createdAt?: boolean
+    stream?: boolean | CreatorGift$streamArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creatorGift"]>
+
+  export type CreatorGiftSelectScalar = {
+    id?: boolean
+    streamId?: boolean
+    senderId?: boolean
+    receiverId?: boolean
+    coinAmount?: boolean
+    giftType?: boolean
+    createdAt?: boolean
+  }
+
+  export type CreatorGiftInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stream?: boolean | CreatorGift$streamArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CreatorGiftIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stream?: boolean | CreatorGift$streamArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CreatorGiftPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CreatorGift"
+    objects: {
+      stream: Prisma.$StreamPayload<ExtArgs> | null
+      sender: Prisma.$UserPayload<ExtArgs>
+      receiver: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      streamId: string | null
+      senderId: string
+      receiverId: string
+      coinAmount: number
+      giftType: string
+      createdAt: Date
+    }, ExtArgs["result"]["creatorGift"]>
+    composites: {}
+  }
+
+  type CreatorGiftGetPayload<S extends boolean | null | undefined | CreatorGiftDefaultArgs> = $Result.GetResult<Prisma.$CreatorGiftPayload, S>
+
+  type CreatorGiftCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CreatorGiftFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CreatorGiftCountAggregateInputType | true
+    }
+
+  export interface CreatorGiftDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CreatorGift'], meta: { name: 'CreatorGift' } }
+    /**
+     * Find zero or one CreatorGift that matches the filter.
+     * @param {CreatorGiftFindUniqueArgs} args - Arguments to find a CreatorGift
+     * @example
+     * // Get one CreatorGift
+     * const creatorGift = await prisma.creatorGift.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CreatorGiftFindUniqueArgs>(args: SelectSubset<T, CreatorGiftFindUniqueArgs<ExtArgs>>): Prisma__CreatorGiftClient<$Result.GetResult<Prisma.$CreatorGiftPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CreatorGift that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CreatorGiftFindUniqueOrThrowArgs} args - Arguments to find a CreatorGift
+     * @example
+     * // Get one CreatorGift
+     * const creatorGift = await prisma.creatorGift.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CreatorGiftFindUniqueOrThrowArgs>(args: SelectSubset<T, CreatorGiftFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CreatorGiftClient<$Result.GetResult<Prisma.$CreatorGiftPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CreatorGift that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreatorGiftFindFirstArgs} args - Arguments to find a CreatorGift
+     * @example
+     * // Get one CreatorGift
+     * const creatorGift = await prisma.creatorGift.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CreatorGiftFindFirstArgs>(args?: SelectSubset<T, CreatorGiftFindFirstArgs<ExtArgs>>): Prisma__CreatorGiftClient<$Result.GetResult<Prisma.$CreatorGiftPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CreatorGift that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreatorGiftFindFirstOrThrowArgs} args - Arguments to find a CreatorGift
+     * @example
+     * // Get one CreatorGift
+     * const creatorGift = await prisma.creatorGift.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CreatorGiftFindFirstOrThrowArgs>(args?: SelectSubset<T, CreatorGiftFindFirstOrThrowArgs<ExtArgs>>): Prisma__CreatorGiftClient<$Result.GetResult<Prisma.$CreatorGiftPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CreatorGifts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreatorGiftFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CreatorGifts
+     * const creatorGifts = await prisma.creatorGift.findMany()
+     * 
+     * // Get first 10 CreatorGifts
+     * const creatorGifts = await prisma.creatorGift.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const creatorGiftWithIdOnly = await prisma.creatorGift.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CreatorGiftFindManyArgs>(args?: SelectSubset<T, CreatorGiftFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreatorGiftPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CreatorGift.
+     * @param {CreatorGiftCreateArgs} args - Arguments to create a CreatorGift.
+     * @example
+     * // Create one CreatorGift
+     * const CreatorGift = await prisma.creatorGift.create({
+     *   data: {
+     *     // ... data to create a CreatorGift
+     *   }
+     * })
+     * 
+     */
+    create<T extends CreatorGiftCreateArgs>(args: SelectSubset<T, CreatorGiftCreateArgs<ExtArgs>>): Prisma__CreatorGiftClient<$Result.GetResult<Prisma.$CreatorGiftPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CreatorGifts.
+     * @param {CreatorGiftCreateManyArgs} args - Arguments to create many CreatorGifts.
+     * @example
+     * // Create many CreatorGifts
+     * const creatorGift = await prisma.creatorGift.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CreatorGiftCreateManyArgs>(args?: SelectSubset<T, CreatorGiftCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CreatorGifts and returns the data saved in the database.
+     * @param {CreatorGiftCreateManyAndReturnArgs} args - Arguments to create many CreatorGifts.
+     * @example
+     * // Create many CreatorGifts
+     * const creatorGift = await prisma.creatorGift.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CreatorGifts and only return the `id`
+     * const creatorGiftWithIdOnly = await prisma.creatorGift.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CreatorGiftCreateManyAndReturnArgs>(args?: SelectSubset<T, CreatorGiftCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreatorGiftPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CreatorGift.
+     * @param {CreatorGiftDeleteArgs} args - Arguments to delete one CreatorGift.
+     * @example
+     * // Delete one CreatorGift
+     * const CreatorGift = await prisma.creatorGift.delete({
+     *   where: {
+     *     // ... filter to delete one CreatorGift
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CreatorGiftDeleteArgs>(args: SelectSubset<T, CreatorGiftDeleteArgs<ExtArgs>>): Prisma__CreatorGiftClient<$Result.GetResult<Prisma.$CreatorGiftPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CreatorGift.
+     * @param {CreatorGiftUpdateArgs} args - Arguments to update one CreatorGift.
+     * @example
+     * // Update one CreatorGift
+     * const creatorGift = await prisma.creatorGift.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CreatorGiftUpdateArgs>(args: SelectSubset<T, CreatorGiftUpdateArgs<ExtArgs>>): Prisma__CreatorGiftClient<$Result.GetResult<Prisma.$CreatorGiftPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CreatorGifts.
+     * @param {CreatorGiftDeleteManyArgs} args - Arguments to filter CreatorGifts to delete.
+     * @example
+     * // Delete a few CreatorGifts
+     * const { count } = await prisma.creatorGift.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CreatorGiftDeleteManyArgs>(args?: SelectSubset<T, CreatorGiftDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CreatorGifts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreatorGiftUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CreatorGifts
+     * const creatorGift = await prisma.creatorGift.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CreatorGiftUpdateManyArgs>(args: SelectSubset<T, CreatorGiftUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CreatorGift.
+     * @param {CreatorGiftUpsertArgs} args - Arguments to update or create a CreatorGift.
+     * @example
+     * // Update or create a CreatorGift
+     * const creatorGift = await prisma.creatorGift.upsert({
+     *   create: {
+     *     // ... data to create a CreatorGift
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CreatorGift we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CreatorGiftUpsertArgs>(args: SelectSubset<T, CreatorGiftUpsertArgs<ExtArgs>>): Prisma__CreatorGiftClient<$Result.GetResult<Prisma.$CreatorGiftPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CreatorGifts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreatorGiftCountArgs} args - Arguments to filter CreatorGifts to count.
+     * @example
+     * // Count the number of CreatorGifts
+     * const count = await prisma.creatorGift.count({
+     *   where: {
+     *     // ... the filter for the CreatorGifts we want to count
+     *   }
+     * })
+    **/
+    count<T extends CreatorGiftCountArgs>(
+      args?: Subset<T, CreatorGiftCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CreatorGiftCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CreatorGift.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreatorGiftAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CreatorGiftAggregateArgs>(args: Subset<T, CreatorGiftAggregateArgs>): Prisma.PrismaPromise<GetCreatorGiftAggregateType<T>>
+
+    /**
+     * Group by CreatorGift.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreatorGiftGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CreatorGiftGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CreatorGiftGroupByArgs['orderBy'] }
+        : { orderBy?: CreatorGiftGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CreatorGiftGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCreatorGiftGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CreatorGift model
+   */
+  readonly fields: CreatorGiftFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CreatorGift.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CreatorGiftClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    stream<T extends CreatorGift$streamArgs<ExtArgs> = {}>(args?: Subset<T, CreatorGift$streamArgs<ExtArgs>>): Prisma__StreamClient<$Result.GetResult<Prisma.$StreamPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    sender<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    receiver<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CreatorGift model
+   */ 
+  interface CreatorGiftFieldRefs {
+    readonly id: FieldRef<"CreatorGift", 'String'>
+    readonly streamId: FieldRef<"CreatorGift", 'String'>
+    readonly senderId: FieldRef<"CreatorGift", 'String'>
+    readonly receiverId: FieldRef<"CreatorGift", 'String'>
+    readonly coinAmount: FieldRef<"CreatorGift", 'Int'>
+    readonly giftType: FieldRef<"CreatorGift", 'String'>
+    readonly createdAt: FieldRef<"CreatorGift", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CreatorGift findUnique
+   */
+  export type CreatorGiftFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorGift
+     */
+    select?: CreatorGiftSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorGiftInclude<ExtArgs> | null
+    /**
+     * Filter, which CreatorGift to fetch.
+     */
+    where: CreatorGiftWhereUniqueInput
+  }
+
+  /**
+   * CreatorGift findUniqueOrThrow
+   */
+  export type CreatorGiftFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorGift
+     */
+    select?: CreatorGiftSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorGiftInclude<ExtArgs> | null
+    /**
+     * Filter, which CreatorGift to fetch.
+     */
+    where: CreatorGiftWhereUniqueInput
+  }
+
+  /**
+   * CreatorGift findFirst
+   */
+  export type CreatorGiftFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorGift
+     */
+    select?: CreatorGiftSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorGiftInclude<ExtArgs> | null
+    /**
+     * Filter, which CreatorGift to fetch.
+     */
+    where?: CreatorGiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreatorGifts to fetch.
+     */
+    orderBy?: CreatorGiftOrderByWithRelationInput | CreatorGiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CreatorGifts.
+     */
+    cursor?: CreatorGiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreatorGifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreatorGifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreatorGifts.
+     */
+    distinct?: CreatorGiftScalarFieldEnum | CreatorGiftScalarFieldEnum[]
+  }
+
+  /**
+   * CreatorGift findFirstOrThrow
+   */
+  export type CreatorGiftFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorGift
+     */
+    select?: CreatorGiftSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorGiftInclude<ExtArgs> | null
+    /**
+     * Filter, which CreatorGift to fetch.
+     */
+    where?: CreatorGiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreatorGifts to fetch.
+     */
+    orderBy?: CreatorGiftOrderByWithRelationInput | CreatorGiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CreatorGifts.
+     */
+    cursor?: CreatorGiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreatorGifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreatorGifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreatorGifts.
+     */
+    distinct?: CreatorGiftScalarFieldEnum | CreatorGiftScalarFieldEnum[]
+  }
+
+  /**
+   * CreatorGift findMany
+   */
+  export type CreatorGiftFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorGift
+     */
+    select?: CreatorGiftSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorGiftInclude<ExtArgs> | null
+    /**
+     * Filter, which CreatorGifts to fetch.
+     */
+    where?: CreatorGiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreatorGifts to fetch.
+     */
+    orderBy?: CreatorGiftOrderByWithRelationInput | CreatorGiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CreatorGifts.
+     */
+    cursor?: CreatorGiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreatorGifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreatorGifts.
+     */
+    skip?: number
+    distinct?: CreatorGiftScalarFieldEnum | CreatorGiftScalarFieldEnum[]
+  }
+
+  /**
+   * CreatorGift create
+   */
+  export type CreatorGiftCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorGift
+     */
+    select?: CreatorGiftSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorGiftInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CreatorGift.
+     */
+    data: XOR<CreatorGiftCreateInput, CreatorGiftUncheckedCreateInput>
+  }
+
+  /**
+   * CreatorGift createMany
+   */
+  export type CreatorGiftCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CreatorGifts.
+     */
+    data: CreatorGiftCreateManyInput | CreatorGiftCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CreatorGift createManyAndReturn
+   */
+  export type CreatorGiftCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorGift
+     */
+    select?: CreatorGiftSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CreatorGifts.
+     */
+    data: CreatorGiftCreateManyInput | CreatorGiftCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorGiftIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CreatorGift update
+   */
+  export type CreatorGiftUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorGift
+     */
+    select?: CreatorGiftSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorGiftInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CreatorGift.
+     */
+    data: XOR<CreatorGiftUpdateInput, CreatorGiftUncheckedUpdateInput>
+    /**
+     * Choose, which CreatorGift to update.
+     */
+    where: CreatorGiftWhereUniqueInput
+  }
+
+  /**
+   * CreatorGift updateMany
+   */
+  export type CreatorGiftUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CreatorGifts.
+     */
+    data: XOR<CreatorGiftUpdateManyMutationInput, CreatorGiftUncheckedUpdateManyInput>
+    /**
+     * Filter which CreatorGifts to update
+     */
+    where?: CreatorGiftWhereInput
+  }
+
+  /**
+   * CreatorGift upsert
+   */
+  export type CreatorGiftUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorGift
+     */
+    select?: CreatorGiftSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorGiftInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CreatorGift to update in case it exists.
+     */
+    where: CreatorGiftWhereUniqueInput
+    /**
+     * In case the CreatorGift found by the `where` argument doesn't exist, create a new CreatorGift with this data.
+     */
+    create: XOR<CreatorGiftCreateInput, CreatorGiftUncheckedCreateInput>
+    /**
+     * In case the CreatorGift was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CreatorGiftUpdateInput, CreatorGiftUncheckedUpdateInput>
+  }
+
+  /**
+   * CreatorGift delete
+   */
+  export type CreatorGiftDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorGift
+     */
+    select?: CreatorGiftSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorGiftInclude<ExtArgs> | null
+    /**
+     * Filter which CreatorGift to delete.
+     */
+    where: CreatorGiftWhereUniqueInput
+  }
+
+  /**
+   * CreatorGift deleteMany
+   */
+  export type CreatorGiftDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CreatorGifts to delete
+     */
+    where?: CreatorGiftWhereInput
+  }
+
+  /**
+   * CreatorGift.stream
+   */
+  export type CreatorGift$streamArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stream
+     */
+    select?: StreamSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StreamInclude<ExtArgs> | null
+    where?: StreamWhereInput
+  }
+
+  /**
+   * CreatorGift without action
+   */
+  export type CreatorGiftDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreatorGift
+     */
+    select?: CreatorGiftSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreatorGiftInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PayoutRequest
+   */
+
+  export type AggregatePayoutRequest = {
+    _count: PayoutRequestCountAggregateOutputType | null
+    _avg: PayoutRequestAvgAggregateOutputType | null
+    _sum: PayoutRequestSumAggregateOutputType | null
+    _min: PayoutRequestMinAggregateOutputType | null
+    _max: PayoutRequestMaxAggregateOutputType | null
+  }
+
+  export type PayoutRequestAvgAggregateOutputType = {
+    amountCents: number | null
+  }
+
+  export type PayoutRequestSumAggregateOutputType = {
+    amountCents: number | null
+  }
+
+  export type PayoutRequestMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    amountCents: number | null
+    status: string | null
+    requestedAt: Date | null
+    processedAt: Date | null
+  }
+
+  export type PayoutRequestMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    amountCents: number | null
+    status: string | null
+    requestedAt: Date | null
+    processedAt: Date | null
+  }
+
+  export type PayoutRequestCountAggregateOutputType = {
+    id: number
+    userId: number
+    amountCents: number
+    status: number
+    requestedAt: number
+    processedAt: number
+    _all: number
+  }
+
+
+  export type PayoutRequestAvgAggregateInputType = {
+    amountCents?: true
+  }
+
+  export type PayoutRequestSumAggregateInputType = {
+    amountCents?: true
+  }
+
+  export type PayoutRequestMinAggregateInputType = {
+    id?: true
+    userId?: true
+    amountCents?: true
+    status?: true
+    requestedAt?: true
+    processedAt?: true
+  }
+
+  export type PayoutRequestMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    amountCents?: true
+    status?: true
+    requestedAt?: true
+    processedAt?: true
+  }
+
+  export type PayoutRequestCountAggregateInputType = {
+    id?: true
+    userId?: true
+    amountCents?: true
+    status?: true
+    requestedAt?: true
+    processedAt?: true
+    _all?: true
+  }
+
+  export type PayoutRequestAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PayoutRequest to aggregate.
+     */
+    where?: PayoutRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PayoutRequests to fetch.
+     */
+    orderBy?: PayoutRequestOrderByWithRelationInput | PayoutRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PayoutRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PayoutRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PayoutRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PayoutRequests
+    **/
+    _count?: true | PayoutRequestCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PayoutRequestAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PayoutRequestSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PayoutRequestMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PayoutRequestMaxAggregateInputType
+  }
+
+  export type GetPayoutRequestAggregateType<T extends PayoutRequestAggregateArgs> = {
+        [P in keyof T & keyof AggregatePayoutRequest]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePayoutRequest[P]>
+      : GetScalarType<T[P], AggregatePayoutRequest[P]>
+  }
+
+
+
+
+  export type PayoutRequestGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PayoutRequestWhereInput
+    orderBy?: PayoutRequestOrderByWithAggregationInput | PayoutRequestOrderByWithAggregationInput[]
+    by: PayoutRequestScalarFieldEnum[] | PayoutRequestScalarFieldEnum
+    having?: PayoutRequestScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PayoutRequestCountAggregateInputType | true
+    _avg?: PayoutRequestAvgAggregateInputType
+    _sum?: PayoutRequestSumAggregateInputType
+    _min?: PayoutRequestMinAggregateInputType
+    _max?: PayoutRequestMaxAggregateInputType
+  }
+
+  export type PayoutRequestGroupByOutputType = {
+    id: string
+    userId: string
+    amountCents: number
+    status: string
+    requestedAt: Date
+    processedAt: Date | null
+    _count: PayoutRequestCountAggregateOutputType | null
+    _avg: PayoutRequestAvgAggregateOutputType | null
+    _sum: PayoutRequestSumAggregateOutputType | null
+    _min: PayoutRequestMinAggregateOutputType | null
+    _max: PayoutRequestMaxAggregateOutputType | null
+  }
+
+  type GetPayoutRequestGroupByPayload<T extends PayoutRequestGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PayoutRequestGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PayoutRequestGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PayoutRequestGroupByOutputType[P]>
+            : GetScalarType<T[P], PayoutRequestGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PayoutRequestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    amountCents?: boolean
+    status?: boolean
+    requestedAt?: boolean
+    processedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["payoutRequest"]>
+
+  export type PayoutRequestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    amountCents?: boolean
+    status?: boolean
+    requestedAt?: boolean
+    processedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["payoutRequest"]>
+
+  export type PayoutRequestSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    amountCents?: boolean
+    status?: boolean
+    requestedAt?: boolean
+    processedAt?: boolean
+  }
+
+  export type PayoutRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PayoutRequestIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PayoutRequestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PayoutRequest"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      amountCents: number
+      status: string
+      requestedAt: Date
+      processedAt: Date | null
+    }, ExtArgs["result"]["payoutRequest"]>
+    composites: {}
+  }
+
+  type PayoutRequestGetPayload<S extends boolean | null | undefined | PayoutRequestDefaultArgs> = $Result.GetResult<Prisma.$PayoutRequestPayload, S>
+
+  type PayoutRequestCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PayoutRequestFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PayoutRequestCountAggregateInputType | true
+    }
+
+  export interface PayoutRequestDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PayoutRequest'], meta: { name: 'PayoutRequest' } }
+    /**
+     * Find zero or one PayoutRequest that matches the filter.
+     * @param {PayoutRequestFindUniqueArgs} args - Arguments to find a PayoutRequest
+     * @example
+     * // Get one PayoutRequest
+     * const payoutRequest = await prisma.payoutRequest.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PayoutRequestFindUniqueArgs>(args: SelectSubset<T, PayoutRequestFindUniqueArgs<ExtArgs>>): Prisma__PayoutRequestClient<$Result.GetResult<Prisma.$PayoutRequestPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PayoutRequest that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PayoutRequestFindUniqueOrThrowArgs} args - Arguments to find a PayoutRequest
+     * @example
+     * // Get one PayoutRequest
+     * const payoutRequest = await prisma.payoutRequest.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PayoutRequestFindUniqueOrThrowArgs>(args: SelectSubset<T, PayoutRequestFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PayoutRequestClient<$Result.GetResult<Prisma.$PayoutRequestPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PayoutRequest that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PayoutRequestFindFirstArgs} args - Arguments to find a PayoutRequest
+     * @example
+     * // Get one PayoutRequest
+     * const payoutRequest = await prisma.payoutRequest.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PayoutRequestFindFirstArgs>(args?: SelectSubset<T, PayoutRequestFindFirstArgs<ExtArgs>>): Prisma__PayoutRequestClient<$Result.GetResult<Prisma.$PayoutRequestPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PayoutRequest that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PayoutRequestFindFirstOrThrowArgs} args - Arguments to find a PayoutRequest
+     * @example
+     * // Get one PayoutRequest
+     * const payoutRequest = await prisma.payoutRequest.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PayoutRequestFindFirstOrThrowArgs>(args?: SelectSubset<T, PayoutRequestFindFirstOrThrowArgs<ExtArgs>>): Prisma__PayoutRequestClient<$Result.GetResult<Prisma.$PayoutRequestPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PayoutRequests that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PayoutRequestFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PayoutRequests
+     * const payoutRequests = await prisma.payoutRequest.findMany()
+     * 
+     * // Get first 10 PayoutRequests
+     * const payoutRequests = await prisma.payoutRequest.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const payoutRequestWithIdOnly = await prisma.payoutRequest.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PayoutRequestFindManyArgs>(args?: SelectSubset<T, PayoutRequestFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayoutRequestPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PayoutRequest.
+     * @param {PayoutRequestCreateArgs} args - Arguments to create a PayoutRequest.
+     * @example
+     * // Create one PayoutRequest
+     * const PayoutRequest = await prisma.payoutRequest.create({
+     *   data: {
+     *     // ... data to create a PayoutRequest
+     *   }
+     * })
+     * 
+     */
+    create<T extends PayoutRequestCreateArgs>(args: SelectSubset<T, PayoutRequestCreateArgs<ExtArgs>>): Prisma__PayoutRequestClient<$Result.GetResult<Prisma.$PayoutRequestPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PayoutRequests.
+     * @param {PayoutRequestCreateManyArgs} args - Arguments to create many PayoutRequests.
+     * @example
+     * // Create many PayoutRequests
+     * const payoutRequest = await prisma.payoutRequest.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PayoutRequestCreateManyArgs>(args?: SelectSubset<T, PayoutRequestCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PayoutRequests and returns the data saved in the database.
+     * @param {PayoutRequestCreateManyAndReturnArgs} args - Arguments to create many PayoutRequests.
+     * @example
+     * // Create many PayoutRequests
+     * const payoutRequest = await prisma.payoutRequest.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PayoutRequests and only return the `id`
+     * const payoutRequestWithIdOnly = await prisma.payoutRequest.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PayoutRequestCreateManyAndReturnArgs>(args?: SelectSubset<T, PayoutRequestCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayoutRequestPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PayoutRequest.
+     * @param {PayoutRequestDeleteArgs} args - Arguments to delete one PayoutRequest.
+     * @example
+     * // Delete one PayoutRequest
+     * const PayoutRequest = await prisma.payoutRequest.delete({
+     *   where: {
+     *     // ... filter to delete one PayoutRequest
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PayoutRequestDeleteArgs>(args: SelectSubset<T, PayoutRequestDeleteArgs<ExtArgs>>): Prisma__PayoutRequestClient<$Result.GetResult<Prisma.$PayoutRequestPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PayoutRequest.
+     * @param {PayoutRequestUpdateArgs} args - Arguments to update one PayoutRequest.
+     * @example
+     * // Update one PayoutRequest
+     * const payoutRequest = await prisma.payoutRequest.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PayoutRequestUpdateArgs>(args: SelectSubset<T, PayoutRequestUpdateArgs<ExtArgs>>): Prisma__PayoutRequestClient<$Result.GetResult<Prisma.$PayoutRequestPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PayoutRequests.
+     * @param {PayoutRequestDeleteManyArgs} args - Arguments to filter PayoutRequests to delete.
+     * @example
+     * // Delete a few PayoutRequests
+     * const { count } = await prisma.payoutRequest.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PayoutRequestDeleteManyArgs>(args?: SelectSubset<T, PayoutRequestDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PayoutRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PayoutRequestUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PayoutRequests
+     * const payoutRequest = await prisma.payoutRequest.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PayoutRequestUpdateManyArgs>(args: SelectSubset<T, PayoutRequestUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PayoutRequest.
+     * @param {PayoutRequestUpsertArgs} args - Arguments to update or create a PayoutRequest.
+     * @example
+     * // Update or create a PayoutRequest
+     * const payoutRequest = await prisma.payoutRequest.upsert({
+     *   create: {
+     *     // ... data to create a PayoutRequest
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PayoutRequest we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PayoutRequestUpsertArgs>(args: SelectSubset<T, PayoutRequestUpsertArgs<ExtArgs>>): Prisma__PayoutRequestClient<$Result.GetResult<Prisma.$PayoutRequestPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PayoutRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PayoutRequestCountArgs} args - Arguments to filter PayoutRequests to count.
+     * @example
+     * // Count the number of PayoutRequests
+     * const count = await prisma.payoutRequest.count({
+     *   where: {
+     *     // ... the filter for the PayoutRequests we want to count
+     *   }
+     * })
+    **/
+    count<T extends PayoutRequestCountArgs>(
+      args?: Subset<T, PayoutRequestCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PayoutRequestCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PayoutRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PayoutRequestAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PayoutRequestAggregateArgs>(args: Subset<T, PayoutRequestAggregateArgs>): Prisma.PrismaPromise<GetPayoutRequestAggregateType<T>>
+
+    /**
+     * Group by PayoutRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PayoutRequestGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PayoutRequestGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PayoutRequestGroupByArgs['orderBy'] }
+        : { orderBy?: PayoutRequestGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PayoutRequestGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPayoutRequestGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PayoutRequest model
+   */
+  readonly fields: PayoutRequestFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PayoutRequest.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PayoutRequestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PayoutRequest model
+   */ 
+  interface PayoutRequestFieldRefs {
+    readonly id: FieldRef<"PayoutRequest", 'String'>
+    readonly userId: FieldRef<"PayoutRequest", 'String'>
+    readonly amountCents: FieldRef<"PayoutRequest", 'Int'>
+    readonly status: FieldRef<"PayoutRequest", 'String'>
+    readonly requestedAt: FieldRef<"PayoutRequest", 'DateTime'>
+    readonly processedAt: FieldRef<"PayoutRequest", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PayoutRequest findUnique
+   */
+  export type PayoutRequestFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRequest
+     */
+    select?: PayoutRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PayoutRequest to fetch.
+     */
+    where: PayoutRequestWhereUniqueInput
+  }
+
+  /**
+   * PayoutRequest findUniqueOrThrow
+   */
+  export type PayoutRequestFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRequest
+     */
+    select?: PayoutRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PayoutRequest to fetch.
+     */
+    where: PayoutRequestWhereUniqueInput
+  }
+
+  /**
+   * PayoutRequest findFirst
+   */
+  export type PayoutRequestFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRequest
+     */
+    select?: PayoutRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PayoutRequest to fetch.
+     */
+    where?: PayoutRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PayoutRequests to fetch.
+     */
+    orderBy?: PayoutRequestOrderByWithRelationInput | PayoutRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PayoutRequests.
+     */
+    cursor?: PayoutRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PayoutRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PayoutRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PayoutRequests.
+     */
+    distinct?: PayoutRequestScalarFieldEnum | PayoutRequestScalarFieldEnum[]
+  }
+
+  /**
+   * PayoutRequest findFirstOrThrow
+   */
+  export type PayoutRequestFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRequest
+     */
+    select?: PayoutRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PayoutRequest to fetch.
+     */
+    where?: PayoutRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PayoutRequests to fetch.
+     */
+    orderBy?: PayoutRequestOrderByWithRelationInput | PayoutRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PayoutRequests.
+     */
+    cursor?: PayoutRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PayoutRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PayoutRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PayoutRequests.
+     */
+    distinct?: PayoutRequestScalarFieldEnum | PayoutRequestScalarFieldEnum[]
+  }
+
+  /**
+   * PayoutRequest findMany
+   */
+  export type PayoutRequestFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRequest
+     */
+    select?: PayoutRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PayoutRequests to fetch.
+     */
+    where?: PayoutRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PayoutRequests to fetch.
+     */
+    orderBy?: PayoutRequestOrderByWithRelationInput | PayoutRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PayoutRequests.
+     */
+    cursor?: PayoutRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PayoutRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PayoutRequests.
+     */
+    skip?: number
+    distinct?: PayoutRequestScalarFieldEnum | PayoutRequestScalarFieldEnum[]
+  }
+
+  /**
+   * PayoutRequest create
+   */
+  export type PayoutRequestCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRequest
+     */
+    select?: PayoutRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PayoutRequest.
+     */
+    data: XOR<PayoutRequestCreateInput, PayoutRequestUncheckedCreateInput>
+  }
+
+  /**
+   * PayoutRequest createMany
+   */
+  export type PayoutRequestCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PayoutRequests.
+     */
+    data: PayoutRequestCreateManyInput | PayoutRequestCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PayoutRequest createManyAndReturn
+   */
+  export type PayoutRequestCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRequest
+     */
+    select?: PayoutRequestSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PayoutRequests.
+     */
+    data: PayoutRequestCreateManyInput | PayoutRequestCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRequestIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PayoutRequest update
+   */
+  export type PayoutRequestUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRequest
+     */
+    select?: PayoutRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PayoutRequest.
+     */
+    data: XOR<PayoutRequestUpdateInput, PayoutRequestUncheckedUpdateInput>
+    /**
+     * Choose, which PayoutRequest to update.
+     */
+    where: PayoutRequestWhereUniqueInput
+  }
+
+  /**
+   * PayoutRequest updateMany
+   */
+  export type PayoutRequestUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PayoutRequests.
+     */
+    data: XOR<PayoutRequestUpdateManyMutationInput, PayoutRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which PayoutRequests to update
+     */
+    where?: PayoutRequestWhereInput
+  }
+
+  /**
+   * PayoutRequest upsert
+   */
+  export type PayoutRequestUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRequest
+     */
+    select?: PayoutRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRequestInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PayoutRequest to update in case it exists.
+     */
+    where: PayoutRequestWhereUniqueInput
+    /**
+     * In case the PayoutRequest found by the `where` argument doesn't exist, create a new PayoutRequest with this data.
+     */
+    create: XOR<PayoutRequestCreateInput, PayoutRequestUncheckedCreateInput>
+    /**
+     * In case the PayoutRequest was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PayoutRequestUpdateInput, PayoutRequestUncheckedUpdateInput>
+  }
+
+  /**
+   * PayoutRequest delete
+   */
+  export type PayoutRequestDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRequest
+     */
+    select?: PayoutRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRequestInclude<ExtArgs> | null
+    /**
+     * Filter which PayoutRequest to delete.
+     */
+    where: PayoutRequestWhereUniqueInput
+  }
+
+  /**
+   * PayoutRequest deleteMany
+   */
+  export type PayoutRequestDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PayoutRequests to delete
+     */
+    where?: PayoutRequestWhereInput
+  }
+
+  /**
+   * PayoutRequest without action
+   */
+  export type PayoutRequestDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayoutRequest
+     */
+    select?: PayoutRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayoutRequestInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model MediaAsset
    */
 
@@ -20559,6 +29433,98 @@ export namespace Prisma {
   export type StreamAnalyticScalarFieldEnum = (typeof StreamAnalyticScalarFieldEnum)[keyof typeof StreamAnalyticScalarFieldEnum]
 
 
+  export const SocialFollowScalarFieldEnum: {
+    id: 'id',
+    followerId: 'followerId',
+    followeeId: 'followeeId',
+    createdAt: 'createdAt'
+  };
+
+  export type SocialFollowScalarFieldEnum = (typeof SocialFollowScalarFieldEnum)[keyof typeof SocialFollowScalarFieldEnum]
+
+
+  export const StreamCommentScalarFieldEnum: {
+    id: 'id',
+    streamId: 'streamId',
+    userId: 'userId',
+    content: 'content',
+    createdAt: 'createdAt'
+  };
+
+  export type StreamCommentScalarFieldEnum = (typeof StreamCommentScalarFieldEnum)[keyof typeof StreamCommentScalarFieldEnum]
+
+
+  export const StreamReactionScalarFieldEnum: {
+    id: 'id',
+    streamId: 'streamId',
+    userId: 'userId',
+    type: 'type',
+    createdAt: 'createdAt'
+  };
+
+  export type StreamReactionScalarFieldEnum = (typeof StreamReactionScalarFieldEnum)[keyof typeof StreamReactionScalarFieldEnum]
+
+
+  export const LiveChatMessageScalarFieldEnum: {
+    id: 'id',
+    streamId: 'streamId',
+    userId: 'userId',
+    body: 'body',
+    createdAt: 'createdAt'
+  };
+
+  export type LiveChatMessageScalarFieldEnum = (typeof LiveChatMessageScalarFieldEnum)[keyof typeof LiveChatMessageScalarFieldEnum]
+
+
+  export const CreatorWalletScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    balanceCents: 'balanceCents',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CreatorWalletScalarFieldEnum = (typeof CreatorWalletScalarFieldEnum)[keyof typeof CreatorWalletScalarFieldEnum]
+
+
+  export const WalletLedgerEntryScalarFieldEnum: {
+    id: 'id',
+    walletId: 'walletId',
+    type: 'type',
+    amountCents: 'amountCents',
+    balanceAfter: 'balanceAfter',
+    metadata: 'metadata',
+    createdAt: 'createdAt'
+  };
+
+  export type WalletLedgerEntryScalarFieldEnum = (typeof WalletLedgerEntryScalarFieldEnum)[keyof typeof WalletLedgerEntryScalarFieldEnum]
+
+
+  export const CreatorGiftScalarFieldEnum: {
+    id: 'id',
+    streamId: 'streamId',
+    senderId: 'senderId',
+    receiverId: 'receiverId',
+    coinAmount: 'coinAmount',
+    giftType: 'giftType',
+    createdAt: 'createdAt'
+  };
+
+  export type CreatorGiftScalarFieldEnum = (typeof CreatorGiftScalarFieldEnum)[keyof typeof CreatorGiftScalarFieldEnum]
+
+
+  export const PayoutRequestScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    amountCents: 'amountCents',
+    status: 'status',
+    requestedAt: 'requestedAt',
+    processedAt: 'processedAt'
+  };
+
+  export type PayoutRequestScalarFieldEnum = (typeof PayoutRequestScalarFieldEnum)[keyof typeof PayoutRequestScalarFieldEnum]
+
+
   export const MediaAssetScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -20891,6 +29857,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'WalletTxType'
+   */
+  export type EnumWalletTxTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WalletTxType'>
+    
+
+
+  /**
+   * Reference to a field of type 'WalletTxType[]'
+   */
+  export type ListEnumWalletTxTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WalletTxType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'ProjectStatus'
    */
   export type EnumProjectStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectStatus'>
@@ -20959,6 +29939,15 @@ export namespace Prisma {
     projects?: ProjectListRelationFilter
     mediaAssets?: MediaAssetListRelationFilter
     auditLogs?: AuditLogListRelationFilter
+    socialFollowing?: SocialFollowListRelationFilter
+    socialFollowers?: SocialFollowListRelationFilter
+    streamComments?: StreamCommentListRelationFilter
+    streamReactions?: StreamReactionListRelationFilter
+    liveChatMessages?: LiveChatMessageListRelationFilter
+    creatorWallet?: XOR<CreatorWalletNullableRelationFilter, CreatorWalletWhereInput> | null
+    giftsSent?: CreatorGiftListRelationFilter
+    giftsReceived?: CreatorGiftListRelationFilter
+    payoutRequests?: PayoutRequestListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -20982,6 +29971,15 @@ export namespace Prisma {
     projects?: ProjectOrderByRelationAggregateInput
     mediaAssets?: MediaAssetOrderByRelationAggregateInput
     auditLogs?: AuditLogOrderByRelationAggregateInput
+    socialFollowing?: SocialFollowOrderByRelationAggregateInput
+    socialFollowers?: SocialFollowOrderByRelationAggregateInput
+    streamComments?: StreamCommentOrderByRelationAggregateInput
+    streamReactions?: StreamReactionOrderByRelationAggregateInput
+    liveChatMessages?: LiveChatMessageOrderByRelationAggregateInput
+    creatorWallet?: CreatorWalletOrderByWithRelationInput
+    giftsSent?: CreatorGiftOrderByRelationAggregateInput
+    giftsReceived?: CreatorGiftOrderByRelationAggregateInput
+    payoutRequests?: PayoutRequestOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -21008,6 +30006,15 @@ export namespace Prisma {
     projects?: ProjectListRelationFilter
     mediaAssets?: MediaAssetListRelationFilter
     auditLogs?: AuditLogListRelationFilter
+    socialFollowing?: SocialFollowListRelationFilter
+    socialFollowers?: SocialFollowListRelationFilter
+    streamComments?: StreamCommentListRelationFilter
+    streamReactions?: StreamReactionListRelationFilter
+    liveChatMessages?: LiveChatMessageListRelationFilter
+    creatorWallet?: XOR<CreatorWalletNullableRelationFilter, CreatorWalletWhereInput> | null
+    giftsSent?: CreatorGiftListRelationFilter
+    giftsReceived?: CreatorGiftListRelationFilter
+    payoutRequests?: PayoutRequestListRelationFilter
   }, "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -21370,6 +30377,10 @@ export namespace Prisma {
     scenes?: SceneListRelationFilter
     recording?: XOR<RecordingNullableRelationFilter, RecordingWhereInput> | null
     analytics?: StreamAnalyticListRelationFilter
+    comments?: StreamCommentListRelationFilter
+    reactions?: StreamReactionListRelationFilter
+    chatMessages?: LiveChatMessageListRelationFilter
+    gifts?: CreatorGiftListRelationFilter
   }
 
   export type StreamOrderByWithRelationInput = {
@@ -21392,6 +30403,10 @@ export namespace Prisma {
     scenes?: SceneOrderByRelationAggregateInput
     recording?: RecordingOrderByWithRelationInput
     analytics?: StreamAnalyticOrderByRelationAggregateInput
+    comments?: StreamCommentOrderByRelationAggregateInput
+    reactions?: StreamReactionOrderByRelationAggregateInput
+    chatMessages?: LiveChatMessageOrderByRelationAggregateInput
+    gifts?: CreatorGiftOrderByRelationAggregateInput
   }
 
   export type StreamWhereUniqueInput = Prisma.AtLeast<{
@@ -21417,6 +30432,10 @@ export namespace Prisma {
     scenes?: SceneListRelationFilter
     recording?: XOR<RecordingNullableRelationFilter, RecordingWhereInput> | null
     analytics?: StreamAnalyticListRelationFilter
+    comments?: StreamCommentListRelationFilter
+    reactions?: StreamReactionListRelationFilter
+    chatMessages?: LiveChatMessageListRelationFilter
+    gifts?: CreatorGiftListRelationFilter
   }, "id" | "streamKey">
 
   export type StreamOrderByWithAggregationInput = {
@@ -21887,6 +30906,496 @@ export namespace Prisma {
     bitrate?: IntNullableWithAggregatesFilter<"StreamAnalytic"> | number | null
     droppedFrames?: IntNullableWithAggregatesFilter<"StreamAnalytic"> | number | null
     latencyMs?: IntNullableWithAggregatesFilter<"StreamAnalytic"> | number | null
+  }
+
+  export type SocialFollowWhereInput = {
+    AND?: SocialFollowWhereInput | SocialFollowWhereInput[]
+    OR?: SocialFollowWhereInput[]
+    NOT?: SocialFollowWhereInput | SocialFollowWhereInput[]
+    id?: StringFilter<"SocialFollow"> | string
+    followerId?: StringFilter<"SocialFollow"> | string
+    followeeId?: StringFilter<"SocialFollow"> | string
+    createdAt?: DateTimeFilter<"SocialFollow"> | Date | string
+    follower?: XOR<UserRelationFilter, UserWhereInput>
+    followee?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type SocialFollowOrderByWithRelationInput = {
+    id?: SortOrder
+    followerId?: SortOrder
+    followeeId?: SortOrder
+    createdAt?: SortOrder
+    follower?: UserOrderByWithRelationInput
+    followee?: UserOrderByWithRelationInput
+  }
+
+  export type SocialFollowWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    followerId_followeeId?: SocialFollowFollowerIdFolloweeIdCompoundUniqueInput
+    AND?: SocialFollowWhereInput | SocialFollowWhereInput[]
+    OR?: SocialFollowWhereInput[]
+    NOT?: SocialFollowWhereInput | SocialFollowWhereInput[]
+    followerId?: StringFilter<"SocialFollow"> | string
+    followeeId?: StringFilter<"SocialFollow"> | string
+    createdAt?: DateTimeFilter<"SocialFollow"> | Date | string
+    follower?: XOR<UserRelationFilter, UserWhereInput>
+    followee?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "followerId_followeeId">
+
+  export type SocialFollowOrderByWithAggregationInput = {
+    id?: SortOrder
+    followerId?: SortOrder
+    followeeId?: SortOrder
+    createdAt?: SortOrder
+    _count?: SocialFollowCountOrderByAggregateInput
+    _max?: SocialFollowMaxOrderByAggregateInput
+    _min?: SocialFollowMinOrderByAggregateInput
+  }
+
+  export type SocialFollowScalarWhereWithAggregatesInput = {
+    AND?: SocialFollowScalarWhereWithAggregatesInput | SocialFollowScalarWhereWithAggregatesInput[]
+    OR?: SocialFollowScalarWhereWithAggregatesInput[]
+    NOT?: SocialFollowScalarWhereWithAggregatesInput | SocialFollowScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SocialFollow"> | string
+    followerId?: StringWithAggregatesFilter<"SocialFollow"> | string
+    followeeId?: StringWithAggregatesFilter<"SocialFollow"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SocialFollow"> | Date | string
+  }
+
+  export type StreamCommentWhereInput = {
+    AND?: StreamCommentWhereInput | StreamCommentWhereInput[]
+    OR?: StreamCommentWhereInput[]
+    NOT?: StreamCommentWhereInput | StreamCommentWhereInput[]
+    id?: StringFilter<"StreamComment"> | string
+    streamId?: StringFilter<"StreamComment"> | string
+    userId?: StringFilter<"StreamComment"> | string
+    content?: StringFilter<"StreamComment"> | string
+    createdAt?: DateTimeFilter<"StreamComment"> | Date | string
+    stream?: XOR<StreamRelationFilter, StreamWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type StreamCommentOrderByWithRelationInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    stream?: StreamOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type StreamCommentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: StreamCommentWhereInput | StreamCommentWhereInput[]
+    OR?: StreamCommentWhereInput[]
+    NOT?: StreamCommentWhereInput | StreamCommentWhereInput[]
+    streamId?: StringFilter<"StreamComment"> | string
+    userId?: StringFilter<"StreamComment"> | string
+    content?: StringFilter<"StreamComment"> | string
+    createdAt?: DateTimeFilter<"StreamComment"> | Date | string
+    stream?: XOR<StreamRelationFilter, StreamWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type StreamCommentOrderByWithAggregationInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    _count?: StreamCommentCountOrderByAggregateInput
+    _max?: StreamCommentMaxOrderByAggregateInput
+    _min?: StreamCommentMinOrderByAggregateInput
+  }
+
+  export type StreamCommentScalarWhereWithAggregatesInput = {
+    AND?: StreamCommentScalarWhereWithAggregatesInput | StreamCommentScalarWhereWithAggregatesInput[]
+    OR?: StreamCommentScalarWhereWithAggregatesInput[]
+    NOT?: StreamCommentScalarWhereWithAggregatesInput | StreamCommentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StreamComment"> | string
+    streamId?: StringWithAggregatesFilter<"StreamComment"> | string
+    userId?: StringWithAggregatesFilter<"StreamComment"> | string
+    content?: StringWithAggregatesFilter<"StreamComment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"StreamComment"> | Date | string
+  }
+
+  export type StreamReactionWhereInput = {
+    AND?: StreamReactionWhereInput | StreamReactionWhereInput[]
+    OR?: StreamReactionWhereInput[]
+    NOT?: StreamReactionWhereInput | StreamReactionWhereInput[]
+    id?: StringFilter<"StreamReaction"> | string
+    streamId?: StringFilter<"StreamReaction"> | string
+    userId?: StringFilter<"StreamReaction"> | string
+    type?: StringFilter<"StreamReaction"> | string
+    createdAt?: DateTimeFilter<"StreamReaction"> | Date | string
+    stream?: XOR<StreamRelationFilter, StreamWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type StreamReactionOrderByWithRelationInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+    stream?: StreamOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type StreamReactionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: StreamReactionWhereInput | StreamReactionWhereInput[]
+    OR?: StreamReactionWhereInput[]
+    NOT?: StreamReactionWhereInput | StreamReactionWhereInput[]
+    streamId?: StringFilter<"StreamReaction"> | string
+    userId?: StringFilter<"StreamReaction"> | string
+    type?: StringFilter<"StreamReaction"> | string
+    createdAt?: DateTimeFilter<"StreamReaction"> | Date | string
+    stream?: XOR<StreamRelationFilter, StreamWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type StreamReactionOrderByWithAggregationInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+    _count?: StreamReactionCountOrderByAggregateInput
+    _max?: StreamReactionMaxOrderByAggregateInput
+    _min?: StreamReactionMinOrderByAggregateInput
+  }
+
+  export type StreamReactionScalarWhereWithAggregatesInput = {
+    AND?: StreamReactionScalarWhereWithAggregatesInput | StreamReactionScalarWhereWithAggregatesInput[]
+    OR?: StreamReactionScalarWhereWithAggregatesInput[]
+    NOT?: StreamReactionScalarWhereWithAggregatesInput | StreamReactionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StreamReaction"> | string
+    streamId?: StringWithAggregatesFilter<"StreamReaction"> | string
+    userId?: StringWithAggregatesFilter<"StreamReaction"> | string
+    type?: StringWithAggregatesFilter<"StreamReaction"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"StreamReaction"> | Date | string
+  }
+
+  export type LiveChatMessageWhereInput = {
+    AND?: LiveChatMessageWhereInput | LiveChatMessageWhereInput[]
+    OR?: LiveChatMessageWhereInput[]
+    NOT?: LiveChatMessageWhereInput | LiveChatMessageWhereInput[]
+    id?: StringFilter<"LiveChatMessage"> | string
+    streamId?: StringFilter<"LiveChatMessage"> | string
+    userId?: StringFilter<"LiveChatMessage"> | string
+    body?: StringFilter<"LiveChatMessage"> | string
+    createdAt?: DateTimeFilter<"LiveChatMessage"> | Date | string
+    stream?: XOR<StreamRelationFilter, StreamWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type LiveChatMessageOrderByWithRelationInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    body?: SortOrder
+    createdAt?: SortOrder
+    stream?: StreamOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type LiveChatMessageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LiveChatMessageWhereInput | LiveChatMessageWhereInput[]
+    OR?: LiveChatMessageWhereInput[]
+    NOT?: LiveChatMessageWhereInput | LiveChatMessageWhereInput[]
+    streamId?: StringFilter<"LiveChatMessage"> | string
+    userId?: StringFilter<"LiveChatMessage"> | string
+    body?: StringFilter<"LiveChatMessage"> | string
+    createdAt?: DateTimeFilter<"LiveChatMessage"> | Date | string
+    stream?: XOR<StreamRelationFilter, StreamWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type LiveChatMessageOrderByWithAggregationInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    body?: SortOrder
+    createdAt?: SortOrder
+    _count?: LiveChatMessageCountOrderByAggregateInput
+    _max?: LiveChatMessageMaxOrderByAggregateInput
+    _min?: LiveChatMessageMinOrderByAggregateInput
+  }
+
+  export type LiveChatMessageScalarWhereWithAggregatesInput = {
+    AND?: LiveChatMessageScalarWhereWithAggregatesInput | LiveChatMessageScalarWhereWithAggregatesInput[]
+    OR?: LiveChatMessageScalarWhereWithAggregatesInput[]
+    NOT?: LiveChatMessageScalarWhereWithAggregatesInput | LiveChatMessageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LiveChatMessage"> | string
+    streamId?: StringWithAggregatesFilter<"LiveChatMessage"> | string
+    userId?: StringWithAggregatesFilter<"LiveChatMessage"> | string
+    body?: StringWithAggregatesFilter<"LiveChatMessage"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"LiveChatMessage"> | Date | string
+  }
+
+  export type CreatorWalletWhereInput = {
+    AND?: CreatorWalletWhereInput | CreatorWalletWhereInput[]
+    OR?: CreatorWalletWhereInput[]
+    NOT?: CreatorWalletWhereInput | CreatorWalletWhereInput[]
+    id?: StringFilter<"CreatorWallet"> | string
+    userId?: StringFilter<"CreatorWallet"> | string
+    balanceCents?: IntFilter<"CreatorWallet"> | number
+    createdAt?: DateTimeFilter<"CreatorWallet"> | Date | string
+    updatedAt?: DateTimeFilter<"CreatorWallet"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    ledger?: WalletLedgerEntryListRelationFilter
+  }
+
+  export type CreatorWalletOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    balanceCents?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    ledger?: WalletLedgerEntryOrderByRelationAggregateInput
+  }
+
+  export type CreatorWalletWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: CreatorWalletWhereInput | CreatorWalletWhereInput[]
+    OR?: CreatorWalletWhereInput[]
+    NOT?: CreatorWalletWhereInput | CreatorWalletWhereInput[]
+    balanceCents?: IntFilter<"CreatorWallet"> | number
+    createdAt?: DateTimeFilter<"CreatorWallet"> | Date | string
+    updatedAt?: DateTimeFilter<"CreatorWallet"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    ledger?: WalletLedgerEntryListRelationFilter
+  }, "id" | "userId">
+
+  export type CreatorWalletOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    balanceCents?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CreatorWalletCountOrderByAggregateInput
+    _avg?: CreatorWalletAvgOrderByAggregateInput
+    _max?: CreatorWalletMaxOrderByAggregateInput
+    _min?: CreatorWalletMinOrderByAggregateInput
+    _sum?: CreatorWalletSumOrderByAggregateInput
+  }
+
+  export type CreatorWalletScalarWhereWithAggregatesInput = {
+    AND?: CreatorWalletScalarWhereWithAggregatesInput | CreatorWalletScalarWhereWithAggregatesInput[]
+    OR?: CreatorWalletScalarWhereWithAggregatesInput[]
+    NOT?: CreatorWalletScalarWhereWithAggregatesInput | CreatorWalletScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CreatorWallet"> | string
+    userId?: StringWithAggregatesFilter<"CreatorWallet"> | string
+    balanceCents?: IntWithAggregatesFilter<"CreatorWallet"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"CreatorWallet"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CreatorWallet"> | Date | string
+  }
+
+  export type WalletLedgerEntryWhereInput = {
+    AND?: WalletLedgerEntryWhereInput | WalletLedgerEntryWhereInput[]
+    OR?: WalletLedgerEntryWhereInput[]
+    NOT?: WalletLedgerEntryWhereInput | WalletLedgerEntryWhereInput[]
+    id?: StringFilter<"WalletLedgerEntry"> | string
+    walletId?: StringFilter<"WalletLedgerEntry"> | string
+    type?: EnumWalletTxTypeFilter<"WalletLedgerEntry"> | $Enums.WalletTxType
+    amountCents?: IntFilter<"WalletLedgerEntry"> | number
+    balanceAfter?: IntFilter<"WalletLedgerEntry"> | number
+    metadata?: JsonNullableFilter<"WalletLedgerEntry">
+    createdAt?: DateTimeFilter<"WalletLedgerEntry"> | Date | string
+    wallet?: XOR<CreatorWalletRelationFilter, CreatorWalletWhereInput>
+  }
+
+  export type WalletLedgerEntryOrderByWithRelationInput = {
+    id?: SortOrder
+    walletId?: SortOrder
+    type?: SortOrder
+    amountCents?: SortOrder
+    balanceAfter?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    wallet?: CreatorWalletOrderByWithRelationInput
+  }
+
+  export type WalletLedgerEntryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WalletLedgerEntryWhereInput | WalletLedgerEntryWhereInput[]
+    OR?: WalletLedgerEntryWhereInput[]
+    NOT?: WalletLedgerEntryWhereInput | WalletLedgerEntryWhereInput[]
+    walletId?: StringFilter<"WalletLedgerEntry"> | string
+    type?: EnumWalletTxTypeFilter<"WalletLedgerEntry"> | $Enums.WalletTxType
+    amountCents?: IntFilter<"WalletLedgerEntry"> | number
+    balanceAfter?: IntFilter<"WalletLedgerEntry"> | number
+    metadata?: JsonNullableFilter<"WalletLedgerEntry">
+    createdAt?: DateTimeFilter<"WalletLedgerEntry"> | Date | string
+    wallet?: XOR<CreatorWalletRelationFilter, CreatorWalletWhereInput>
+  }, "id">
+
+  export type WalletLedgerEntryOrderByWithAggregationInput = {
+    id?: SortOrder
+    walletId?: SortOrder
+    type?: SortOrder
+    amountCents?: SortOrder
+    balanceAfter?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: WalletLedgerEntryCountOrderByAggregateInput
+    _avg?: WalletLedgerEntryAvgOrderByAggregateInput
+    _max?: WalletLedgerEntryMaxOrderByAggregateInput
+    _min?: WalletLedgerEntryMinOrderByAggregateInput
+    _sum?: WalletLedgerEntrySumOrderByAggregateInput
+  }
+
+  export type WalletLedgerEntryScalarWhereWithAggregatesInput = {
+    AND?: WalletLedgerEntryScalarWhereWithAggregatesInput | WalletLedgerEntryScalarWhereWithAggregatesInput[]
+    OR?: WalletLedgerEntryScalarWhereWithAggregatesInput[]
+    NOT?: WalletLedgerEntryScalarWhereWithAggregatesInput | WalletLedgerEntryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WalletLedgerEntry"> | string
+    walletId?: StringWithAggregatesFilter<"WalletLedgerEntry"> | string
+    type?: EnumWalletTxTypeWithAggregatesFilter<"WalletLedgerEntry"> | $Enums.WalletTxType
+    amountCents?: IntWithAggregatesFilter<"WalletLedgerEntry"> | number
+    balanceAfter?: IntWithAggregatesFilter<"WalletLedgerEntry"> | number
+    metadata?: JsonNullableWithAggregatesFilter<"WalletLedgerEntry">
+    createdAt?: DateTimeWithAggregatesFilter<"WalletLedgerEntry"> | Date | string
+  }
+
+  export type CreatorGiftWhereInput = {
+    AND?: CreatorGiftWhereInput | CreatorGiftWhereInput[]
+    OR?: CreatorGiftWhereInput[]
+    NOT?: CreatorGiftWhereInput | CreatorGiftWhereInput[]
+    id?: StringFilter<"CreatorGift"> | string
+    streamId?: StringNullableFilter<"CreatorGift"> | string | null
+    senderId?: StringFilter<"CreatorGift"> | string
+    receiverId?: StringFilter<"CreatorGift"> | string
+    coinAmount?: IntFilter<"CreatorGift"> | number
+    giftType?: StringFilter<"CreatorGift"> | string
+    createdAt?: DateTimeFilter<"CreatorGift"> | Date | string
+    stream?: XOR<StreamNullableRelationFilter, StreamWhereInput> | null
+    sender?: XOR<UserRelationFilter, UserWhereInput>
+    receiver?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type CreatorGiftOrderByWithRelationInput = {
+    id?: SortOrder
+    streamId?: SortOrderInput | SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
+    coinAmount?: SortOrder
+    giftType?: SortOrder
+    createdAt?: SortOrder
+    stream?: StreamOrderByWithRelationInput
+    sender?: UserOrderByWithRelationInput
+    receiver?: UserOrderByWithRelationInput
+  }
+
+  export type CreatorGiftWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CreatorGiftWhereInput | CreatorGiftWhereInput[]
+    OR?: CreatorGiftWhereInput[]
+    NOT?: CreatorGiftWhereInput | CreatorGiftWhereInput[]
+    streamId?: StringNullableFilter<"CreatorGift"> | string | null
+    senderId?: StringFilter<"CreatorGift"> | string
+    receiverId?: StringFilter<"CreatorGift"> | string
+    coinAmount?: IntFilter<"CreatorGift"> | number
+    giftType?: StringFilter<"CreatorGift"> | string
+    createdAt?: DateTimeFilter<"CreatorGift"> | Date | string
+    stream?: XOR<StreamNullableRelationFilter, StreamWhereInput> | null
+    sender?: XOR<UserRelationFilter, UserWhereInput>
+    receiver?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type CreatorGiftOrderByWithAggregationInput = {
+    id?: SortOrder
+    streamId?: SortOrderInput | SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
+    coinAmount?: SortOrder
+    giftType?: SortOrder
+    createdAt?: SortOrder
+    _count?: CreatorGiftCountOrderByAggregateInput
+    _avg?: CreatorGiftAvgOrderByAggregateInput
+    _max?: CreatorGiftMaxOrderByAggregateInput
+    _min?: CreatorGiftMinOrderByAggregateInput
+    _sum?: CreatorGiftSumOrderByAggregateInput
+  }
+
+  export type CreatorGiftScalarWhereWithAggregatesInput = {
+    AND?: CreatorGiftScalarWhereWithAggregatesInput | CreatorGiftScalarWhereWithAggregatesInput[]
+    OR?: CreatorGiftScalarWhereWithAggregatesInput[]
+    NOT?: CreatorGiftScalarWhereWithAggregatesInput | CreatorGiftScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CreatorGift"> | string
+    streamId?: StringNullableWithAggregatesFilter<"CreatorGift"> | string | null
+    senderId?: StringWithAggregatesFilter<"CreatorGift"> | string
+    receiverId?: StringWithAggregatesFilter<"CreatorGift"> | string
+    coinAmount?: IntWithAggregatesFilter<"CreatorGift"> | number
+    giftType?: StringWithAggregatesFilter<"CreatorGift"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"CreatorGift"> | Date | string
+  }
+
+  export type PayoutRequestWhereInput = {
+    AND?: PayoutRequestWhereInput | PayoutRequestWhereInput[]
+    OR?: PayoutRequestWhereInput[]
+    NOT?: PayoutRequestWhereInput | PayoutRequestWhereInput[]
+    id?: StringFilter<"PayoutRequest"> | string
+    userId?: StringFilter<"PayoutRequest"> | string
+    amountCents?: IntFilter<"PayoutRequest"> | number
+    status?: StringFilter<"PayoutRequest"> | string
+    requestedAt?: DateTimeFilter<"PayoutRequest"> | Date | string
+    processedAt?: DateTimeNullableFilter<"PayoutRequest"> | Date | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type PayoutRequestOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amountCents?: SortOrder
+    status?: SortOrder
+    requestedAt?: SortOrder
+    processedAt?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type PayoutRequestWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PayoutRequestWhereInput | PayoutRequestWhereInput[]
+    OR?: PayoutRequestWhereInput[]
+    NOT?: PayoutRequestWhereInput | PayoutRequestWhereInput[]
+    userId?: StringFilter<"PayoutRequest"> | string
+    amountCents?: IntFilter<"PayoutRequest"> | number
+    status?: StringFilter<"PayoutRequest"> | string
+    requestedAt?: DateTimeFilter<"PayoutRequest"> | Date | string
+    processedAt?: DateTimeNullableFilter<"PayoutRequest"> | Date | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type PayoutRequestOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amountCents?: SortOrder
+    status?: SortOrder
+    requestedAt?: SortOrder
+    processedAt?: SortOrderInput | SortOrder
+    _count?: PayoutRequestCountOrderByAggregateInput
+    _avg?: PayoutRequestAvgOrderByAggregateInput
+    _max?: PayoutRequestMaxOrderByAggregateInput
+    _min?: PayoutRequestMinOrderByAggregateInput
+    _sum?: PayoutRequestSumOrderByAggregateInput
+  }
+
+  export type PayoutRequestScalarWhereWithAggregatesInput = {
+    AND?: PayoutRequestScalarWhereWithAggregatesInput | PayoutRequestScalarWhereWithAggregatesInput[]
+    OR?: PayoutRequestScalarWhereWithAggregatesInput[]
+    NOT?: PayoutRequestScalarWhereWithAggregatesInput | PayoutRequestScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PayoutRequest"> | string
+    userId?: StringWithAggregatesFilter<"PayoutRequest"> | string
+    amountCents?: IntWithAggregatesFilter<"PayoutRequest"> | number
+    status?: StringWithAggregatesFilter<"PayoutRequest"> | string
+    requestedAt?: DateTimeWithAggregatesFilter<"PayoutRequest"> | Date | string
+    processedAt?: DateTimeNullableWithAggregatesFilter<"PayoutRequest"> | Date | string | null
   }
 
   export type MediaAssetWhereInput = {
@@ -22404,6 +31913,15 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -22427,6 +31945,15 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -22450,6 +31977,15 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -22473,6 +32009,15 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -22868,6 +32413,10 @@ export namespace Prisma {
     scenes?: SceneCreateNestedManyWithoutStreamInput
     recording?: RecordingCreateNestedOneWithoutStreamInput
     analytics?: StreamAnalyticCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftCreateNestedManyWithoutStreamInput
   }
 
   export type StreamUncheckedCreateInput = {
@@ -22889,6 +32438,10 @@ export namespace Prisma {
     scenes?: SceneUncheckedCreateNestedManyWithoutStreamInput
     recording?: RecordingUncheckedCreateNestedOneWithoutStreamInput
     analytics?: StreamAnalyticUncheckedCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentUncheckedCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionUncheckedCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftUncheckedCreateNestedManyWithoutStreamInput
   }
 
   export type StreamUpdateInput = {
@@ -22910,6 +32463,10 @@ export namespace Prisma {
     scenes?: SceneUpdateManyWithoutStreamNestedInput
     recording?: RecordingUpdateOneWithoutStreamNestedInput
     analytics?: StreamAnalyticUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUpdateManyWithoutStreamNestedInput
   }
 
   export type StreamUncheckedUpdateInput = {
@@ -22931,6 +32488,10 @@ export namespace Prisma {
     scenes?: SceneUncheckedUpdateManyWithoutStreamNestedInput
     recording?: RecordingUncheckedUpdateOneWithoutStreamNestedInput
     analytics?: StreamAnalyticUncheckedUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUncheckedUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUncheckedUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUncheckedUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUncheckedUpdateManyWithoutStreamNestedInput
   }
 
   export type StreamCreateManyInput = {
@@ -23430,6 +32991,472 @@ export namespace Prisma {
     bitrate?: NullableIntFieldUpdateOperationsInput | number | null
     droppedFrames?: NullableIntFieldUpdateOperationsInput | number | null
     latencyMs?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type SocialFollowCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    follower: UserCreateNestedOneWithoutSocialFollowingInput
+    followee: UserCreateNestedOneWithoutSocialFollowersInput
+  }
+
+  export type SocialFollowUncheckedCreateInput = {
+    id?: string
+    followerId: string
+    followeeId: string
+    createdAt?: Date | string
+  }
+
+  export type SocialFollowUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    follower?: UserUpdateOneRequiredWithoutSocialFollowingNestedInput
+    followee?: UserUpdateOneRequiredWithoutSocialFollowersNestedInput
+  }
+
+  export type SocialFollowUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    followerId?: StringFieldUpdateOperationsInput | string
+    followeeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SocialFollowCreateManyInput = {
+    id?: string
+    followerId: string
+    followeeId: string
+    createdAt?: Date | string
+  }
+
+  export type SocialFollowUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SocialFollowUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    followerId?: StringFieldUpdateOperationsInput | string
+    followeeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StreamCommentCreateInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    stream: StreamCreateNestedOneWithoutCommentsInput
+    user: UserCreateNestedOneWithoutStreamCommentsInput
+  }
+
+  export type StreamCommentUncheckedCreateInput = {
+    id?: string
+    streamId: string
+    userId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type StreamCommentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stream?: StreamUpdateOneRequiredWithoutCommentsNestedInput
+    user?: UserUpdateOneRequiredWithoutStreamCommentsNestedInput
+  }
+
+  export type StreamCommentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StreamCommentCreateManyInput = {
+    id?: string
+    streamId: string
+    userId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type StreamCommentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StreamCommentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StreamReactionCreateInput = {
+    id?: string
+    type: string
+    createdAt?: Date | string
+    stream: StreamCreateNestedOneWithoutReactionsInput
+    user: UserCreateNestedOneWithoutStreamReactionsInput
+  }
+
+  export type StreamReactionUncheckedCreateInput = {
+    id?: string
+    streamId: string
+    userId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type StreamReactionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stream?: StreamUpdateOneRequiredWithoutReactionsNestedInput
+    user?: UserUpdateOneRequiredWithoutStreamReactionsNestedInput
+  }
+
+  export type StreamReactionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StreamReactionCreateManyInput = {
+    id?: string
+    streamId: string
+    userId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type StreamReactionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StreamReactionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LiveChatMessageCreateInput = {
+    id?: string
+    body: string
+    createdAt?: Date | string
+    stream: StreamCreateNestedOneWithoutChatMessagesInput
+    user: UserCreateNestedOneWithoutLiveChatMessagesInput
+  }
+
+  export type LiveChatMessageUncheckedCreateInput = {
+    id?: string
+    streamId: string
+    userId: string
+    body: string
+    createdAt?: Date | string
+  }
+
+  export type LiveChatMessageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stream?: StreamUpdateOneRequiredWithoutChatMessagesNestedInput
+    user?: UserUpdateOneRequiredWithoutLiveChatMessagesNestedInput
+  }
+
+  export type LiveChatMessageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LiveChatMessageCreateManyInput = {
+    id?: string
+    streamId: string
+    userId: string
+    body: string
+    createdAt?: Date | string
+  }
+
+  export type LiveChatMessageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LiveChatMessageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreatorWalletCreateInput = {
+    id?: string
+    balanceCents?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutCreatorWalletInput
+    ledger?: WalletLedgerEntryCreateNestedManyWithoutWalletInput
+  }
+
+  export type CreatorWalletUncheckedCreateInput = {
+    id?: string
+    userId: string
+    balanceCents?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ledger?: WalletLedgerEntryUncheckedCreateNestedManyWithoutWalletInput
+  }
+
+  export type CreatorWalletUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    balanceCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCreatorWalletNestedInput
+    ledger?: WalletLedgerEntryUpdateManyWithoutWalletNestedInput
+  }
+
+  export type CreatorWalletUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    balanceCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ledger?: WalletLedgerEntryUncheckedUpdateManyWithoutWalletNestedInput
+  }
+
+  export type CreatorWalletCreateManyInput = {
+    id?: string
+    userId: string
+    balanceCents?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CreatorWalletUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    balanceCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreatorWalletUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    balanceCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WalletLedgerEntryCreateInput = {
+    id?: string
+    type: $Enums.WalletTxType
+    amountCents: number
+    balanceAfter: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    wallet: CreatorWalletCreateNestedOneWithoutLedgerInput
+  }
+
+  export type WalletLedgerEntryUncheckedCreateInput = {
+    id?: string
+    walletId: string
+    type: $Enums.WalletTxType
+    amountCents: number
+    balanceAfter: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type WalletLedgerEntryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumWalletTxTypeFieldUpdateOperationsInput | $Enums.WalletTxType
+    amountCents?: IntFieldUpdateOperationsInput | number
+    balanceAfter?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallet?: CreatorWalletUpdateOneRequiredWithoutLedgerNestedInput
+  }
+
+  export type WalletLedgerEntryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    walletId?: StringFieldUpdateOperationsInput | string
+    type?: EnumWalletTxTypeFieldUpdateOperationsInput | $Enums.WalletTxType
+    amountCents?: IntFieldUpdateOperationsInput | number
+    balanceAfter?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WalletLedgerEntryCreateManyInput = {
+    id?: string
+    walletId: string
+    type: $Enums.WalletTxType
+    amountCents: number
+    balanceAfter: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type WalletLedgerEntryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumWalletTxTypeFieldUpdateOperationsInput | $Enums.WalletTxType
+    amountCents?: IntFieldUpdateOperationsInput | number
+    balanceAfter?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WalletLedgerEntryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    walletId?: StringFieldUpdateOperationsInput | string
+    type?: EnumWalletTxTypeFieldUpdateOperationsInput | $Enums.WalletTxType
+    amountCents?: IntFieldUpdateOperationsInput | number
+    balanceAfter?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreatorGiftCreateInput = {
+    id?: string
+    coinAmount: number
+    giftType: string
+    createdAt?: Date | string
+    stream?: StreamCreateNestedOneWithoutGiftsInput
+    sender: UserCreateNestedOneWithoutGiftsSentInput
+    receiver: UserCreateNestedOneWithoutGiftsReceivedInput
+  }
+
+  export type CreatorGiftUncheckedCreateInput = {
+    id?: string
+    streamId?: string | null
+    senderId: string
+    receiverId: string
+    coinAmount: number
+    giftType: string
+    createdAt?: Date | string
+  }
+
+  export type CreatorGiftUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coinAmount?: IntFieldUpdateOperationsInput | number
+    giftType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stream?: StreamUpdateOneWithoutGiftsNestedInput
+    sender?: UserUpdateOneRequiredWithoutGiftsSentNestedInput
+    receiver?: UserUpdateOneRequiredWithoutGiftsReceivedNestedInput
+  }
+
+  export type CreatorGiftUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: NullableStringFieldUpdateOperationsInput | string | null
+    senderId?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    coinAmount?: IntFieldUpdateOperationsInput | number
+    giftType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreatorGiftCreateManyInput = {
+    id?: string
+    streamId?: string | null
+    senderId: string
+    receiverId: string
+    coinAmount: number
+    giftType: string
+    createdAt?: Date | string
+  }
+
+  export type CreatorGiftUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coinAmount?: IntFieldUpdateOperationsInput | number
+    giftType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreatorGiftUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: NullableStringFieldUpdateOperationsInput | string | null
+    senderId?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    coinAmount?: IntFieldUpdateOperationsInput | number
+    giftType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PayoutRequestCreateInput = {
+    id?: string
+    amountCents: number
+    status?: string
+    requestedAt?: Date | string
+    processedAt?: Date | string | null
+    user: UserCreateNestedOneWithoutPayoutRequestsInput
+  }
+
+  export type PayoutRequestUncheckedCreateInput = {
+    id?: string
+    userId: string
+    amountCents: number
+    status?: string
+    requestedAt?: Date | string
+    processedAt?: Date | string | null
+  }
+
+  export type PayoutRequestUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amountCents?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    requestedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutPayoutRequestsNestedInput
+  }
+
+  export type PayoutRequestUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    amountCents?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    requestedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type PayoutRequestCreateManyInput = {
+    id?: string
+    userId: string
+    amountCents: number
+    status?: string
+    requestedAt?: Date | string
+    processedAt?: Date | string | null
+  }
+
+  export type PayoutRequestUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amountCents?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    requestedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type PayoutRequestUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    amountCents?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    requestedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MediaAssetCreateInput = {
@@ -24106,6 +34133,47 @@ export namespace Prisma {
     none?: AuditLogWhereInput
   }
 
+  export type SocialFollowListRelationFilter = {
+    every?: SocialFollowWhereInput
+    some?: SocialFollowWhereInput
+    none?: SocialFollowWhereInput
+  }
+
+  export type StreamCommentListRelationFilter = {
+    every?: StreamCommentWhereInput
+    some?: StreamCommentWhereInput
+    none?: StreamCommentWhereInput
+  }
+
+  export type StreamReactionListRelationFilter = {
+    every?: StreamReactionWhereInput
+    some?: StreamReactionWhereInput
+    none?: StreamReactionWhereInput
+  }
+
+  export type LiveChatMessageListRelationFilter = {
+    every?: LiveChatMessageWhereInput
+    some?: LiveChatMessageWhereInput
+    none?: LiveChatMessageWhereInput
+  }
+
+  export type CreatorWalletNullableRelationFilter = {
+    is?: CreatorWalletWhereInput | null
+    isNot?: CreatorWalletWhereInput | null
+  }
+
+  export type CreatorGiftListRelationFilter = {
+    every?: CreatorGiftWhereInput
+    some?: CreatorGiftWhereInput
+    none?: CreatorGiftWhereInput
+  }
+
+  export type PayoutRequestListRelationFilter = {
+    every?: PayoutRequestWhereInput
+    some?: PayoutRequestWhereInput
+    none?: PayoutRequestWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -24136,6 +34204,30 @@ export namespace Prisma {
   }
 
   export type AuditLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SocialFollowOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StreamCommentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StreamReactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LiveChatMessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CreatorGiftOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PayoutRequestOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -25060,15 +35152,151 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type BigIntFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  export type SocialFollowFollowerIdFolloweeIdCompoundUniqueInput = {
+    followerId: string
+    followeeId: string
+  }
+
+  export type SocialFollowCountOrderByAggregateInput = {
+    id?: SortOrder
+    followerId?: SortOrder
+    followeeId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SocialFollowMaxOrderByAggregateInput = {
+    id?: SortOrder
+    followerId?: SortOrder
+    followeeId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SocialFollowMinOrderByAggregateInput = {
+    id?: SortOrder
+    followerId?: SortOrder
+    followeeId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StreamCommentCountOrderByAggregateInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StreamCommentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StreamCommentMinOrderByAggregateInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StreamReactionCountOrderByAggregateInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StreamReactionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StreamReactionMinOrderByAggregateInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LiveChatMessageCountOrderByAggregateInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    body?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LiveChatMessageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    body?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LiveChatMessageMinOrderByAggregateInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    userId?: SortOrder
+    body?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type WalletLedgerEntryListRelationFilter = {
+    every?: WalletLedgerEntryWhereInput
+    some?: WalletLedgerEntryWhereInput
+    none?: WalletLedgerEntryWhereInput
+  }
+
+  export type WalletLedgerEntryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CreatorWalletCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    balanceCents?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CreatorWalletAvgOrderByAggregateInput = {
+    balanceCents?: SortOrder
+  }
+
+  export type CreatorWalletMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    balanceCents?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CreatorWalletMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    balanceCents?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CreatorWalletSumOrderByAggregateInput = {
+    balanceCents?: SortOrder
+  }
+
+  export type EnumWalletTxTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.WalletTxType | EnumWalletTxTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.WalletTxType[] | ListEnumWalletTxTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WalletTxType[] | ListEnumWalletTxTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumWalletTxTypeFilter<$PrismaModel> | $Enums.WalletTxType
   }
   export type JsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -25091,6 +35319,173 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type CreatorWalletRelationFilter = {
+    is?: CreatorWalletWhereInput
+    isNot?: CreatorWalletWhereInput
+  }
+
+  export type WalletLedgerEntryCountOrderByAggregateInput = {
+    id?: SortOrder
+    walletId?: SortOrder
+    type?: SortOrder
+    amountCents?: SortOrder
+    balanceAfter?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type WalletLedgerEntryAvgOrderByAggregateInput = {
+    amountCents?: SortOrder
+    balanceAfter?: SortOrder
+  }
+
+  export type WalletLedgerEntryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    walletId?: SortOrder
+    type?: SortOrder
+    amountCents?: SortOrder
+    balanceAfter?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type WalletLedgerEntryMinOrderByAggregateInput = {
+    id?: SortOrder
+    walletId?: SortOrder
+    type?: SortOrder
+    amountCents?: SortOrder
+    balanceAfter?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type WalletLedgerEntrySumOrderByAggregateInput = {
+    amountCents?: SortOrder
+    balanceAfter?: SortOrder
+  }
+
+  export type EnumWalletTxTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WalletTxType | EnumWalletTxTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.WalletTxType[] | ListEnumWalletTxTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WalletTxType[] | ListEnumWalletTxTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumWalletTxTypeWithAggregatesFilter<$PrismaModel> | $Enums.WalletTxType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWalletTxTypeFilter<$PrismaModel>
+    _max?: NestedEnumWalletTxTypeFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type StreamNullableRelationFilter = {
+    is?: StreamWhereInput | null
+    isNot?: StreamWhereInput | null
+  }
+
+  export type CreatorGiftCountOrderByAggregateInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
+    coinAmount?: SortOrder
+    giftType?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CreatorGiftAvgOrderByAggregateInput = {
+    coinAmount?: SortOrder
+  }
+
+  export type CreatorGiftMaxOrderByAggregateInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
+    coinAmount?: SortOrder
+    giftType?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CreatorGiftMinOrderByAggregateInput = {
+    id?: SortOrder
+    streamId?: SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
+    coinAmount?: SortOrder
+    giftType?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CreatorGiftSumOrderByAggregateInput = {
+    coinAmount?: SortOrder
+  }
+
+  export type PayoutRequestCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amountCents?: SortOrder
+    status?: SortOrder
+    requestedAt?: SortOrder
+    processedAt?: SortOrder
+  }
+
+  export type PayoutRequestAvgOrderByAggregateInput = {
+    amountCents?: SortOrder
+  }
+
+  export type PayoutRequestMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amountCents?: SortOrder
+    status?: SortOrder
+    requestedAt?: SortOrder
+    processedAt?: SortOrder
+  }
+
+  export type PayoutRequestMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amountCents?: SortOrder
+    status?: SortOrder
+    requestedAt?: SortOrder
+    processedAt?: SortOrder
+  }
+
+  export type PayoutRequestSumOrderByAggregateInput = {
+    amountCents?: SortOrder
+  }
+
+  export type BigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
   }
 
   export type MediaAssetCountOrderByAggregateInput = {
@@ -25167,31 +35562,6 @@ export namespace Prisma {
     _sum?: NestedBigIntFilter<$PrismaModel>
     _min?: NestedBigIntFilter<$PrismaModel>
     _max?: NestedBigIntFilter<$PrismaModel>
-  }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type EnumProjectStatusFilter<$PrismaModel = never> = {
@@ -25590,6 +35960,68 @@ export namespace Prisma {
     connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
   }
 
+  export type SocialFollowCreateNestedManyWithoutFollowerInput = {
+    create?: XOR<SocialFollowCreateWithoutFollowerInput, SocialFollowUncheckedCreateWithoutFollowerInput> | SocialFollowCreateWithoutFollowerInput[] | SocialFollowUncheckedCreateWithoutFollowerInput[]
+    connectOrCreate?: SocialFollowCreateOrConnectWithoutFollowerInput | SocialFollowCreateOrConnectWithoutFollowerInput[]
+    createMany?: SocialFollowCreateManyFollowerInputEnvelope
+    connect?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+  }
+
+  export type SocialFollowCreateNestedManyWithoutFolloweeInput = {
+    create?: XOR<SocialFollowCreateWithoutFolloweeInput, SocialFollowUncheckedCreateWithoutFolloweeInput> | SocialFollowCreateWithoutFolloweeInput[] | SocialFollowUncheckedCreateWithoutFolloweeInput[]
+    connectOrCreate?: SocialFollowCreateOrConnectWithoutFolloweeInput | SocialFollowCreateOrConnectWithoutFolloweeInput[]
+    createMany?: SocialFollowCreateManyFolloweeInputEnvelope
+    connect?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+  }
+
+  export type StreamCommentCreateNestedManyWithoutUserInput = {
+    create?: XOR<StreamCommentCreateWithoutUserInput, StreamCommentUncheckedCreateWithoutUserInput> | StreamCommentCreateWithoutUserInput[] | StreamCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StreamCommentCreateOrConnectWithoutUserInput | StreamCommentCreateOrConnectWithoutUserInput[]
+    createMany?: StreamCommentCreateManyUserInputEnvelope
+    connect?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+  }
+
+  export type StreamReactionCreateNestedManyWithoutUserInput = {
+    create?: XOR<StreamReactionCreateWithoutUserInput, StreamReactionUncheckedCreateWithoutUserInput> | StreamReactionCreateWithoutUserInput[] | StreamReactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StreamReactionCreateOrConnectWithoutUserInput | StreamReactionCreateOrConnectWithoutUserInput[]
+    createMany?: StreamReactionCreateManyUserInputEnvelope
+    connect?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+  }
+
+  export type LiveChatMessageCreateNestedManyWithoutUserInput = {
+    create?: XOR<LiveChatMessageCreateWithoutUserInput, LiveChatMessageUncheckedCreateWithoutUserInput> | LiveChatMessageCreateWithoutUserInput[] | LiveChatMessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LiveChatMessageCreateOrConnectWithoutUserInput | LiveChatMessageCreateOrConnectWithoutUserInput[]
+    createMany?: LiveChatMessageCreateManyUserInputEnvelope
+    connect?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+  }
+
+  export type CreatorWalletCreateNestedOneWithoutUserInput = {
+    create?: XOR<CreatorWalletCreateWithoutUserInput, CreatorWalletUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CreatorWalletCreateOrConnectWithoutUserInput
+    connect?: CreatorWalletWhereUniqueInput
+  }
+
+  export type CreatorGiftCreateNestedManyWithoutSenderInput = {
+    create?: XOR<CreatorGiftCreateWithoutSenderInput, CreatorGiftUncheckedCreateWithoutSenderInput> | CreatorGiftCreateWithoutSenderInput[] | CreatorGiftUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: CreatorGiftCreateOrConnectWithoutSenderInput | CreatorGiftCreateOrConnectWithoutSenderInput[]
+    createMany?: CreatorGiftCreateManySenderInputEnvelope
+    connect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+  }
+
+  export type CreatorGiftCreateNestedManyWithoutReceiverInput = {
+    create?: XOR<CreatorGiftCreateWithoutReceiverInput, CreatorGiftUncheckedCreateWithoutReceiverInput> | CreatorGiftCreateWithoutReceiverInput[] | CreatorGiftUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: CreatorGiftCreateOrConnectWithoutReceiverInput | CreatorGiftCreateOrConnectWithoutReceiverInput[]
+    createMany?: CreatorGiftCreateManyReceiverInputEnvelope
+    connect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+  }
+
+  export type PayoutRequestCreateNestedManyWithoutUserInput = {
+    create?: XOR<PayoutRequestCreateWithoutUserInput, PayoutRequestUncheckedCreateWithoutUserInput> | PayoutRequestCreateWithoutUserInput[] | PayoutRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PayoutRequestCreateOrConnectWithoutUserInput | PayoutRequestCreateOrConnectWithoutUserInput[]
+    createMany?: PayoutRequestCreateManyUserInputEnvelope
+    connect?: PayoutRequestWhereUniqueInput | PayoutRequestWhereUniqueInput[]
+  }
+
   export type OAuthAccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<OAuthAccountCreateWithoutUserInput, OAuthAccountUncheckedCreateWithoutUserInput> | OAuthAccountCreateWithoutUserInput[] | OAuthAccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: OAuthAccountCreateOrConnectWithoutUserInput | OAuthAccountCreateOrConnectWithoutUserInput[]
@@ -25643,6 +36075,68 @@ export namespace Prisma {
     connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
     createMany?: AuditLogCreateManyUserInputEnvelope
     connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+  }
+
+  export type SocialFollowUncheckedCreateNestedManyWithoutFollowerInput = {
+    create?: XOR<SocialFollowCreateWithoutFollowerInput, SocialFollowUncheckedCreateWithoutFollowerInput> | SocialFollowCreateWithoutFollowerInput[] | SocialFollowUncheckedCreateWithoutFollowerInput[]
+    connectOrCreate?: SocialFollowCreateOrConnectWithoutFollowerInput | SocialFollowCreateOrConnectWithoutFollowerInput[]
+    createMany?: SocialFollowCreateManyFollowerInputEnvelope
+    connect?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+  }
+
+  export type SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput = {
+    create?: XOR<SocialFollowCreateWithoutFolloweeInput, SocialFollowUncheckedCreateWithoutFolloweeInput> | SocialFollowCreateWithoutFolloweeInput[] | SocialFollowUncheckedCreateWithoutFolloweeInput[]
+    connectOrCreate?: SocialFollowCreateOrConnectWithoutFolloweeInput | SocialFollowCreateOrConnectWithoutFolloweeInput[]
+    createMany?: SocialFollowCreateManyFolloweeInputEnvelope
+    connect?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+  }
+
+  export type StreamCommentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<StreamCommentCreateWithoutUserInput, StreamCommentUncheckedCreateWithoutUserInput> | StreamCommentCreateWithoutUserInput[] | StreamCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StreamCommentCreateOrConnectWithoutUserInput | StreamCommentCreateOrConnectWithoutUserInput[]
+    createMany?: StreamCommentCreateManyUserInputEnvelope
+    connect?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+  }
+
+  export type StreamReactionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<StreamReactionCreateWithoutUserInput, StreamReactionUncheckedCreateWithoutUserInput> | StreamReactionCreateWithoutUserInput[] | StreamReactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StreamReactionCreateOrConnectWithoutUserInput | StreamReactionCreateOrConnectWithoutUserInput[]
+    createMany?: StreamReactionCreateManyUserInputEnvelope
+    connect?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+  }
+
+  export type LiveChatMessageUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<LiveChatMessageCreateWithoutUserInput, LiveChatMessageUncheckedCreateWithoutUserInput> | LiveChatMessageCreateWithoutUserInput[] | LiveChatMessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LiveChatMessageCreateOrConnectWithoutUserInput | LiveChatMessageCreateOrConnectWithoutUserInput[]
+    createMany?: LiveChatMessageCreateManyUserInputEnvelope
+    connect?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+  }
+
+  export type CreatorWalletUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<CreatorWalletCreateWithoutUserInput, CreatorWalletUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CreatorWalletCreateOrConnectWithoutUserInput
+    connect?: CreatorWalletWhereUniqueInput
+  }
+
+  export type CreatorGiftUncheckedCreateNestedManyWithoutSenderInput = {
+    create?: XOR<CreatorGiftCreateWithoutSenderInput, CreatorGiftUncheckedCreateWithoutSenderInput> | CreatorGiftCreateWithoutSenderInput[] | CreatorGiftUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: CreatorGiftCreateOrConnectWithoutSenderInput | CreatorGiftCreateOrConnectWithoutSenderInput[]
+    createMany?: CreatorGiftCreateManySenderInputEnvelope
+    connect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+  }
+
+  export type CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput = {
+    create?: XOR<CreatorGiftCreateWithoutReceiverInput, CreatorGiftUncheckedCreateWithoutReceiverInput> | CreatorGiftCreateWithoutReceiverInput[] | CreatorGiftUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: CreatorGiftCreateOrConnectWithoutReceiverInput | CreatorGiftCreateOrConnectWithoutReceiverInput[]
+    createMany?: CreatorGiftCreateManyReceiverInputEnvelope
+    connect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+  }
+
+  export type PayoutRequestUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PayoutRequestCreateWithoutUserInput, PayoutRequestUncheckedCreateWithoutUserInput> | PayoutRequestCreateWithoutUserInput[] | PayoutRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PayoutRequestCreateOrConnectWithoutUserInput | PayoutRequestCreateOrConnectWithoutUserInput[]
+    createMany?: PayoutRequestCreateManyUserInputEnvelope
+    connect?: PayoutRequestWhereUniqueInput | PayoutRequestWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -25773,6 +36267,128 @@ export namespace Prisma {
     deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
   }
 
+  export type SocialFollowUpdateManyWithoutFollowerNestedInput = {
+    create?: XOR<SocialFollowCreateWithoutFollowerInput, SocialFollowUncheckedCreateWithoutFollowerInput> | SocialFollowCreateWithoutFollowerInput[] | SocialFollowUncheckedCreateWithoutFollowerInput[]
+    connectOrCreate?: SocialFollowCreateOrConnectWithoutFollowerInput | SocialFollowCreateOrConnectWithoutFollowerInput[]
+    upsert?: SocialFollowUpsertWithWhereUniqueWithoutFollowerInput | SocialFollowUpsertWithWhereUniqueWithoutFollowerInput[]
+    createMany?: SocialFollowCreateManyFollowerInputEnvelope
+    set?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    disconnect?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    delete?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    connect?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    update?: SocialFollowUpdateWithWhereUniqueWithoutFollowerInput | SocialFollowUpdateWithWhereUniqueWithoutFollowerInput[]
+    updateMany?: SocialFollowUpdateManyWithWhereWithoutFollowerInput | SocialFollowUpdateManyWithWhereWithoutFollowerInput[]
+    deleteMany?: SocialFollowScalarWhereInput | SocialFollowScalarWhereInput[]
+  }
+
+  export type SocialFollowUpdateManyWithoutFolloweeNestedInput = {
+    create?: XOR<SocialFollowCreateWithoutFolloweeInput, SocialFollowUncheckedCreateWithoutFolloweeInput> | SocialFollowCreateWithoutFolloweeInput[] | SocialFollowUncheckedCreateWithoutFolloweeInput[]
+    connectOrCreate?: SocialFollowCreateOrConnectWithoutFolloweeInput | SocialFollowCreateOrConnectWithoutFolloweeInput[]
+    upsert?: SocialFollowUpsertWithWhereUniqueWithoutFolloweeInput | SocialFollowUpsertWithWhereUniqueWithoutFolloweeInput[]
+    createMany?: SocialFollowCreateManyFolloweeInputEnvelope
+    set?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    disconnect?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    delete?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    connect?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    update?: SocialFollowUpdateWithWhereUniqueWithoutFolloweeInput | SocialFollowUpdateWithWhereUniqueWithoutFolloweeInput[]
+    updateMany?: SocialFollowUpdateManyWithWhereWithoutFolloweeInput | SocialFollowUpdateManyWithWhereWithoutFolloweeInput[]
+    deleteMany?: SocialFollowScalarWhereInput | SocialFollowScalarWhereInput[]
+  }
+
+  export type StreamCommentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StreamCommentCreateWithoutUserInput, StreamCommentUncheckedCreateWithoutUserInput> | StreamCommentCreateWithoutUserInput[] | StreamCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StreamCommentCreateOrConnectWithoutUserInput | StreamCommentCreateOrConnectWithoutUserInput[]
+    upsert?: StreamCommentUpsertWithWhereUniqueWithoutUserInput | StreamCommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StreamCommentCreateManyUserInputEnvelope
+    set?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    disconnect?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    delete?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    connect?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    update?: StreamCommentUpdateWithWhereUniqueWithoutUserInput | StreamCommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StreamCommentUpdateManyWithWhereWithoutUserInput | StreamCommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StreamCommentScalarWhereInput | StreamCommentScalarWhereInput[]
+  }
+
+  export type StreamReactionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StreamReactionCreateWithoutUserInput, StreamReactionUncheckedCreateWithoutUserInput> | StreamReactionCreateWithoutUserInput[] | StreamReactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StreamReactionCreateOrConnectWithoutUserInput | StreamReactionCreateOrConnectWithoutUserInput[]
+    upsert?: StreamReactionUpsertWithWhereUniqueWithoutUserInput | StreamReactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StreamReactionCreateManyUserInputEnvelope
+    set?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    disconnect?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    delete?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    connect?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    update?: StreamReactionUpdateWithWhereUniqueWithoutUserInput | StreamReactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StreamReactionUpdateManyWithWhereWithoutUserInput | StreamReactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StreamReactionScalarWhereInput | StreamReactionScalarWhereInput[]
+  }
+
+  export type LiveChatMessageUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LiveChatMessageCreateWithoutUserInput, LiveChatMessageUncheckedCreateWithoutUserInput> | LiveChatMessageCreateWithoutUserInput[] | LiveChatMessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LiveChatMessageCreateOrConnectWithoutUserInput | LiveChatMessageCreateOrConnectWithoutUserInput[]
+    upsert?: LiveChatMessageUpsertWithWhereUniqueWithoutUserInput | LiveChatMessageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LiveChatMessageCreateManyUserInputEnvelope
+    set?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    disconnect?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    delete?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    connect?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    update?: LiveChatMessageUpdateWithWhereUniqueWithoutUserInput | LiveChatMessageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LiveChatMessageUpdateManyWithWhereWithoutUserInput | LiveChatMessageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LiveChatMessageScalarWhereInput | LiveChatMessageScalarWhereInput[]
+  }
+
+  export type CreatorWalletUpdateOneWithoutUserNestedInput = {
+    create?: XOR<CreatorWalletCreateWithoutUserInput, CreatorWalletUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CreatorWalletCreateOrConnectWithoutUserInput
+    upsert?: CreatorWalletUpsertWithoutUserInput
+    disconnect?: CreatorWalletWhereInput | boolean
+    delete?: CreatorWalletWhereInput | boolean
+    connect?: CreatorWalletWhereUniqueInput
+    update?: XOR<XOR<CreatorWalletUpdateToOneWithWhereWithoutUserInput, CreatorWalletUpdateWithoutUserInput>, CreatorWalletUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CreatorGiftUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<CreatorGiftCreateWithoutSenderInput, CreatorGiftUncheckedCreateWithoutSenderInput> | CreatorGiftCreateWithoutSenderInput[] | CreatorGiftUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: CreatorGiftCreateOrConnectWithoutSenderInput | CreatorGiftCreateOrConnectWithoutSenderInput[]
+    upsert?: CreatorGiftUpsertWithWhereUniqueWithoutSenderInput | CreatorGiftUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: CreatorGiftCreateManySenderInputEnvelope
+    set?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    disconnect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    delete?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    connect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    update?: CreatorGiftUpdateWithWhereUniqueWithoutSenderInput | CreatorGiftUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: CreatorGiftUpdateManyWithWhereWithoutSenderInput | CreatorGiftUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: CreatorGiftScalarWhereInput | CreatorGiftScalarWhereInput[]
+  }
+
+  export type CreatorGiftUpdateManyWithoutReceiverNestedInput = {
+    create?: XOR<CreatorGiftCreateWithoutReceiverInput, CreatorGiftUncheckedCreateWithoutReceiverInput> | CreatorGiftCreateWithoutReceiverInput[] | CreatorGiftUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: CreatorGiftCreateOrConnectWithoutReceiverInput | CreatorGiftCreateOrConnectWithoutReceiverInput[]
+    upsert?: CreatorGiftUpsertWithWhereUniqueWithoutReceiverInput | CreatorGiftUpsertWithWhereUniqueWithoutReceiverInput[]
+    createMany?: CreatorGiftCreateManyReceiverInputEnvelope
+    set?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    disconnect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    delete?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    connect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    update?: CreatorGiftUpdateWithWhereUniqueWithoutReceiverInput | CreatorGiftUpdateWithWhereUniqueWithoutReceiverInput[]
+    updateMany?: CreatorGiftUpdateManyWithWhereWithoutReceiverInput | CreatorGiftUpdateManyWithWhereWithoutReceiverInput[]
+    deleteMany?: CreatorGiftScalarWhereInput | CreatorGiftScalarWhereInput[]
+  }
+
+  export type PayoutRequestUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PayoutRequestCreateWithoutUserInput, PayoutRequestUncheckedCreateWithoutUserInput> | PayoutRequestCreateWithoutUserInput[] | PayoutRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PayoutRequestCreateOrConnectWithoutUserInput | PayoutRequestCreateOrConnectWithoutUserInput[]
+    upsert?: PayoutRequestUpsertWithWhereUniqueWithoutUserInput | PayoutRequestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PayoutRequestCreateManyUserInputEnvelope
+    set?: PayoutRequestWhereUniqueInput | PayoutRequestWhereUniqueInput[]
+    disconnect?: PayoutRequestWhereUniqueInput | PayoutRequestWhereUniqueInput[]
+    delete?: PayoutRequestWhereUniqueInput | PayoutRequestWhereUniqueInput[]
+    connect?: PayoutRequestWhereUniqueInput | PayoutRequestWhereUniqueInput[]
+    update?: PayoutRequestUpdateWithWhereUniqueWithoutUserInput | PayoutRequestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PayoutRequestUpdateManyWithWhereWithoutUserInput | PayoutRequestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PayoutRequestScalarWhereInput | PayoutRequestScalarWhereInput[]
+  }
+
   export type OAuthAccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<OAuthAccountCreateWithoutUserInput, OAuthAccountUncheckedCreateWithoutUserInput> | OAuthAccountCreateWithoutUserInput[] | OAuthAccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: OAuthAccountCreateOrConnectWithoutUserInput | OAuthAccountCreateOrConnectWithoutUserInput[]
@@ -25879,6 +36495,128 @@ export namespace Prisma {
     update?: AuditLogUpdateWithWhereUniqueWithoutUserInput | AuditLogUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AuditLogUpdateManyWithWhereWithoutUserInput | AuditLogUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+  }
+
+  export type SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput = {
+    create?: XOR<SocialFollowCreateWithoutFollowerInput, SocialFollowUncheckedCreateWithoutFollowerInput> | SocialFollowCreateWithoutFollowerInput[] | SocialFollowUncheckedCreateWithoutFollowerInput[]
+    connectOrCreate?: SocialFollowCreateOrConnectWithoutFollowerInput | SocialFollowCreateOrConnectWithoutFollowerInput[]
+    upsert?: SocialFollowUpsertWithWhereUniqueWithoutFollowerInput | SocialFollowUpsertWithWhereUniqueWithoutFollowerInput[]
+    createMany?: SocialFollowCreateManyFollowerInputEnvelope
+    set?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    disconnect?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    delete?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    connect?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    update?: SocialFollowUpdateWithWhereUniqueWithoutFollowerInput | SocialFollowUpdateWithWhereUniqueWithoutFollowerInput[]
+    updateMany?: SocialFollowUpdateManyWithWhereWithoutFollowerInput | SocialFollowUpdateManyWithWhereWithoutFollowerInput[]
+    deleteMany?: SocialFollowScalarWhereInput | SocialFollowScalarWhereInput[]
+  }
+
+  export type SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput = {
+    create?: XOR<SocialFollowCreateWithoutFolloweeInput, SocialFollowUncheckedCreateWithoutFolloweeInput> | SocialFollowCreateWithoutFolloweeInput[] | SocialFollowUncheckedCreateWithoutFolloweeInput[]
+    connectOrCreate?: SocialFollowCreateOrConnectWithoutFolloweeInput | SocialFollowCreateOrConnectWithoutFolloweeInput[]
+    upsert?: SocialFollowUpsertWithWhereUniqueWithoutFolloweeInput | SocialFollowUpsertWithWhereUniqueWithoutFolloweeInput[]
+    createMany?: SocialFollowCreateManyFolloweeInputEnvelope
+    set?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    disconnect?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    delete?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    connect?: SocialFollowWhereUniqueInput | SocialFollowWhereUniqueInput[]
+    update?: SocialFollowUpdateWithWhereUniqueWithoutFolloweeInput | SocialFollowUpdateWithWhereUniqueWithoutFolloweeInput[]
+    updateMany?: SocialFollowUpdateManyWithWhereWithoutFolloweeInput | SocialFollowUpdateManyWithWhereWithoutFolloweeInput[]
+    deleteMany?: SocialFollowScalarWhereInput | SocialFollowScalarWhereInput[]
+  }
+
+  export type StreamCommentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StreamCommentCreateWithoutUserInput, StreamCommentUncheckedCreateWithoutUserInput> | StreamCommentCreateWithoutUserInput[] | StreamCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StreamCommentCreateOrConnectWithoutUserInput | StreamCommentCreateOrConnectWithoutUserInput[]
+    upsert?: StreamCommentUpsertWithWhereUniqueWithoutUserInput | StreamCommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StreamCommentCreateManyUserInputEnvelope
+    set?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    disconnect?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    delete?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    connect?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    update?: StreamCommentUpdateWithWhereUniqueWithoutUserInput | StreamCommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StreamCommentUpdateManyWithWhereWithoutUserInput | StreamCommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StreamCommentScalarWhereInput | StreamCommentScalarWhereInput[]
+  }
+
+  export type StreamReactionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StreamReactionCreateWithoutUserInput, StreamReactionUncheckedCreateWithoutUserInput> | StreamReactionCreateWithoutUserInput[] | StreamReactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StreamReactionCreateOrConnectWithoutUserInput | StreamReactionCreateOrConnectWithoutUserInput[]
+    upsert?: StreamReactionUpsertWithWhereUniqueWithoutUserInput | StreamReactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StreamReactionCreateManyUserInputEnvelope
+    set?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    disconnect?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    delete?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    connect?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    update?: StreamReactionUpdateWithWhereUniqueWithoutUserInput | StreamReactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StreamReactionUpdateManyWithWhereWithoutUserInput | StreamReactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StreamReactionScalarWhereInput | StreamReactionScalarWhereInput[]
+  }
+
+  export type LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LiveChatMessageCreateWithoutUserInput, LiveChatMessageUncheckedCreateWithoutUserInput> | LiveChatMessageCreateWithoutUserInput[] | LiveChatMessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LiveChatMessageCreateOrConnectWithoutUserInput | LiveChatMessageCreateOrConnectWithoutUserInput[]
+    upsert?: LiveChatMessageUpsertWithWhereUniqueWithoutUserInput | LiveChatMessageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LiveChatMessageCreateManyUserInputEnvelope
+    set?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    disconnect?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    delete?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    connect?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    update?: LiveChatMessageUpdateWithWhereUniqueWithoutUserInput | LiveChatMessageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LiveChatMessageUpdateManyWithWhereWithoutUserInput | LiveChatMessageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LiveChatMessageScalarWhereInput | LiveChatMessageScalarWhereInput[]
+  }
+
+  export type CreatorWalletUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<CreatorWalletCreateWithoutUserInput, CreatorWalletUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CreatorWalletCreateOrConnectWithoutUserInput
+    upsert?: CreatorWalletUpsertWithoutUserInput
+    disconnect?: CreatorWalletWhereInput | boolean
+    delete?: CreatorWalletWhereInput | boolean
+    connect?: CreatorWalletWhereUniqueInput
+    update?: XOR<XOR<CreatorWalletUpdateToOneWithWhereWithoutUserInput, CreatorWalletUpdateWithoutUserInput>, CreatorWalletUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<CreatorGiftCreateWithoutSenderInput, CreatorGiftUncheckedCreateWithoutSenderInput> | CreatorGiftCreateWithoutSenderInput[] | CreatorGiftUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: CreatorGiftCreateOrConnectWithoutSenderInput | CreatorGiftCreateOrConnectWithoutSenderInput[]
+    upsert?: CreatorGiftUpsertWithWhereUniqueWithoutSenderInput | CreatorGiftUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: CreatorGiftCreateManySenderInputEnvelope
+    set?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    disconnect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    delete?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    connect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    update?: CreatorGiftUpdateWithWhereUniqueWithoutSenderInput | CreatorGiftUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: CreatorGiftUpdateManyWithWhereWithoutSenderInput | CreatorGiftUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: CreatorGiftScalarWhereInput | CreatorGiftScalarWhereInput[]
+  }
+
+  export type CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput = {
+    create?: XOR<CreatorGiftCreateWithoutReceiverInput, CreatorGiftUncheckedCreateWithoutReceiverInput> | CreatorGiftCreateWithoutReceiverInput[] | CreatorGiftUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: CreatorGiftCreateOrConnectWithoutReceiverInput | CreatorGiftCreateOrConnectWithoutReceiverInput[]
+    upsert?: CreatorGiftUpsertWithWhereUniqueWithoutReceiverInput | CreatorGiftUpsertWithWhereUniqueWithoutReceiverInput[]
+    createMany?: CreatorGiftCreateManyReceiverInputEnvelope
+    set?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    disconnect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    delete?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    connect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    update?: CreatorGiftUpdateWithWhereUniqueWithoutReceiverInput | CreatorGiftUpdateWithWhereUniqueWithoutReceiverInput[]
+    updateMany?: CreatorGiftUpdateManyWithWhereWithoutReceiverInput | CreatorGiftUpdateManyWithWhereWithoutReceiverInput[]
+    deleteMany?: CreatorGiftScalarWhereInput | CreatorGiftScalarWhereInput[]
+  }
+
+  export type PayoutRequestUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PayoutRequestCreateWithoutUserInput, PayoutRequestUncheckedCreateWithoutUserInput> | PayoutRequestCreateWithoutUserInput[] | PayoutRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PayoutRequestCreateOrConnectWithoutUserInput | PayoutRequestCreateOrConnectWithoutUserInput[]
+    upsert?: PayoutRequestUpsertWithWhereUniqueWithoutUserInput | PayoutRequestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PayoutRequestCreateManyUserInputEnvelope
+    set?: PayoutRequestWhereUniqueInput | PayoutRequestWhereUniqueInput[]
+    disconnect?: PayoutRequestWhereUniqueInput | PayoutRequestWhereUniqueInput[]
+    delete?: PayoutRequestWhereUniqueInput | PayoutRequestWhereUniqueInput[]
+    connect?: PayoutRequestWhereUniqueInput | PayoutRequestWhereUniqueInput[]
+    update?: PayoutRequestUpdateWithWhereUniqueWithoutUserInput | PayoutRequestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PayoutRequestUpdateManyWithWhereWithoutUserInput | PayoutRequestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PayoutRequestScalarWhereInput | PayoutRequestScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutOauthAccountsInput = {
@@ -26036,6 +36774,34 @@ export namespace Prisma {
     connect?: StreamAnalyticWhereUniqueInput | StreamAnalyticWhereUniqueInput[]
   }
 
+  export type StreamCommentCreateNestedManyWithoutStreamInput = {
+    create?: XOR<StreamCommentCreateWithoutStreamInput, StreamCommentUncheckedCreateWithoutStreamInput> | StreamCommentCreateWithoutStreamInput[] | StreamCommentUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: StreamCommentCreateOrConnectWithoutStreamInput | StreamCommentCreateOrConnectWithoutStreamInput[]
+    createMany?: StreamCommentCreateManyStreamInputEnvelope
+    connect?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+  }
+
+  export type StreamReactionCreateNestedManyWithoutStreamInput = {
+    create?: XOR<StreamReactionCreateWithoutStreamInput, StreamReactionUncheckedCreateWithoutStreamInput> | StreamReactionCreateWithoutStreamInput[] | StreamReactionUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: StreamReactionCreateOrConnectWithoutStreamInput | StreamReactionCreateOrConnectWithoutStreamInput[]
+    createMany?: StreamReactionCreateManyStreamInputEnvelope
+    connect?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+  }
+
+  export type LiveChatMessageCreateNestedManyWithoutStreamInput = {
+    create?: XOR<LiveChatMessageCreateWithoutStreamInput, LiveChatMessageUncheckedCreateWithoutStreamInput> | LiveChatMessageCreateWithoutStreamInput[] | LiveChatMessageUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: LiveChatMessageCreateOrConnectWithoutStreamInput | LiveChatMessageCreateOrConnectWithoutStreamInput[]
+    createMany?: LiveChatMessageCreateManyStreamInputEnvelope
+    connect?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+  }
+
+  export type CreatorGiftCreateNestedManyWithoutStreamInput = {
+    create?: XOR<CreatorGiftCreateWithoutStreamInput, CreatorGiftUncheckedCreateWithoutStreamInput> | CreatorGiftCreateWithoutStreamInput[] | CreatorGiftUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: CreatorGiftCreateOrConnectWithoutStreamInput | CreatorGiftCreateOrConnectWithoutStreamInput[]
+    createMany?: CreatorGiftCreateManyStreamInputEnvelope
+    connect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+  }
+
   export type StreamDestinationUncheckedCreateNestedManyWithoutStreamInput = {
     create?: XOR<StreamDestinationCreateWithoutStreamInput, StreamDestinationUncheckedCreateWithoutStreamInput> | StreamDestinationCreateWithoutStreamInput[] | StreamDestinationUncheckedCreateWithoutStreamInput[]
     connectOrCreate?: StreamDestinationCreateOrConnectWithoutStreamInput | StreamDestinationCreateOrConnectWithoutStreamInput[]
@@ -26061,6 +36827,34 @@ export namespace Prisma {
     connectOrCreate?: StreamAnalyticCreateOrConnectWithoutStreamInput | StreamAnalyticCreateOrConnectWithoutStreamInput[]
     createMany?: StreamAnalyticCreateManyStreamInputEnvelope
     connect?: StreamAnalyticWhereUniqueInput | StreamAnalyticWhereUniqueInput[]
+  }
+
+  export type StreamCommentUncheckedCreateNestedManyWithoutStreamInput = {
+    create?: XOR<StreamCommentCreateWithoutStreamInput, StreamCommentUncheckedCreateWithoutStreamInput> | StreamCommentCreateWithoutStreamInput[] | StreamCommentUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: StreamCommentCreateOrConnectWithoutStreamInput | StreamCommentCreateOrConnectWithoutStreamInput[]
+    createMany?: StreamCommentCreateManyStreamInputEnvelope
+    connect?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+  }
+
+  export type StreamReactionUncheckedCreateNestedManyWithoutStreamInput = {
+    create?: XOR<StreamReactionCreateWithoutStreamInput, StreamReactionUncheckedCreateWithoutStreamInput> | StreamReactionCreateWithoutStreamInput[] | StreamReactionUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: StreamReactionCreateOrConnectWithoutStreamInput | StreamReactionCreateOrConnectWithoutStreamInput[]
+    createMany?: StreamReactionCreateManyStreamInputEnvelope
+    connect?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+  }
+
+  export type LiveChatMessageUncheckedCreateNestedManyWithoutStreamInput = {
+    create?: XOR<LiveChatMessageCreateWithoutStreamInput, LiveChatMessageUncheckedCreateWithoutStreamInput> | LiveChatMessageCreateWithoutStreamInput[] | LiveChatMessageUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: LiveChatMessageCreateOrConnectWithoutStreamInput | LiveChatMessageCreateOrConnectWithoutStreamInput[]
+    createMany?: LiveChatMessageCreateManyStreamInputEnvelope
+    connect?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+  }
+
+  export type CreatorGiftUncheckedCreateNestedManyWithoutStreamInput = {
+    create?: XOR<CreatorGiftCreateWithoutStreamInput, CreatorGiftUncheckedCreateWithoutStreamInput> | CreatorGiftCreateWithoutStreamInput[] | CreatorGiftUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: CreatorGiftCreateOrConnectWithoutStreamInput | CreatorGiftCreateOrConnectWithoutStreamInput[]
+    createMany?: CreatorGiftCreateManyStreamInputEnvelope
+    connect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
   }
 
   export type EnumStreamStatusFieldUpdateOperationsInput = {
@@ -26127,6 +36921,62 @@ export namespace Prisma {
     deleteMany?: StreamAnalyticScalarWhereInput | StreamAnalyticScalarWhereInput[]
   }
 
+  export type StreamCommentUpdateManyWithoutStreamNestedInput = {
+    create?: XOR<StreamCommentCreateWithoutStreamInput, StreamCommentUncheckedCreateWithoutStreamInput> | StreamCommentCreateWithoutStreamInput[] | StreamCommentUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: StreamCommentCreateOrConnectWithoutStreamInput | StreamCommentCreateOrConnectWithoutStreamInput[]
+    upsert?: StreamCommentUpsertWithWhereUniqueWithoutStreamInput | StreamCommentUpsertWithWhereUniqueWithoutStreamInput[]
+    createMany?: StreamCommentCreateManyStreamInputEnvelope
+    set?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    disconnect?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    delete?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    connect?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    update?: StreamCommentUpdateWithWhereUniqueWithoutStreamInput | StreamCommentUpdateWithWhereUniqueWithoutStreamInput[]
+    updateMany?: StreamCommentUpdateManyWithWhereWithoutStreamInput | StreamCommentUpdateManyWithWhereWithoutStreamInput[]
+    deleteMany?: StreamCommentScalarWhereInput | StreamCommentScalarWhereInput[]
+  }
+
+  export type StreamReactionUpdateManyWithoutStreamNestedInput = {
+    create?: XOR<StreamReactionCreateWithoutStreamInput, StreamReactionUncheckedCreateWithoutStreamInput> | StreamReactionCreateWithoutStreamInput[] | StreamReactionUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: StreamReactionCreateOrConnectWithoutStreamInput | StreamReactionCreateOrConnectWithoutStreamInput[]
+    upsert?: StreamReactionUpsertWithWhereUniqueWithoutStreamInput | StreamReactionUpsertWithWhereUniqueWithoutStreamInput[]
+    createMany?: StreamReactionCreateManyStreamInputEnvelope
+    set?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    disconnect?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    delete?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    connect?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    update?: StreamReactionUpdateWithWhereUniqueWithoutStreamInput | StreamReactionUpdateWithWhereUniqueWithoutStreamInput[]
+    updateMany?: StreamReactionUpdateManyWithWhereWithoutStreamInput | StreamReactionUpdateManyWithWhereWithoutStreamInput[]
+    deleteMany?: StreamReactionScalarWhereInput | StreamReactionScalarWhereInput[]
+  }
+
+  export type LiveChatMessageUpdateManyWithoutStreamNestedInput = {
+    create?: XOR<LiveChatMessageCreateWithoutStreamInput, LiveChatMessageUncheckedCreateWithoutStreamInput> | LiveChatMessageCreateWithoutStreamInput[] | LiveChatMessageUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: LiveChatMessageCreateOrConnectWithoutStreamInput | LiveChatMessageCreateOrConnectWithoutStreamInput[]
+    upsert?: LiveChatMessageUpsertWithWhereUniqueWithoutStreamInput | LiveChatMessageUpsertWithWhereUniqueWithoutStreamInput[]
+    createMany?: LiveChatMessageCreateManyStreamInputEnvelope
+    set?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    disconnect?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    delete?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    connect?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    update?: LiveChatMessageUpdateWithWhereUniqueWithoutStreamInput | LiveChatMessageUpdateWithWhereUniqueWithoutStreamInput[]
+    updateMany?: LiveChatMessageUpdateManyWithWhereWithoutStreamInput | LiveChatMessageUpdateManyWithWhereWithoutStreamInput[]
+    deleteMany?: LiveChatMessageScalarWhereInput | LiveChatMessageScalarWhereInput[]
+  }
+
+  export type CreatorGiftUpdateManyWithoutStreamNestedInput = {
+    create?: XOR<CreatorGiftCreateWithoutStreamInput, CreatorGiftUncheckedCreateWithoutStreamInput> | CreatorGiftCreateWithoutStreamInput[] | CreatorGiftUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: CreatorGiftCreateOrConnectWithoutStreamInput | CreatorGiftCreateOrConnectWithoutStreamInput[]
+    upsert?: CreatorGiftUpsertWithWhereUniqueWithoutStreamInput | CreatorGiftUpsertWithWhereUniqueWithoutStreamInput[]
+    createMany?: CreatorGiftCreateManyStreamInputEnvelope
+    set?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    disconnect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    delete?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    connect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    update?: CreatorGiftUpdateWithWhereUniqueWithoutStreamInput | CreatorGiftUpdateWithWhereUniqueWithoutStreamInput[]
+    updateMany?: CreatorGiftUpdateManyWithWhereWithoutStreamInput | CreatorGiftUpdateManyWithWhereWithoutStreamInput[]
+    deleteMany?: CreatorGiftScalarWhereInput | CreatorGiftScalarWhereInput[]
+  }
+
   export type StreamDestinationUncheckedUpdateManyWithoutStreamNestedInput = {
     create?: XOR<StreamDestinationCreateWithoutStreamInput, StreamDestinationUncheckedCreateWithoutStreamInput> | StreamDestinationCreateWithoutStreamInput[] | StreamDestinationUncheckedCreateWithoutStreamInput[]
     connectOrCreate?: StreamDestinationCreateOrConnectWithoutStreamInput | StreamDestinationCreateOrConnectWithoutStreamInput[]
@@ -26177,6 +37027,62 @@ export namespace Prisma {
     update?: StreamAnalyticUpdateWithWhereUniqueWithoutStreamInput | StreamAnalyticUpdateWithWhereUniqueWithoutStreamInput[]
     updateMany?: StreamAnalyticUpdateManyWithWhereWithoutStreamInput | StreamAnalyticUpdateManyWithWhereWithoutStreamInput[]
     deleteMany?: StreamAnalyticScalarWhereInput | StreamAnalyticScalarWhereInput[]
+  }
+
+  export type StreamCommentUncheckedUpdateManyWithoutStreamNestedInput = {
+    create?: XOR<StreamCommentCreateWithoutStreamInput, StreamCommentUncheckedCreateWithoutStreamInput> | StreamCommentCreateWithoutStreamInput[] | StreamCommentUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: StreamCommentCreateOrConnectWithoutStreamInput | StreamCommentCreateOrConnectWithoutStreamInput[]
+    upsert?: StreamCommentUpsertWithWhereUniqueWithoutStreamInput | StreamCommentUpsertWithWhereUniqueWithoutStreamInput[]
+    createMany?: StreamCommentCreateManyStreamInputEnvelope
+    set?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    disconnect?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    delete?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    connect?: StreamCommentWhereUniqueInput | StreamCommentWhereUniqueInput[]
+    update?: StreamCommentUpdateWithWhereUniqueWithoutStreamInput | StreamCommentUpdateWithWhereUniqueWithoutStreamInput[]
+    updateMany?: StreamCommentUpdateManyWithWhereWithoutStreamInput | StreamCommentUpdateManyWithWhereWithoutStreamInput[]
+    deleteMany?: StreamCommentScalarWhereInput | StreamCommentScalarWhereInput[]
+  }
+
+  export type StreamReactionUncheckedUpdateManyWithoutStreamNestedInput = {
+    create?: XOR<StreamReactionCreateWithoutStreamInput, StreamReactionUncheckedCreateWithoutStreamInput> | StreamReactionCreateWithoutStreamInput[] | StreamReactionUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: StreamReactionCreateOrConnectWithoutStreamInput | StreamReactionCreateOrConnectWithoutStreamInput[]
+    upsert?: StreamReactionUpsertWithWhereUniqueWithoutStreamInput | StreamReactionUpsertWithWhereUniqueWithoutStreamInput[]
+    createMany?: StreamReactionCreateManyStreamInputEnvelope
+    set?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    disconnect?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    delete?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    connect?: StreamReactionWhereUniqueInput | StreamReactionWhereUniqueInput[]
+    update?: StreamReactionUpdateWithWhereUniqueWithoutStreamInput | StreamReactionUpdateWithWhereUniqueWithoutStreamInput[]
+    updateMany?: StreamReactionUpdateManyWithWhereWithoutStreamInput | StreamReactionUpdateManyWithWhereWithoutStreamInput[]
+    deleteMany?: StreamReactionScalarWhereInput | StreamReactionScalarWhereInput[]
+  }
+
+  export type LiveChatMessageUncheckedUpdateManyWithoutStreamNestedInput = {
+    create?: XOR<LiveChatMessageCreateWithoutStreamInput, LiveChatMessageUncheckedCreateWithoutStreamInput> | LiveChatMessageCreateWithoutStreamInput[] | LiveChatMessageUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: LiveChatMessageCreateOrConnectWithoutStreamInput | LiveChatMessageCreateOrConnectWithoutStreamInput[]
+    upsert?: LiveChatMessageUpsertWithWhereUniqueWithoutStreamInput | LiveChatMessageUpsertWithWhereUniqueWithoutStreamInput[]
+    createMany?: LiveChatMessageCreateManyStreamInputEnvelope
+    set?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    disconnect?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    delete?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    connect?: LiveChatMessageWhereUniqueInput | LiveChatMessageWhereUniqueInput[]
+    update?: LiveChatMessageUpdateWithWhereUniqueWithoutStreamInput | LiveChatMessageUpdateWithWhereUniqueWithoutStreamInput[]
+    updateMany?: LiveChatMessageUpdateManyWithWhereWithoutStreamInput | LiveChatMessageUpdateManyWithWhereWithoutStreamInput[]
+    deleteMany?: LiveChatMessageScalarWhereInput | LiveChatMessageScalarWhereInput[]
+  }
+
+  export type CreatorGiftUncheckedUpdateManyWithoutStreamNestedInput = {
+    create?: XOR<CreatorGiftCreateWithoutStreamInput, CreatorGiftUncheckedCreateWithoutStreamInput> | CreatorGiftCreateWithoutStreamInput[] | CreatorGiftUncheckedCreateWithoutStreamInput[]
+    connectOrCreate?: CreatorGiftCreateOrConnectWithoutStreamInput | CreatorGiftCreateOrConnectWithoutStreamInput[]
+    upsert?: CreatorGiftUpsertWithWhereUniqueWithoutStreamInput | CreatorGiftUpsertWithWhereUniqueWithoutStreamInput[]
+    createMany?: CreatorGiftCreateManyStreamInputEnvelope
+    set?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    disconnect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    delete?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    connect?: CreatorGiftWhereUniqueInput | CreatorGiftWhereUniqueInput[]
+    update?: CreatorGiftUpdateWithWhereUniqueWithoutStreamInput | CreatorGiftUpdateWithWhereUniqueWithoutStreamInput[]
+    updateMany?: CreatorGiftUpdateManyWithWhereWithoutStreamInput | CreatorGiftUpdateManyWithWhereWithoutStreamInput[]
+    deleteMany?: CreatorGiftScalarWhereInput | CreatorGiftScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutDestinationsInput = {
@@ -26391,6 +37297,250 @@ export namespace Prisma {
     upsert?: StreamUpsertWithoutAnalyticsInput
     connect?: StreamWhereUniqueInput
     update?: XOR<XOR<StreamUpdateToOneWithWhereWithoutAnalyticsInput, StreamUpdateWithoutAnalyticsInput>, StreamUncheckedUpdateWithoutAnalyticsInput>
+  }
+
+  export type UserCreateNestedOneWithoutSocialFollowingInput = {
+    create?: XOR<UserCreateWithoutSocialFollowingInput, UserUncheckedCreateWithoutSocialFollowingInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSocialFollowingInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutSocialFollowersInput = {
+    create?: XOR<UserCreateWithoutSocialFollowersInput, UserUncheckedCreateWithoutSocialFollowersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSocialFollowersInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutSocialFollowingNestedInput = {
+    create?: XOR<UserCreateWithoutSocialFollowingInput, UserUncheckedCreateWithoutSocialFollowingInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSocialFollowingInput
+    upsert?: UserUpsertWithoutSocialFollowingInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSocialFollowingInput, UserUpdateWithoutSocialFollowingInput>, UserUncheckedUpdateWithoutSocialFollowingInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutSocialFollowersNestedInput = {
+    create?: XOR<UserCreateWithoutSocialFollowersInput, UserUncheckedCreateWithoutSocialFollowersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSocialFollowersInput
+    upsert?: UserUpsertWithoutSocialFollowersInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSocialFollowersInput, UserUpdateWithoutSocialFollowersInput>, UserUncheckedUpdateWithoutSocialFollowersInput>
+  }
+
+  export type StreamCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<StreamCreateWithoutCommentsInput, StreamUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: StreamCreateOrConnectWithoutCommentsInput
+    connect?: StreamWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutStreamCommentsInput = {
+    create?: XOR<UserCreateWithoutStreamCommentsInput, UserUncheckedCreateWithoutStreamCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStreamCommentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type StreamUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<StreamCreateWithoutCommentsInput, StreamUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: StreamCreateOrConnectWithoutCommentsInput
+    upsert?: StreamUpsertWithoutCommentsInput
+    connect?: StreamWhereUniqueInput
+    update?: XOR<XOR<StreamUpdateToOneWithWhereWithoutCommentsInput, StreamUpdateWithoutCommentsInput>, StreamUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutStreamCommentsNestedInput = {
+    create?: XOR<UserCreateWithoutStreamCommentsInput, UserUncheckedCreateWithoutStreamCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStreamCommentsInput
+    upsert?: UserUpsertWithoutStreamCommentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStreamCommentsInput, UserUpdateWithoutStreamCommentsInput>, UserUncheckedUpdateWithoutStreamCommentsInput>
+  }
+
+  export type StreamCreateNestedOneWithoutReactionsInput = {
+    create?: XOR<StreamCreateWithoutReactionsInput, StreamUncheckedCreateWithoutReactionsInput>
+    connectOrCreate?: StreamCreateOrConnectWithoutReactionsInput
+    connect?: StreamWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutStreamReactionsInput = {
+    create?: XOR<UserCreateWithoutStreamReactionsInput, UserUncheckedCreateWithoutStreamReactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStreamReactionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type StreamUpdateOneRequiredWithoutReactionsNestedInput = {
+    create?: XOR<StreamCreateWithoutReactionsInput, StreamUncheckedCreateWithoutReactionsInput>
+    connectOrCreate?: StreamCreateOrConnectWithoutReactionsInput
+    upsert?: StreamUpsertWithoutReactionsInput
+    connect?: StreamWhereUniqueInput
+    update?: XOR<XOR<StreamUpdateToOneWithWhereWithoutReactionsInput, StreamUpdateWithoutReactionsInput>, StreamUncheckedUpdateWithoutReactionsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutStreamReactionsNestedInput = {
+    create?: XOR<UserCreateWithoutStreamReactionsInput, UserUncheckedCreateWithoutStreamReactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStreamReactionsInput
+    upsert?: UserUpsertWithoutStreamReactionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStreamReactionsInput, UserUpdateWithoutStreamReactionsInput>, UserUncheckedUpdateWithoutStreamReactionsInput>
+  }
+
+  export type StreamCreateNestedOneWithoutChatMessagesInput = {
+    create?: XOR<StreamCreateWithoutChatMessagesInput, StreamUncheckedCreateWithoutChatMessagesInput>
+    connectOrCreate?: StreamCreateOrConnectWithoutChatMessagesInput
+    connect?: StreamWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutLiveChatMessagesInput = {
+    create?: XOR<UserCreateWithoutLiveChatMessagesInput, UserUncheckedCreateWithoutLiveChatMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLiveChatMessagesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type StreamUpdateOneRequiredWithoutChatMessagesNestedInput = {
+    create?: XOR<StreamCreateWithoutChatMessagesInput, StreamUncheckedCreateWithoutChatMessagesInput>
+    connectOrCreate?: StreamCreateOrConnectWithoutChatMessagesInput
+    upsert?: StreamUpsertWithoutChatMessagesInput
+    connect?: StreamWhereUniqueInput
+    update?: XOR<XOR<StreamUpdateToOneWithWhereWithoutChatMessagesInput, StreamUpdateWithoutChatMessagesInput>, StreamUncheckedUpdateWithoutChatMessagesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutLiveChatMessagesNestedInput = {
+    create?: XOR<UserCreateWithoutLiveChatMessagesInput, UserUncheckedCreateWithoutLiveChatMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLiveChatMessagesInput
+    upsert?: UserUpsertWithoutLiveChatMessagesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLiveChatMessagesInput, UserUpdateWithoutLiveChatMessagesInput>, UserUncheckedUpdateWithoutLiveChatMessagesInput>
+  }
+
+  export type UserCreateNestedOneWithoutCreatorWalletInput = {
+    create?: XOR<UserCreateWithoutCreatorWalletInput, UserUncheckedCreateWithoutCreatorWalletInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatorWalletInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type WalletLedgerEntryCreateNestedManyWithoutWalletInput = {
+    create?: XOR<WalletLedgerEntryCreateWithoutWalletInput, WalletLedgerEntryUncheckedCreateWithoutWalletInput> | WalletLedgerEntryCreateWithoutWalletInput[] | WalletLedgerEntryUncheckedCreateWithoutWalletInput[]
+    connectOrCreate?: WalletLedgerEntryCreateOrConnectWithoutWalletInput | WalletLedgerEntryCreateOrConnectWithoutWalletInput[]
+    createMany?: WalletLedgerEntryCreateManyWalletInputEnvelope
+    connect?: WalletLedgerEntryWhereUniqueInput | WalletLedgerEntryWhereUniqueInput[]
+  }
+
+  export type WalletLedgerEntryUncheckedCreateNestedManyWithoutWalletInput = {
+    create?: XOR<WalletLedgerEntryCreateWithoutWalletInput, WalletLedgerEntryUncheckedCreateWithoutWalletInput> | WalletLedgerEntryCreateWithoutWalletInput[] | WalletLedgerEntryUncheckedCreateWithoutWalletInput[]
+    connectOrCreate?: WalletLedgerEntryCreateOrConnectWithoutWalletInput | WalletLedgerEntryCreateOrConnectWithoutWalletInput[]
+    createMany?: WalletLedgerEntryCreateManyWalletInputEnvelope
+    connect?: WalletLedgerEntryWhereUniqueInput | WalletLedgerEntryWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutCreatorWalletNestedInput = {
+    create?: XOR<UserCreateWithoutCreatorWalletInput, UserUncheckedCreateWithoutCreatorWalletInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatorWalletInput
+    upsert?: UserUpsertWithoutCreatorWalletInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatorWalletInput, UserUpdateWithoutCreatorWalletInput>, UserUncheckedUpdateWithoutCreatorWalletInput>
+  }
+
+  export type WalletLedgerEntryUpdateManyWithoutWalletNestedInput = {
+    create?: XOR<WalletLedgerEntryCreateWithoutWalletInput, WalletLedgerEntryUncheckedCreateWithoutWalletInput> | WalletLedgerEntryCreateWithoutWalletInput[] | WalletLedgerEntryUncheckedCreateWithoutWalletInput[]
+    connectOrCreate?: WalletLedgerEntryCreateOrConnectWithoutWalletInput | WalletLedgerEntryCreateOrConnectWithoutWalletInput[]
+    upsert?: WalletLedgerEntryUpsertWithWhereUniqueWithoutWalletInput | WalletLedgerEntryUpsertWithWhereUniqueWithoutWalletInput[]
+    createMany?: WalletLedgerEntryCreateManyWalletInputEnvelope
+    set?: WalletLedgerEntryWhereUniqueInput | WalletLedgerEntryWhereUniqueInput[]
+    disconnect?: WalletLedgerEntryWhereUniqueInput | WalletLedgerEntryWhereUniqueInput[]
+    delete?: WalletLedgerEntryWhereUniqueInput | WalletLedgerEntryWhereUniqueInput[]
+    connect?: WalletLedgerEntryWhereUniqueInput | WalletLedgerEntryWhereUniqueInput[]
+    update?: WalletLedgerEntryUpdateWithWhereUniqueWithoutWalletInput | WalletLedgerEntryUpdateWithWhereUniqueWithoutWalletInput[]
+    updateMany?: WalletLedgerEntryUpdateManyWithWhereWithoutWalletInput | WalletLedgerEntryUpdateManyWithWhereWithoutWalletInput[]
+    deleteMany?: WalletLedgerEntryScalarWhereInput | WalletLedgerEntryScalarWhereInput[]
+  }
+
+  export type WalletLedgerEntryUncheckedUpdateManyWithoutWalletNestedInput = {
+    create?: XOR<WalletLedgerEntryCreateWithoutWalletInput, WalletLedgerEntryUncheckedCreateWithoutWalletInput> | WalletLedgerEntryCreateWithoutWalletInput[] | WalletLedgerEntryUncheckedCreateWithoutWalletInput[]
+    connectOrCreate?: WalletLedgerEntryCreateOrConnectWithoutWalletInput | WalletLedgerEntryCreateOrConnectWithoutWalletInput[]
+    upsert?: WalletLedgerEntryUpsertWithWhereUniqueWithoutWalletInput | WalletLedgerEntryUpsertWithWhereUniqueWithoutWalletInput[]
+    createMany?: WalletLedgerEntryCreateManyWalletInputEnvelope
+    set?: WalletLedgerEntryWhereUniqueInput | WalletLedgerEntryWhereUniqueInput[]
+    disconnect?: WalletLedgerEntryWhereUniqueInput | WalletLedgerEntryWhereUniqueInput[]
+    delete?: WalletLedgerEntryWhereUniqueInput | WalletLedgerEntryWhereUniqueInput[]
+    connect?: WalletLedgerEntryWhereUniqueInput | WalletLedgerEntryWhereUniqueInput[]
+    update?: WalletLedgerEntryUpdateWithWhereUniqueWithoutWalletInput | WalletLedgerEntryUpdateWithWhereUniqueWithoutWalletInput[]
+    updateMany?: WalletLedgerEntryUpdateManyWithWhereWithoutWalletInput | WalletLedgerEntryUpdateManyWithWhereWithoutWalletInput[]
+    deleteMany?: WalletLedgerEntryScalarWhereInput | WalletLedgerEntryScalarWhereInput[]
+  }
+
+  export type CreatorWalletCreateNestedOneWithoutLedgerInput = {
+    create?: XOR<CreatorWalletCreateWithoutLedgerInput, CreatorWalletUncheckedCreateWithoutLedgerInput>
+    connectOrCreate?: CreatorWalletCreateOrConnectWithoutLedgerInput
+    connect?: CreatorWalletWhereUniqueInput
+  }
+
+  export type EnumWalletTxTypeFieldUpdateOperationsInput = {
+    set?: $Enums.WalletTxType
+  }
+
+  export type CreatorWalletUpdateOneRequiredWithoutLedgerNestedInput = {
+    create?: XOR<CreatorWalletCreateWithoutLedgerInput, CreatorWalletUncheckedCreateWithoutLedgerInput>
+    connectOrCreate?: CreatorWalletCreateOrConnectWithoutLedgerInput
+    upsert?: CreatorWalletUpsertWithoutLedgerInput
+    connect?: CreatorWalletWhereUniqueInput
+    update?: XOR<XOR<CreatorWalletUpdateToOneWithWhereWithoutLedgerInput, CreatorWalletUpdateWithoutLedgerInput>, CreatorWalletUncheckedUpdateWithoutLedgerInput>
+  }
+
+  export type StreamCreateNestedOneWithoutGiftsInput = {
+    create?: XOR<StreamCreateWithoutGiftsInput, StreamUncheckedCreateWithoutGiftsInput>
+    connectOrCreate?: StreamCreateOrConnectWithoutGiftsInput
+    connect?: StreamWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutGiftsSentInput = {
+    create?: XOR<UserCreateWithoutGiftsSentInput, UserUncheckedCreateWithoutGiftsSentInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGiftsSentInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutGiftsReceivedInput = {
+    create?: XOR<UserCreateWithoutGiftsReceivedInput, UserUncheckedCreateWithoutGiftsReceivedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGiftsReceivedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type StreamUpdateOneWithoutGiftsNestedInput = {
+    create?: XOR<StreamCreateWithoutGiftsInput, StreamUncheckedCreateWithoutGiftsInput>
+    connectOrCreate?: StreamCreateOrConnectWithoutGiftsInput
+    upsert?: StreamUpsertWithoutGiftsInput
+    disconnect?: StreamWhereInput | boolean
+    delete?: StreamWhereInput | boolean
+    connect?: StreamWhereUniqueInput
+    update?: XOR<XOR<StreamUpdateToOneWithWhereWithoutGiftsInput, StreamUpdateWithoutGiftsInput>, StreamUncheckedUpdateWithoutGiftsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutGiftsSentNestedInput = {
+    create?: XOR<UserCreateWithoutGiftsSentInput, UserUncheckedCreateWithoutGiftsSentInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGiftsSentInput
+    upsert?: UserUpsertWithoutGiftsSentInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGiftsSentInput, UserUpdateWithoutGiftsSentInput>, UserUncheckedUpdateWithoutGiftsSentInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutGiftsReceivedNestedInput = {
+    create?: XOR<UserCreateWithoutGiftsReceivedInput, UserUncheckedCreateWithoutGiftsReceivedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGiftsReceivedInput
+    upsert?: UserUpsertWithoutGiftsReceivedInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGiftsReceivedInput, UserUpdateWithoutGiftsReceivedInput>, UserUncheckedUpdateWithoutGiftsReceivedInput>
+  }
+
+  export type UserCreateNestedOneWithoutPayoutRequestsInput = {
+    create?: XOR<UserCreateWithoutPayoutRequestsInput, UserUncheckedCreateWithoutPayoutRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPayoutRequestsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutPayoutRequestsNestedInput = {
+    create?: XOR<UserCreateWithoutPayoutRequestsInput, UserUncheckedCreateWithoutPayoutRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPayoutRequestsInput
+    upsert?: UserUpsertWithoutPayoutRequestsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPayoutRequestsInput, UserUpdateWithoutPayoutRequestsInput>, UserUncheckedUpdateWithoutPayoutRequestsInput>
   }
 
   export type UserCreateNestedOneWithoutMediaAssetsInput = {
@@ -26962,6 +38112,45 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumWalletTxTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.WalletTxType | EnumWalletTxTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.WalletTxType[] | ListEnumWalletTxTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WalletTxType[] | ListEnumWalletTxTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumWalletTxTypeFilter<$PrismaModel> | $Enums.WalletTxType
+  }
+
+  export type NestedEnumWalletTxTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WalletTxType | EnumWalletTxTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.WalletTxType[] | ListEnumWalletTxTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WalletTxType[] | ListEnumWalletTxTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumWalletTxTypeWithAggregatesFilter<$PrismaModel> | $Enums.WalletTxType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWalletTxTypeFilter<$PrismaModel>
+    _max?: NestedEnumWalletTxTypeFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
   export type NestedBigIntFilter<$PrismaModel = never> = {
     equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
@@ -26987,28 +38176,6 @@ export namespace Prisma {
     _sum?: NestedBigIntFilter<$PrismaModel>
     _min?: NestedBigIntFilter<$PrismaModel>
     _max?: NestedBigIntFilter<$PrismaModel>
-  }
-  export type NestedJsonNullableFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedEnumProjectStatusFilter<$PrismaModel = never> = {
@@ -27189,6 +38356,10 @@ export namespace Prisma {
     scenes?: SceneCreateNestedManyWithoutStreamInput
     recording?: RecordingCreateNestedOneWithoutStreamInput
     analytics?: StreamAnalyticCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftCreateNestedManyWithoutStreamInput
   }
 
   export type StreamUncheckedCreateWithoutUserInput = {
@@ -27209,6 +38380,10 @@ export namespace Prisma {
     scenes?: SceneUncheckedCreateNestedManyWithoutStreamInput
     recording?: RecordingUncheckedCreateNestedOneWithoutStreamInput
     analytics?: StreamAnalyticUncheckedCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentUncheckedCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionUncheckedCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftUncheckedCreateNestedManyWithoutStreamInput
   }
 
   export type StreamCreateOrConnectWithoutUserInput = {
@@ -27362,6 +38537,225 @@ export namespace Prisma {
 
   export type AuditLogCreateManyUserInputEnvelope = {
     data: AuditLogCreateManyUserInput | AuditLogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SocialFollowCreateWithoutFollowerInput = {
+    id?: string
+    createdAt?: Date | string
+    followee: UserCreateNestedOneWithoutSocialFollowersInput
+  }
+
+  export type SocialFollowUncheckedCreateWithoutFollowerInput = {
+    id?: string
+    followeeId: string
+    createdAt?: Date | string
+  }
+
+  export type SocialFollowCreateOrConnectWithoutFollowerInput = {
+    where: SocialFollowWhereUniqueInput
+    create: XOR<SocialFollowCreateWithoutFollowerInput, SocialFollowUncheckedCreateWithoutFollowerInput>
+  }
+
+  export type SocialFollowCreateManyFollowerInputEnvelope = {
+    data: SocialFollowCreateManyFollowerInput | SocialFollowCreateManyFollowerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SocialFollowCreateWithoutFolloweeInput = {
+    id?: string
+    createdAt?: Date | string
+    follower: UserCreateNestedOneWithoutSocialFollowingInput
+  }
+
+  export type SocialFollowUncheckedCreateWithoutFolloweeInput = {
+    id?: string
+    followerId: string
+    createdAt?: Date | string
+  }
+
+  export type SocialFollowCreateOrConnectWithoutFolloweeInput = {
+    where: SocialFollowWhereUniqueInput
+    create: XOR<SocialFollowCreateWithoutFolloweeInput, SocialFollowUncheckedCreateWithoutFolloweeInput>
+  }
+
+  export type SocialFollowCreateManyFolloweeInputEnvelope = {
+    data: SocialFollowCreateManyFolloweeInput | SocialFollowCreateManyFolloweeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StreamCommentCreateWithoutUserInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    stream: StreamCreateNestedOneWithoutCommentsInput
+  }
+
+  export type StreamCommentUncheckedCreateWithoutUserInput = {
+    id?: string
+    streamId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type StreamCommentCreateOrConnectWithoutUserInput = {
+    where: StreamCommentWhereUniqueInput
+    create: XOR<StreamCommentCreateWithoutUserInput, StreamCommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type StreamCommentCreateManyUserInputEnvelope = {
+    data: StreamCommentCreateManyUserInput | StreamCommentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StreamReactionCreateWithoutUserInput = {
+    id?: string
+    type: string
+    createdAt?: Date | string
+    stream: StreamCreateNestedOneWithoutReactionsInput
+  }
+
+  export type StreamReactionUncheckedCreateWithoutUserInput = {
+    id?: string
+    streamId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type StreamReactionCreateOrConnectWithoutUserInput = {
+    where: StreamReactionWhereUniqueInput
+    create: XOR<StreamReactionCreateWithoutUserInput, StreamReactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type StreamReactionCreateManyUserInputEnvelope = {
+    data: StreamReactionCreateManyUserInput | StreamReactionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LiveChatMessageCreateWithoutUserInput = {
+    id?: string
+    body: string
+    createdAt?: Date | string
+    stream: StreamCreateNestedOneWithoutChatMessagesInput
+  }
+
+  export type LiveChatMessageUncheckedCreateWithoutUserInput = {
+    id?: string
+    streamId: string
+    body: string
+    createdAt?: Date | string
+  }
+
+  export type LiveChatMessageCreateOrConnectWithoutUserInput = {
+    where: LiveChatMessageWhereUniqueInput
+    create: XOR<LiveChatMessageCreateWithoutUserInput, LiveChatMessageUncheckedCreateWithoutUserInput>
+  }
+
+  export type LiveChatMessageCreateManyUserInputEnvelope = {
+    data: LiveChatMessageCreateManyUserInput | LiveChatMessageCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CreatorWalletCreateWithoutUserInput = {
+    id?: string
+    balanceCents?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ledger?: WalletLedgerEntryCreateNestedManyWithoutWalletInput
+  }
+
+  export type CreatorWalletUncheckedCreateWithoutUserInput = {
+    id?: string
+    balanceCents?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ledger?: WalletLedgerEntryUncheckedCreateNestedManyWithoutWalletInput
+  }
+
+  export type CreatorWalletCreateOrConnectWithoutUserInput = {
+    where: CreatorWalletWhereUniqueInput
+    create: XOR<CreatorWalletCreateWithoutUserInput, CreatorWalletUncheckedCreateWithoutUserInput>
+  }
+
+  export type CreatorGiftCreateWithoutSenderInput = {
+    id?: string
+    coinAmount: number
+    giftType: string
+    createdAt?: Date | string
+    stream?: StreamCreateNestedOneWithoutGiftsInput
+    receiver: UserCreateNestedOneWithoutGiftsReceivedInput
+  }
+
+  export type CreatorGiftUncheckedCreateWithoutSenderInput = {
+    id?: string
+    streamId?: string | null
+    receiverId: string
+    coinAmount: number
+    giftType: string
+    createdAt?: Date | string
+  }
+
+  export type CreatorGiftCreateOrConnectWithoutSenderInput = {
+    where: CreatorGiftWhereUniqueInput
+    create: XOR<CreatorGiftCreateWithoutSenderInput, CreatorGiftUncheckedCreateWithoutSenderInput>
+  }
+
+  export type CreatorGiftCreateManySenderInputEnvelope = {
+    data: CreatorGiftCreateManySenderInput | CreatorGiftCreateManySenderInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CreatorGiftCreateWithoutReceiverInput = {
+    id?: string
+    coinAmount: number
+    giftType: string
+    createdAt?: Date | string
+    stream?: StreamCreateNestedOneWithoutGiftsInput
+    sender: UserCreateNestedOneWithoutGiftsSentInput
+  }
+
+  export type CreatorGiftUncheckedCreateWithoutReceiverInput = {
+    id?: string
+    streamId?: string | null
+    senderId: string
+    coinAmount: number
+    giftType: string
+    createdAt?: Date | string
+  }
+
+  export type CreatorGiftCreateOrConnectWithoutReceiverInput = {
+    where: CreatorGiftWhereUniqueInput
+    create: XOR<CreatorGiftCreateWithoutReceiverInput, CreatorGiftUncheckedCreateWithoutReceiverInput>
+  }
+
+  export type CreatorGiftCreateManyReceiverInputEnvelope = {
+    data: CreatorGiftCreateManyReceiverInput | CreatorGiftCreateManyReceiverInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PayoutRequestCreateWithoutUserInput = {
+    id?: string
+    amountCents: number
+    status?: string
+    requestedAt?: Date | string
+    processedAt?: Date | string | null
+  }
+
+  export type PayoutRequestUncheckedCreateWithoutUserInput = {
+    id?: string
+    amountCents: number
+    status?: string
+    requestedAt?: Date | string
+    processedAt?: Date | string | null
+  }
+
+  export type PayoutRequestCreateOrConnectWithoutUserInput = {
+    where: PayoutRequestWhereUniqueInput
+    create: XOR<PayoutRequestCreateWithoutUserInput, PayoutRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type PayoutRequestCreateManyUserInputEnvelope = {
+    data: PayoutRequestCreateManyUserInput | PayoutRequestCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -27630,6 +39024,229 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
   }
 
+  export type SocialFollowUpsertWithWhereUniqueWithoutFollowerInput = {
+    where: SocialFollowWhereUniqueInput
+    update: XOR<SocialFollowUpdateWithoutFollowerInput, SocialFollowUncheckedUpdateWithoutFollowerInput>
+    create: XOR<SocialFollowCreateWithoutFollowerInput, SocialFollowUncheckedCreateWithoutFollowerInput>
+  }
+
+  export type SocialFollowUpdateWithWhereUniqueWithoutFollowerInput = {
+    where: SocialFollowWhereUniqueInput
+    data: XOR<SocialFollowUpdateWithoutFollowerInput, SocialFollowUncheckedUpdateWithoutFollowerInput>
+  }
+
+  export type SocialFollowUpdateManyWithWhereWithoutFollowerInput = {
+    where: SocialFollowScalarWhereInput
+    data: XOR<SocialFollowUpdateManyMutationInput, SocialFollowUncheckedUpdateManyWithoutFollowerInput>
+  }
+
+  export type SocialFollowScalarWhereInput = {
+    AND?: SocialFollowScalarWhereInput | SocialFollowScalarWhereInput[]
+    OR?: SocialFollowScalarWhereInput[]
+    NOT?: SocialFollowScalarWhereInput | SocialFollowScalarWhereInput[]
+    id?: StringFilter<"SocialFollow"> | string
+    followerId?: StringFilter<"SocialFollow"> | string
+    followeeId?: StringFilter<"SocialFollow"> | string
+    createdAt?: DateTimeFilter<"SocialFollow"> | Date | string
+  }
+
+  export type SocialFollowUpsertWithWhereUniqueWithoutFolloweeInput = {
+    where: SocialFollowWhereUniqueInput
+    update: XOR<SocialFollowUpdateWithoutFolloweeInput, SocialFollowUncheckedUpdateWithoutFolloweeInput>
+    create: XOR<SocialFollowCreateWithoutFolloweeInput, SocialFollowUncheckedCreateWithoutFolloweeInput>
+  }
+
+  export type SocialFollowUpdateWithWhereUniqueWithoutFolloweeInput = {
+    where: SocialFollowWhereUniqueInput
+    data: XOR<SocialFollowUpdateWithoutFolloweeInput, SocialFollowUncheckedUpdateWithoutFolloweeInput>
+  }
+
+  export type SocialFollowUpdateManyWithWhereWithoutFolloweeInput = {
+    where: SocialFollowScalarWhereInput
+    data: XOR<SocialFollowUpdateManyMutationInput, SocialFollowUncheckedUpdateManyWithoutFolloweeInput>
+  }
+
+  export type StreamCommentUpsertWithWhereUniqueWithoutUserInput = {
+    where: StreamCommentWhereUniqueInput
+    update: XOR<StreamCommentUpdateWithoutUserInput, StreamCommentUncheckedUpdateWithoutUserInput>
+    create: XOR<StreamCommentCreateWithoutUserInput, StreamCommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type StreamCommentUpdateWithWhereUniqueWithoutUserInput = {
+    where: StreamCommentWhereUniqueInput
+    data: XOR<StreamCommentUpdateWithoutUserInput, StreamCommentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type StreamCommentUpdateManyWithWhereWithoutUserInput = {
+    where: StreamCommentScalarWhereInput
+    data: XOR<StreamCommentUpdateManyMutationInput, StreamCommentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type StreamCommentScalarWhereInput = {
+    AND?: StreamCommentScalarWhereInput | StreamCommentScalarWhereInput[]
+    OR?: StreamCommentScalarWhereInput[]
+    NOT?: StreamCommentScalarWhereInput | StreamCommentScalarWhereInput[]
+    id?: StringFilter<"StreamComment"> | string
+    streamId?: StringFilter<"StreamComment"> | string
+    userId?: StringFilter<"StreamComment"> | string
+    content?: StringFilter<"StreamComment"> | string
+    createdAt?: DateTimeFilter<"StreamComment"> | Date | string
+  }
+
+  export type StreamReactionUpsertWithWhereUniqueWithoutUserInput = {
+    where: StreamReactionWhereUniqueInput
+    update: XOR<StreamReactionUpdateWithoutUserInput, StreamReactionUncheckedUpdateWithoutUserInput>
+    create: XOR<StreamReactionCreateWithoutUserInput, StreamReactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type StreamReactionUpdateWithWhereUniqueWithoutUserInput = {
+    where: StreamReactionWhereUniqueInput
+    data: XOR<StreamReactionUpdateWithoutUserInput, StreamReactionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type StreamReactionUpdateManyWithWhereWithoutUserInput = {
+    where: StreamReactionScalarWhereInput
+    data: XOR<StreamReactionUpdateManyMutationInput, StreamReactionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type StreamReactionScalarWhereInput = {
+    AND?: StreamReactionScalarWhereInput | StreamReactionScalarWhereInput[]
+    OR?: StreamReactionScalarWhereInput[]
+    NOT?: StreamReactionScalarWhereInput | StreamReactionScalarWhereInput[]
+    id?: StringFilter<"StreamReaction"> | string
+    streamId?: StringFilter<"StreamReaction"> | string
+    userId?: StringFilter<"StreamReaction"> | string
+    type?: StringFilter<"StreamReaction"> | string
+    createdAt?: DateTimeFilter<"StreamReaction"> | Date | string
+  }
+
+  export type LiveChatMessageUpsertWithWhereUniqueWithoutUserInput = {
+    where: LiveChatMessageWhereUniqueInput
+    update: XOR<LiveChatMessageUpdateWithoutUserInput, LiveChatMessageUncheckedUpdateWithoutUserInput>
+    create: XOR<LiveChatMessageCreateWithoutUserInput, LiveChatMessageUncheckedCreateWithoutUserInput>
+  }
+
+  export type LiveChatMessageUpdateWithWhereUniqueWithoutUserInput = {
+    where: LiveChatMessageWhereUniqueInput
+    data: XOR<LiveChatMessageUpdateWithoutUserInput, LiveChatMessageUncheckedUpdateWithoutUserInput>
+  }
+
+  export type LiveChatMessageUpdateManyWithWhereWithoutUserInput = {
+    where: LiveChatMessageScalarWhereInput
+    data: XOR<LiveChatMessageUpdateManyMutationInput, LiveChatMessageUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type LiveChatMessageScalarWhereInput = {
+    AND?: LiveChatMessageScalarWhereInput | LiveChatMessageScalarWhereInput[]
+    OR?: LiveChatMessageScalarWhereInput[]
+    NOT?: LiveChatMessageScalarWhereInput | LiveChatMessageScalarWhereInput[]
+    id?: StringFilter<"LiveChatMessage"> | string
+    streamId?: StringFilter<"LiveChatMessage"> | string
+    userId?: StringFilter<"LiveChatMessage"> | string
+    body?: StringFilter<"LiveChatMessage"> | string
+    createdAt?: DateTimeFilter<"LiveChatMessage"> | Date | string
+  }
+
+  export type CreatorWalletUpsertWithoutUserInput = {
+    update: XOR<CreatorWalletUpdateWithoutUserInput, CreatorWalletUncheckedUpdateWithoutUserInput>
+    create: XOR<CreatorWalletCreateWithoutUserInput, CreatorWalletUncheckedCreateWithoutUserInput>
+    where?: CreatorWalletWhereInput
+  }
+
+  export type CreatorWalletUpdateToOneWithWhereWithoutUserInput = {
+    where?: CreatorWalletWhereInput
+    data: XOR<CreatorWalletUpdateWithoutUserInput, CreatorWalletUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CreatorWalletUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    balanceCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ledger?: WalletLedgerEntryUpdateManyWithoutWalletNestedInput
+  }
+
+  export type CreatorWalletUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    balanceCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ledger?: WalletLedgerEntryUncheckedUpdateManyWithoutWalletNestedInput
+  }
+
+  export type CreatorGiftUpsertWithWhereUniqueWithoutSenderInput = {
+    where: CreatorGiftWhereUniqueInput
+    update: XOR<CreatorGiftUpdateWithoutSenderInput, CreatorGiftUncheckedUpdateWithoutSenderInput>
+    create: XOR<CreatorGiftCreateWithoutSenderInput, CreatorGiftUncheckedCreateWithoutSenderInput>
+  }
+
+  export type CreatorGiftUpdateWithWhereUniqueWithoutSenderInput = {
+    where: CreatorGiftWhereUniqueInput
+    data: XOR<CreatorGiftUpdateWithoutSenderInput, CreatorGiftUncheckedUpdateWithoutSenderInput>
+  }
+
+  export type CreatorGiftUpdateManyWithWhereWithoutSenderInput = {
+    where: CreatorGiftScalarWhereInput
+    data: XOR<CreatorGiftUpdateManyMutationInput, CreatorGiftUncheckedUpdateManyWithoutSenderInput>
+  }
+
+  export type CreatorGiftScalarWhereInput = {
+    AND?: CreatorGiftScalarWhereInput | CreatorGiftScalarWhereInput[]
+    OR?: CreatorGiftScalarWhereInput[]
+    NOT?: CreatorGiftScalarWhereInput | CreatorGiftScalarWhereInput[]
+    id?: StringFilter<"CreatorGift"> | string
+    streamId?: StringNullableFilter<"CreatorGift"> | string | null
+    senderId?: StringFilter<"CreatorGift"> | string
+    receiverId?: StringFilter<"CreatorGift"> | string
+    coinAmount?: IntFilter<"CreatorGift"> | number
+    giftType?: StringFilter<"CreatorGift"> | string
+    createdAt?: DateTimeFilter<"CreatorGift"> | Date | string
+  }
+
+  export type CreatorGiftUpsertWithWhereUniqueWithoutReceiverInput = {
+    where: CreatorGiftWhereUniqueInput
+    update: XOR<CreatorGiftUpdateWithoutReceiverInput, CreatorGiftUncheckedUpdateWithoutReceiverInput>
+    create: XOR<CreatorGiftCreateWithoutReceiverInput, CreatorGiftUncheckedCreateWithoutReceiverInput>
+  }
+
+  export type CreatorGiftUpdateWithWhereUniqueWithoutReceiverInput = {
+    where: CreatorGiftWhereUniqueInput
+    data: XOR<CreatorGiftUpdateWithoutReceiverInput, CreatorGiftUncheckedUpdateWithoutReceiverInput>
+  }
+
+  export type CreatorGiftUpdateManyWithWhereWithoutReceiverInput = {
+    where: CreatorGiftScalarWhereInput
+    data: XOR<CreatorGiftUpdateManyMutationInput, CreatorGiftUncheckedUpdateManyWithoutReceiverInput>
+  }
+
+  export type PayoutRequestUpsertWithWhereUniqueWithoutUserInput = {
+    where: PayoutRequestWhereUniqueInput
+    update: XOR<PayoutRequestUpdateWithoutUserInput, PayoutRequestUncheckedUpdateWithoutUserInput>
+    create: XOR<PayoutRequestCreateWithoutUserInput, PayoutRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type PayoutRequestUpdateWithWhereUniqueWithoutUserInput = {
+    where: PayoutRequestWhereUniqueInput
+    data: XOR<PayoutRequestUpdateWithoutUserInput, PayoutRequestUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PayoutRequestUpdateManyWithWhereWithoutUserInput = {
+    where: PayoutRequestScalarWhereInput
+    data: XOR<PayoutRequestUpdateManyMutationInput, PayoutRequestUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PayoutRequestScalarWhereInput = {
+    AND?: PayoutRequestScalarWhereInput | PayoutRequestScalarWhereInput[]
+    OR?: PayoutRequestScalarWhereInput[]
+    NOT?: PayoutRequestScalarWhereInput | PayoutRequestScalarWhereInput[]
+    id?: StringFilter<"PayoutRequest"> | string
+    userId?: StringFilter<"PayoutRequest"> | string
+    amountCents?: IntFilter<"PayoutRequest"> | number
+    status?: StringFilter<"PayoutRequest"> | string
+    requestedAt?: DateTimeFilter<"PayoutRequest"> | Date | string
+    processedAt?: DateTimeNullableFilter<"PayoutRequest"> | Date | string | null
+  }
+
   export type UserCreateWithoutOauthAccountsInput = {
     id?: string
     email: string
@@ -27650,6 +39267,15 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOauthAccountsInput = {
@@ -27672,6 +39298,15 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOauthAccountsInput = {
@@ -27710,6 +39345,15 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOauthAccountsInput = {
@@ -27732,6 +39376,15 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutTokensInput = {
@@ -27754,6 +39407,15 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTokensInput = {
@@ -27776,6 +39438,15 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTokensInput = {
@@ -27814,6 +39485,15 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTokensInput = {
@@ -27836,6 +39516,15 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSubscriptionInput = {
@@ -27858,6 +39547,15 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -27880,6 +39578,15 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -27948,6 +39655,15 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -27970,6 +39686,15 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type InvoiceUpsertWithWhereUniqueWithoutSubscriptionInput = {
@@ -28098,6 +39823,15 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStreamsInput = {
@@ -28120,6 +39854,15 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStreamsInput = {
@@ -28234,6 +39977,106 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type StreamCommentCreateWithoutStreamInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutStreamCommentsInput
+  }
+
+  export type StreamCommentUncheckedCreateWithoutStreamInput = {
+    id?: string
+    userId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type StreamCommentCreateOrConnectWithoutStreamInput = {
+    where: StreamCommentWhereUniqueInput
+    create: XOR<StreamCommentCreateWithoutStreamInput, StreamCommentUncheckedCreateWithoutStreamInput>
+  }
+
+  export type StreamCommentCreateManyStreamInputEnvelope = {
+    data: StreamCommentCreateManyStreamInput | StreamCommentCreateManyStreamInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StreamReactionCreateWithoutStreamInput = {
+    id?: string
+    type: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutStreamReactionsInput
+  }
+
+  export type StreamReactionUncheckedCreateWithoutStreamInput = {
+    id?: string
+    userId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type StreamReactionCreateOrConnectWithoutStreamInput = {
+    where: StreamReactionWhereUniqueInput
+    create: XOR<StreamReactionCreateWithoutStreamInput, StreamReactionUncheckedCreateWithoutStreamInput>
+  }
+
+  export type StreamReactionCreateManyStreamInputEnvelope = {
+    data: StreamReactionCreateManyStreamInput | StreamReactionCreateManyStreamInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LiveChatMessageCreateWithoutStreamInput = {
+    id?: string
+    body: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutLiveChatMessagesInput
+  }
+
+  export type LiveChatMessageUncheckedCreateWithoutStreamInput = {
+    id?: string
+    userId: string
+    body: string
+    createdAt?: Date | string
+  }
+
+  export type LiveChatMessageCreateOrConnectWithoutStreamInput = {
+    where: LiveChatMessageWhereUniqueInput
+    create: XOR<LiveChatMessageCreateWithoutStreamInput, LiveChatMessageUncheckedCreateWithoutStreamInput>
+  }
+
+  export type LiveChatMessageCreateManyStreamInputEnvelope = {
+    data: LiveChatMessageCreateManyStreamInput | LiveChatMessageCreateManyStreamInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CreatorGiftCreateWithoutStreamInput = {
+    id?: string
+    coinAmount: number
+    giftType: string
+    createdAt?: Date | string
+    sender: UserCreateNestedOneWithoutGiftsSentInput
+    receiver: UserCreateNestedOneWithoutGiftsReceivedInput
+  }
+
+  export type CreatorGiftUncheckedCreateWithoutStreamInput = {
+    id?: string
+    senderId: string
+    receiverId: string
+    coinAmount: number
+    giftType: string
+    createdAt?: Date | string
+  }
+
+  export type CreatorGiftCreateOrConnectWithoutStreamInput = {
+    where: CreatorGiftWhereUniqueInput
+    create: XOR<CreatorGiftCreateWithoutStreamInput, CreatorGiftUncheckedCreateWithoutStreamInput>
+  }
+
+  export type CreatorGiftCreateManyStreamInputEnvelope = {
+    data: CreatorGiftCreateManyStreamInput | CreatorGiftCreateManyStreamInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutStreamsInput = {
     update: XOR<UserUpdateWithoutStreamsInput, UserUncheckedUpdateWithoutStreamsInput>
     create: XOR<UserCreateWithoutStreamsInput, UserUncheckedCreateWithoutStreamsInput>
@@ -28265,6 +40108,15 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStreamsInput = {
@@ -28287,6 +40139,15 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type StreamDestinationUpsertWithWhereUniqueWithoutStreamInput = {
@@ -28404,6 +40265,70 @@ export namespace Prisma {
     latencyMs?: IntNullableFilter<"StreamAnalytic"> | number | null
   }
 
+  export type StreamCommentUpsertWithWhereUniqueWithoutStreamInput = {
+    where: StreamCommentWhereUniqueInput
+    update: XOR<StreamCommentUpdateWithoutStreamInput, StreamCommentUncheckedUpdateWithoutStreamInput>
+    create: XOR<StreamCommentCreateWithoutStreamInput, StreamCommentUncheckedCreateWithoutStreamInput>
+  }
+
+  export type StreamCommentUpdateWithWhereUniqueWithoutStreamInput = {
+    where: StreamCommentWhereUniqueInput
+    data: XOR<StreamCommentUpdateWithoutStreamInput, StreamCommentUncheckedUpdateWithoutStreamInput>
+  }
+
+  export type StreamCommentUpdateManyWithWhereWithoutStreamInput = {
+    where: StreamCommentScalarWhereInput
+    data: XOR<StreamCommentUpdateManyMutationInput, StreamCommentUncheckedUpdateManyWithoutStreamInput>
+  }
+
+  export type StreamReactionUpsertWithWhereUniqueWithoutStreamInput = {
+    where: StreamReactionWhereUniqueInput
+    update: XOR<StreamReactionUpdateWithoutStreamInput, StreamReactionUncheckedUpdateWithoutStreamInput>
+    create: XOR<StreamReactionCreateWithoutStreamInput, StreamReactionUncheckedCreateWithoutStreamInput>
+  }
+
+  export type StreamReactionUpdateWithWhereUniqueWithoutStreamInput = {
+    where: StreamReactionWhereUniqueInput
+    data: XOR<StreamReactionUpdateWithoutStreamInput, StreamReactionUncheckedUpdateWithoutStreamInput>
+  }
+
+  export type StreamReactionUpdateManyWithWhereWithoutStreamInput = {
+    where: StreamReactionScalarWhereInput
+    data: XOR<StreamReactionUpdateManyMutationInput, StreamReactionUncheckedUpdateManyWithoutStreamInput>
+  }
+
+  export type LiveChatMessageUpsertWithWhereUniqueWithoutStreamInput = {
+    where: LiveChatMessageWhereUniqueInput
+    update: XOR<LiveChatMessageUpdateWithoutStreamInput, LiveChatMessageUncheckedUpdateWithoutStreamInput>
+    create: XOR<LiveChatMessageCreateWithoutStreamInput, LiveChatMessageUncheckedCreateWithoutStreamInput>
+  }
+
+  export type LiveChatMessageUpdateWithWhereUniqueWithoutStreamInput = {
+    where: LiveChatMessageWhereUniqueInput
+    data: XOR<LiveChatMessageUpdateWithoutStreamInput, LiveChatMessageUncheckedUpdateWithoutStreamInput>
+  }
+
+  export type LiveChatMessageUpdateManyWithWhereWithoutStreamInput = {
+    where: LiveChatMessageScalarWhereInput
+    data: XOR<LiveChatMessageUpdateManyMutationInput, LiveChatMessageUncheckedUpdateManyWithoutStreamInput>
+  }
+
+  export type CreatorGiftUpsertWithWhereUniqueWithoutStreamInput = {
+    where: CreatorGiftWhereUniqueInput
+    update: XOR<CreatorGiftUpdateWithoutStreamInput, CreatorGiftUncheckedUpdateWithoutStreamInput>
+    create: XOR<CreatorGiftCreateWithoutStreamInput, CreatorGiftUncheckedCreateWithoutStreamInput>
+  }
+
+  export type CreatorGiftUpdateWithWhereUniqueWithoutStreamInput = {
+    where: CreatorGiftWhereUniqueInput
+    data: XOR<CreatorGiftUpdateWithoutStreamInput, CreatorGiftUncheckedUpdateWithoutStreamInput>
+  }
+
+  export type CreatorGiftUpdateManyWithWhereWithoutStreamInput = {
+    where: CreatorGiftScalarWhereInput
+    data: XOR<CreatorGiftUpdateManyMutationInput, CreatorGiftUncheckedUpdateManyWithoutStreamInput>
+  }
+
   export type UserCreateWithoutDestinationsInput = {
     id?: string
     email: string
@@ -28424,6 +40349,15 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDestinationsInput = {
@@ -28446,6 +40380,15 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDestinationsInput = {
@@ -28508,6 +40451,15 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDestinationsInput = {
@@ -28530,6 +40482,15 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type StreamDestinationUpsertWithWhereUniqueWithoutDestinationInput = {
@@ -28566,6 +40527,10 @@ export namespace Prisma {
     scenes?: SceneCreateNestedManyWithoutStreamInput
     recording?: RecordingCreateNestedOneWithoutStreamInput
     analytics?: StreamAnalyticCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftCreateNestedManyWithoutStreamInput
   }
 
   export type StreamUncheckedCreateWithoutDestinationsInput = {
@@ -28586,6 +40551,10 @@ export namespace Prisma {
     scenes?: SceneUncheckedCreateNestedManyWithoutStreamInput
     recording?: RecordingUncheckedCreateNestedOneWithoutStreamInput
     analytics?: StreamAnalyticUncheckedCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentUncheckedCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionUncheckedCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftUncheckedCreateNestedManyWithoutStreamInput
   }
 
   export type StreamCreateOrConnectWithoutDestinationsInput = {
@@ -28651,6 +40620,10 @@ export namespace Prisma {
     scenes?: SceneUpdateManyWithoutStreamNestedInput
     recording?: RecordingUpdateOneWithoutStreamNestedInput
     analytics?: StreamAnalyticUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUpdateManyWithoutStreamNestedInput
   }
 
   export type StreamUncheckedUpdateWithoutDestinationsInput = {
@@ -28671,6 +40644,10 @@ export namespace Prisma {
     scenes?: SceneUncheckedUpdateManyWithoutStreamNestedInput
     recording?: RecordingUncheckedUpdateOneWithoutStreamNestedInput
     analytics?: StreamAnalyticUncheckedUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUncheckedUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUncheckedUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUncheckedUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUncheckedUpdateManyWithoutStreamNestedInput
   }
 
   export type DestinationUpsertWithoutStreamDestinationsInput = {
@@ -28726,6 +40703,10 @@ export namespace Prisma {
     destinations?: StreamDestinationCreateNestedManyWithoutStreamInput
     recording?: RecordingCreateNestedOneWithoutStreamInput
     analytics?: StreamAnalyticCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftCreateNestedManyWithoutStreamInput
   }
 
   export type StreamUncheckedCreateWithoutScenesInput = {
@@ -28746,6 +40727,10 @@ export namespace Prisma {
     destinations?: StreamDestinationUncheckedCreateNestedManyWithoutStreamInput
     recording?: RecordingUncheckedCreateNestedOneWithoutStreamInput
     analytics?: StreamAnalyticUncheckedCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentUncheckedCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionUncheckedCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftUncheckedCreateNestedManyWithoutStreamInput
   }
 
   export type StreamCreateOrConnectWithoutScenesInput = {
@@ -28816,6 +40801,10 @@ export namespace Prisma {
     destinations?: StreamDestinationUpdateManyWithoutStreamNestedInput
     recording?: RecordingUpdateOneWithoutStreamNestedInput
     analytics?: StreamAnalyticUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUpdateManyWithoutStreamNestedInput
   }
 
   export type StreamUncheckedUpdateWithoutScenesInput = {
@@ -28836,6 +40825,10 @@ export namespace Prisma {
     destinations?: StreamDestinationUncheckedUpdateManyWithoutStreamNestedInput
     recording?: RecordingUncheckedUpdateOneWithoutStreamNestedInput
     analytics?: StreamAnalyticUncheckedUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUncheckedUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUncheckedUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUncheckedUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUncheckedUpdateManyWithoutStreamNestedInput
   }
 
   export type SourceUpsertWithWhereUniqueWithoutSceneInput = {
@@ -28948,6 +40941,10 @@ export namespace Prisma {
     destinations?: StreamDestinationCreateNestedManyWithoutStreamInput
     scenes?: SceneCreateNestedManyWithoutStreamInput
     analytics?: StreamAnalyticCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftCreateNestedManyWithoutStreamInput
   }
 
   export type StreamUncheckedCreateWithoutRecordingInput = {
@@ -28968,6 +40965,10 @@ export namespace Prisma {
     destinations?: StreamDestinationUncheckedCreateNestedManyWithoutStreamInput
     scenes?: SceneUncheckedCreateNestedManyWithoutStreamInput
     analytics?: StreamAnalyticUncheckedCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentUncheckedCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionUncheckedCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftUncheckedCreateNestedManyWithoutStreamInput
   }
 
   export type StreamCreateOrConnectWithoutRecordingInput = {
@@ -29004,6 +41005,10 @@ export namespace Prisma {
     destinations?: StreamDestinationUpdateManyWithoutStreamNestedInput
     scenes?: SceneUpdateManyWithoutStreamNestedInput
     analytics?: StreamAnalyticUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUpdateManyWithoutStreamNestedInput
   }
 
   export type StreamUncheckedUpdateWithoutRecordingInput = {
@@ -29024,6 +41029,10 @@ export namespace Prisma {
     destinations?: StreamDestinationUncheckedUpdateManyWithoutStreamNestedInput
     scenes?: SceneUncheckedUpdateManyWithoutStreamNestedInput
     analytics?: StreamAnalyticUncheckedUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUncheckedUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUncheckedUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUncheckedUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUncheckedUpdateManyWithoutStreamNestedInput
   }
 
   export type StreamCreateWithoutAnalyticsInput = {
@@ -29044,6 +41053,10 @@ export namespace Prisma {
     destinations?: StreamDestinationCreateNestedManyWithoutStreamInput
     scenes?: SceneCreateNestedManyWithoutStreamInput
     recording?: RecordingCreateNestedOneWithoutStreamInput
+    comments?: StreamCommentCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftCreateNestedManyWithoutStreamInput
   }
 
   export type StreamUncheckedCreateWithoutAnalyticsInput = {
@@ -29064,6 +41077,10 @@ export namespace Prisma {
     destinations?: StreamDestinationUncheckedCreateNestedManyWithoutStreamInput
     scenes?: SceneUncheckedCreateNestedManyWithoutStreamInput
     recording?: RecordingUncheckedCreateNestedOneWithoutStreamInput
+    comments?: StreamCommentUncheckedCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionUncheckedCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftUncheckedCreateNestedManyWithoutStreamInput
   }
 
   export type StreamCreateOrConnectWithoutAnalyticsInput = {
@@ -29100,6 +41117,10 @@ export namespace Prisma {
     destinations?: StreamDestinationUpdateManyWithoutStreamNestedInput
     scenes?: SceneUpdateManyWithoutStreamNestedInput
     recording?: RecordingUpdateOneWithoutStreamNestedInput
+    comments?: StreamCommentUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUpdateManyWithoutStreamNestedInput
   }
 
   export type StreamUncheckedUpdateWithoutAnalyticsInput = {
@@ -29120,6 +41141,1823 @@ export namespace Prisma {
     destinations?: StreamDestinationUncheckedUpdateManyWithoutStreamNestedInput
     scenes?: SceneUncheckedUpdateManyWithoutStreamNestedInput
     recording?: RecordingUncheckedUpdateOneWithoutStreamNestedInput
+    comments?: StreamCommentUncheckedUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUncheckedUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUncheckedUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUncheckedUpdateManyWithoutStreamNestedInput
+  }
+
+  export type UserCreateWithoutSocialFollowingInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountCreateNestedManyWithoutUserInput
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    streams?: StreamCreateNestedManyWithoutUserInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSocialFollowingInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    streams?: StreamUncheckedCreateNestedManyWithoutUserInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSocialFollowingInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSocialFollowingInput, UserUncheckedCreateWithoutSocialFollowingInput>
+  }
+
+  export type UserCreateWithoutSocialFollowersInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountCreateNestedManyWithoutUserInput
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    streams?: StreamCreateNestedManyWithoutUserInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSocialFollowersInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    streams?: StreamUncheckedCreateNestedManyWithoutUserInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSocialFollowersInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSocialFollowersInput, UserUncheckedCreateWithoutSocialFollowersInput>
+  }
+
+  export type UserUpsertWithoutSocialFollowingInput = {
+    update: XOR<UserUpdateWithoutSocialFollowingInput, UserUncheckedUpdateWithoutSocialFollowingInput>
+    create: XOR<UserCreateWithoutSocialFollowingInput, UserUncheckedCreateWithoutSocialFollowingInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSocialFollowingInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSocialFollowingInput, UserUncheckedUpdateWithoutSocialFollowingInput>
+  }
+
+  export type UserUpdateWithoutSocialFollowingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUpdateManyWithoutUserNestedInput
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    streams?: StreamUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSocialFollowingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    streams?: StreamUncheckedUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithoutSocialFollowersInput = {
+    update: XOR<UserUpdateWithoutSocialFollowersInput, UserUncheckedUpdateWithoutSocialFollowersInput>
+    create: XOR<UserCreateWithoutSocialFollowersInput, UserUncheckedCreateWithoutSocialFollowersInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSocialFollowersInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSocialFollowersInput, UserUncheckedUpdateWithoutSocialFollowersInput>
+  }
+
+  export type UserUpdateWithoutSocialFollowersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUpdateManyWithoutUserNestedInput
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    streams?: StreamUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSocialFollowersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    streams?: StreamUncheckedUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type StreamCreateWithoutCommentsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    thumbnailUrl?: string | null
+    status?: $Enums.StreamStatus
+    streamKey?: string
+    ingestUrl?: string | null
+    viewerCount?: number
+    peakViewers?: number
+    startedAt?: Date | string | null
+    endedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutStreamsInput
+    destinations?: StreamDestinationCreateNestedManyWithoutStreamInput
+    scenes?: SceneCreateNestedManyWithoutStreamInput
+    recording?: RecordingCreateNestedOneWithoutStreamInput
+    analytics?: StreamAnalyticCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftCreateNestedManyWithoutStreamInput
+  }
+
+  export type StreamUncheckedCreateWithoutCommentsInput = {
+    id?: string
+    userId: string
+    title: string
+    description?: string | null
+    thumbnailUrl?: string | null
+    status?: $Enums.StreamStatus
+    streamKey?: string
+    ingestUrl?: string | null
+    viewerCount?: number
+    peakViewers?: number
+    startedAt?: Date | string | null
+    endedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    destinations?: StreamDestinationUncheckedCreateNestedManyWithoutStreamInput
+    scenes?: SceneUncheckedCreateNestedManyWithoutStreamInput
+    recording?: RecordingUncheckedCreateNestedOneWithoutStreamInput
+    analytics?: StreamAnalyticUncheckedCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionUncheckedCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftUncheckedCreateNestedManyWithoutStreamInput
+  }
+
+  export type StreamCreateOrConnectWithoutCommentsInput = {
+    where: StreamWhereUniqueInput
+    create: XOR<StreamCreateWithoutCommentsInput, StreamUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type UserCreateWithoutStreamCommentsInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountCreateNestedManyWithoutUserInput
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    streams?: StreamCreateNestedManyWithoutUserInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutStreamCommentsInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    streams?: StreamUncheckedCreateNestedManyWithoutUserInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutStreamCommentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutStreamCommentsInput, UserUncheckedCreateWithoutStreamCommentsInput>
+  }
+
+  export type StreamUpsertWithoutCommentsInput = {
+    update: XOR<StreamUpdateWithoutCommentsInput, StreamUncheckedUpdateWithoutCommentsInput>
+    create: XOR<StreamCreateWithoutCommentsInput, StreamUncheckedCreateWithoutCommentsInput>
+    where?: StreamWhereInput
+  }
+
+  export type StreamUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: StreamWhereInput
+    data: XOR<StreamUpdateWithoutCommentsInput, StreamUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type StreamUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStreamStatusFieldUpdateOperationsInput | $Enums.StreamStatus
+    streamKey?: StringFieldUpdateOperationsInput | string
+    ingestUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewerCount?: IntFieldUpdateOperationsInput | number
+    peakViewers?: IntFieldUpdateOperationsInput | number
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStreamsNestedInput
+    destinations?: StreamDestinationUpdateManyWithoutStreamNestedInput
+    scenes?: SceneUpdateManyWithoutStreamNestedInput
+    recording?: RecordingUpdateOneWithoutStreamNestedInput
+    analytics?: StreamAnalyticUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUpdateManyWithoutStreamNestedInput
+  }
+
+  export type StreamUncheckedUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStreamStatusFieldUpdateOperationsInput | $Enums.StreamStatus
+    streamKey?: StringFieldUpdateOperationsInput | string
+    ingestUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewerCount?: IntFieldUpdateOperationsInput | number
+    peakViewers?: IntFieldUpdateOperationsInput | number
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinations?: StreamDestinationUncheckedUpdateManyWithoutStreamNestedInput
+    scenes?: SceneUncheckedUpdateManyWithoutStreamNestedInput
+    recording?: RecordingUncheckedUpdateOneWithoutStreamNestedInput
+    analytics?: StreamAnalyticUncheckedUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUncheckedUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUncheckedUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUncheckedUpdateManyWithoutStreamNestedInput
+  }
+
+  export type UserUpsertWithoutStreamCommentsInput = {
+    update: XOR<UserUpdateWithoutStreamCommentsInput, UserUncheckedUpdateWithoutStreamCommentsInput>
+    create: XOR<UserCreateWithoutStreamCommentsInput, UserUncheckedCreateWithoutStreamCommentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutStreamCommentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutStreamCommentsInput, UserUncheckedUpdateWithoutStreamCommentsInput>
+  }
+
+  export type UserUpdateWithoutStreamCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUpdateManyWithoutUserNestedInput
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    streams?: StreamUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutStreamCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    streams?: StreamUncheckedUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type StreamCreateWithoutReactionsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    thumbnailUrl?: string | null
+    status?: $Enums.StreamStatus
+    streamKey?: string
+    ingestUrl?: string | null
+    viewerCount?: number
+    peakViewers?: number
+    startedAt?: Date | string | null
+    endedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutStreamsInput
+    destinations?: StreamDestinationCreateNestedManyWithoutStreamInput
+    scenes?: SceneCreateNestedManyWithoutStreamInput
+    recording?: RecordingCreateNestedOneWithoutStreamInput
+    analytics?: StreamAnalyticCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftCreateNestedManyWithoutStreamInput
+  }
+
+  export type StreamUncheckedCreateWithoutReactionsInput = {
+    id?: string
+    userId: string
+    title: string
+    description?: string | null
+    thumbnailUrl?: string | null
+    status?: $Enums.StreamStatus
+    streamKey?: string
+    ingestUrl?: string | null
+    viewerCount?: number
+    peakViewers?: number
+    startedAt?: Date | string | null
+    endedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    destinations?: StreamDestinationUncheckedCreateNestedManyWithoutStreamInput
+    scenes?: SceneUncheckedCreateNestedManyWithoutStreamInput
+    recording?: RecordingUncheckedCreateNestedOneWithoutStreamInput
+    analytics?: StreamAnalyticUncheckedCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentUncheckedCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftUncheckedCreateNestedManyWithoutStreamInput
+  }
+
+  export type StreamCreateOrConnectWithoutReactionsInput = {
+    where: StreamWhereUniqueInput
+    create: XOR<StreamCreateWithoutReactionsInput, StreamUncheckedCreateWithoutReactionsInput>
+  }
+
+  export type UserCreateWithoutStreamReactionsInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountCreateNestedManyWithoutUserInput
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    streams?: StreamCreateNestedManyWithoutUserInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutStreamReactionsInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    streams?: StreamUncheckedCreateNestedManyWithoutUserInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutStreamReactionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutStreamReactionsInput, UserUncheckedCreateWithoutStreamReactionsInput>
+  }
+
+  export type StreamUpsertWithoutReactionsInput = {
+    update: XOR<StreamUpdateWithoutReactionsInput, StreamUncheckedUpdateWithoutReactionsInput>
+    create: XOR<StreamCreateWithoutReactionsInput, StreamUncheckedCreateWithoutReactionsInput>
+    where?: StreamWhereInput
+  }
+
+  export type StreamUpdateToOneWithWhereWithoutReactionsInput = {
+    where?: StreamWhereInput
+    data: XOR<StreamUpdateWithoutReactionsInput, StreamUncheckedUpdateWithoutReactionsInput>
+  }
+
+  export type StreamUpdateWithoutReactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStreamStatusFieldUpdateOperationsInput | $Enums.StreamStatus
+    streamKey?: StringFieldUpdateOperationsInput | string
+    ingestUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewerCount?: IntFieldUpdateOperationsInput | number
+    peakViewers?: IntFieldUpdateOperationsInput | number
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStreamsNestedInput
+    destinations?: StreamDestinationUpdateManyWithoutStreamNestedInput
+    scenes?: SceneUpdateManyWithoutStreamNestedInput
+    recording?: RecordingUpdateOneWithoutStreamNestedInput
+    analytics?: StreamAnalyticUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUpdateManyWithoutStreamNestedInput
+  }
+
+  export type StreamUncheckedUpdateWithoutReactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStreamStatusFieldUpdateOperationsInput | $Enums.StreamStatus
+    streamKey?: StringFieldUpdateOperationsInput | string
+    ingestUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewerCount?: IntFieldUpdateOperationsInput | number
+    peakViewers?: IntFieldUpdateOperationsInput | number
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinations?: StreamDestinationUncheckedUpdateManyWithoutStreamNestedInput
+    scenes?: SceneUncheckedUpdateManyWithoutStreamNestedInput
+    recording?: RecordingUncheckedUpdateOneWithoutStreamNestedInput
+    analytics?: StreamAnalyticUncheckedUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUncheckedUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUncheckedUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUncheckedUpdateManyWithoutStreamNestedInput
+  }
+
+  export type UserUpsertWithoutStreamReactionsInput = {
+    update: XOR<UserUpdateWithoutStreamReactionsInput, UserUncheckedUpdateWithoutStreamReactionsInput>
+    create: XOR<UserCreateWithoutStreamReactionsInput, UserUncheckedCreateWithoutStreamReactionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutStreamReactionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutStreamReactionsInput, UserUncheckedUpdateWithoutStreamReactionsInput>
+  }
+
+  export type UserUpdateWithoutStreamReactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUpdateManyWithoutUserNestedInput
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    streams?: StreamUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutStreamReactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    streams?: StreamUncheckedUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type StreamCreateWithoutChatMessagesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    thumbnailUrl?: string | null
+    status?: $Enums.StreamStatus
+    streamKey?: string
+    ingestUrl?: string | null
+    viewerCount?: number
+    peakViewers?: number
+    startedAt?: Date | string | null
+    endedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutStreamsInput
+    destinations?: StreamDestinationCreateNestedManyWithoutStreamInput
+    scenes?: SceneCreateNestedManyWithoutStreamInput
+    recording?: RecordingCreateNestedOneWithoutStreamInput
+    analytics?: StreamAnalyticCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftCreateNestedManyWithoutStreamInput
+  }
+
+  export type StreamUncheckedCreateWithoutChatMessagesInput = {
+    id?: string
+    userId: string
+    title: string
+    description?: string | null
+    thumbnailUrl?: string | null
+    status?: $Enums.StreamStatus
+    streamKey?: string
+    ingestUrl?: string | null
+    viewerCount?: number
+    peakViewers?: number
+    startedAt?: Date | string | null
+    endedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    destinations?: StreamDestinationUncheckedCreateNestedManyWithoutStreamInput
+    scenes?: SceneUncheckedCreateNestedManyWithoutStreamInput
+    recording?: RecordingUncheckedCreateNestedOneWithoutStreamInput
+    analytics?: StreamAnalyticUncheckedCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentUncheckedCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionUncheckedCreateNestedManyWithoutStreamInput
+    gifts?: CreatorGiftUncheckedCreateNestedManyWithoutStreamInput
+  }
+
+  export type StreamCreateOrConnectWithoutChatMessagesInput = {
+    where: StreamWhereUniqueInput
+    create: XOR<StreamCreateWithoutChatMessagesInput, StreamUncheckedCreateWithoutChatMessagesInput>
+  }
+
+  export type UserCreateWithoutLiveChatMessagesInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountCreateNestedManyWithoutUserInput
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    streams?: StreamCreateNestedManyWithoutUserInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLiveChatMessagesInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    streams?: StreamUncheckedCreateNestedManyWithoutUserInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLiveChatMessagesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLiveChatMessagesInput, UserUncheckedCreateWithoutLiveChatMessagesInput>
+  }
+
+  export type StreamUpsertWithoutChatMessagesInput = {
+    update: XOR<StreamUpdateWithoutChatMessagesInput, StreamUncheckedUpdateWithoutChatMessagesInput>
+    create: XOR<StreamCreateWithoutChatMessagesInput, StreamUncheckedCreateWithoutChatMessagesInput>
+    where?: StreamWhereInput
+  }
+
+  export type StreamUpdateToOneWithWhereWithoutChatMessagesInput = {
+    where?: StreamWhereInput
+    data: XOR<StreamUpdateWithoutChatMessagesInput, StreamUncheckedUpdateWithoutChatMessagesInput>
+  }
+
+  export type StreamUpdateWithoutChatMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStreamStatusFieldUpdateOperationsInput | $Enums.StreamStatus
+    streamKey?: StringFieldUpdateOperationsInput | string
+    ingestUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewerCount?: IntFieldUpdateOperationsInput | number
+    peakViewers?: IntFieldUpdateOperationsInput | number
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStreamsNestedInput
+    destinations?: StreamDestinationUpdateManyWithoutStreamNestedInput
+    scenes?: SceneUpdateManyWithoutStreamNestedInput
+    recording?: RecordingUpdateOneWithoutStreamNestedInput
+    analytics?: StreamAnalyticUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUpdateManyWithoutStreamNestedInput
+  }
+
+  export type StreamUncheckedUpdateWithoutChatMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStreamStatusFieldUpdateOperationsInput | $Enums.StreamStatus
+    streamKey?: StringFieldUpdateOperationsInput | string
+    ingestUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewerCount?: IntFieldUpdateOperationsInput | number
+    peakViewers?: IntFieldUpdateOperationsInput | number
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinations?: StreamDestinationUncheckedUpdateManyWithoutStreamNestedInput
+    scenes?: SceneUncheckedUpdateManyWithoutStreamNestedInput
+    recording?: RecordingUncheckedUpdateOneWithoutStreamNestedInput
+    analytics?: StreamAnalyticUncheckedUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUncheckedUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUncheckedUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUncheckedUpdateManyWithoutStreamNestedInput
+  }
+
+  export type UserUpsertWithoutLiveChatMessagesInput = {
+    update: XOR<UserUpdateWithoutLiveChatMessagesInput, UserUncheckedUpdateWithoutLiveChatMessagesInput>
+    create: XOR<UserCreateWithoutLiveChatMessagesInput, UserUncheckedCreateWithoutLiveChatMessagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLiveChatMessagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLiveChatMessagesInput, UserUncheckedUpdateWithoutLiveChatMessagesInput>
+  }
+
+  export type UserUpdateWithoutLiveChatMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUpdateManyWithoutUserNestedInput
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    streams?: StreamUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLiveChatMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    streams?: StreamUncheckedUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutCreatorWalletInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountCreateNestedManyWithoutUserInput
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    streams?: StreamCreateNestedManyWithoutUserInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCreatorWalletInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    streams?: StreamUncheckedCreateNestedManyWithoutUserInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCreatorWalletInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCreatorWalletInput, UserUncheckedCreateWithoutCreatorWalletInput>
+  }
+
+  export type WalletLedgerEntryCreateWithoutWalletInput = {
+    id?: string
+    type: $Enums.WalletTxType
+    amountCents: number
+    balanceAfter: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type WalletLedgerEntryUncheckedCreateWithoutWalletInput = {
+    id?: string
+    type: $Enums.WalletTxType
+    amountCents: number
+    balanceAfter: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type WalletLedgerEntryCreateOrConnectWithoutWalletInput = {
+    where: WalletLedgerEntryWhereUniqueInput
+    create: XOR<WalletLedgerEntryCreateWithoutWalletInput, WalletLedgerEntryUncheckedCreateWithoutWalletInput>
+  }
+
+  export type WalletLedgerEntryCreateManyWalletInputEnvelope = {
+    data: WalletLedgerEntryCreateManyWalletInput | WalletLedgerEntryCreateManyWalletInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutCreatorWalletInput = {
+    update: XOR<UserUpdateWithoutCreatorWalletInput, UserUncheckedUpdateWithoutCreatorWalletInput>
+    create: XOR<UserCreateWithoutCreatorWalletInput, UserUncheckedCreateWithoutCreatorWalletInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCreatorWalletInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCreatorWalletInput, UserUncheckedUpdateWithoutCreatorWalletInput>
+  }
+
+  export type UserUpdateWithoutCreatorWalletInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUpdateManyWithoutUserNestedInput
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    streams?: StreamUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCreatorWalletInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    streams?: StreamUncheckedUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type WalletLedgerEntryUpsertWithWhereUniqueWithoutWalletInput = {
+    where: WalletLedgerEntryWhereUniqueInput
+    update: XOR<WalletLedgerEntryUpdateWithoutWalletInput, WalletLedgerEntryUncheckedUpdateWithoutWalletInput>
+    create: XOR<WalletLedgerEntryCreateWithoutWalletInput, WalletLedgerEntryUncheckedCreateWithoutWalletInput>
+  }
+
+  export type WalletLedgerEntryUpdateWithWhereUniqueWithoutWalletInput = {
+    where: WalletLedgerEntryWhereUniqueInput
+    data: XOR<WalletLedgerEntryUpdateWithoutWalletInput, WalletLedgerEntryUncheckedUpdateWithoutWalletInput>
+  }
+
+  export type WalletLedgerEntryUpdateManyWithWhereWithoutWalletInput = {
+    where: WalletLedgerEntryScalarWhereInput
+    data: XOR<WalletLedgerEntryUpdateManyMutationInput, WalletLedgerEntryUncheckedUpdateManyWithoutWalletInput>
+  }
+
+  export type WalletLedgerEntryScalarWhereInput = {
+    AND?: WalletLedgerEntryScalarWhereInput | WalletLedgerEntryScalarWhereInput[]
+    OR?: WalletLedgerEntryScalarWhereInput[]
+    NOT?: WalletLedgerEntryScalarWhereInput | WalletLedgerEntryScalarWhereInput[]
+    id?: StringFilter<"WalletLedgerEntry"> | string
+    walletId?: StringFilter<"WalletLedgerEntry"> | string
+    type?: EnumWalletTxTypeFilter<"WalletLedgerEntry"> | $Enums.WalletTxType
+    amountCents?: IntFilter<"WalletLedgerEntry"> | number
+    balanceAfter?: IntFilter<"WalletLedgerEntry"> | number
+    metadata?: JsonNullableFilter<"WalletLedgerEntry">
+    createdAt?: DateTimeFilter<"WalletLedgerEntry"> | Date | string
+  }
+
+  export type CreatorWalletCreateWithoutLedgerInput = {
+    id?: string
+    balanceCents?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutCreatorWalletInput
+  }
+
+  export type CreatorWalletUncheckedCreateWithoutLedgerInput = {
+    id?: string
+    userId: string
+    balanceCents?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CreatorWalletCreateOrConnectWithoutLedgerInput = {
+    where: CreatorWalletWhereUniqueInput
+    create: XOR<CreatorWalletCreateWithoutLedgerInput, CreatorWalletUncheckedCreateWithoutLedgerInput>
+  }
+
+  export type CreatorWalletUpsertWithoutLedgerInput = {
+    update: XOR<CreatorWalletUpdateWithoutLedgerInput, CreatorWalletUncheckedUpdateWithoutLedgerInput>
+    create: XOR<CreatorWalletCreateWithoutLedgerInput, CreatorWalletUncheckedCreateWithoutLedgerInput>
+    where?: CreatorWalletWhereInput
+  }
+
+  export type CreatorWalletUpdateToOneWithWhereWithoutLedgerInput = {
+    where?: CreatorWalletWhereInput
+    data: XOR<CreatorWalletUpdateWithoutLedgerInput, CreatorWalletUncheckedUpdateWithoutLedgerInput>
+  }
+
+  export type CreatorWalletUpdateWithoutLedgerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    balanceCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCreatorWalletNestedInput
+  }
+
+  export type CreatorWalletUncheckedUpdateWithoutLedgerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    balanceCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StreamCreateWithoutGiftsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    thumbnailUrl?: string | null
+    status?: $Enums.StreamStatus
+    streamKey?: string
+    ingestUrl?: string | null
+    viewerCount?: number
+    peakViewers?: number
+    startedAt?: Date | string | null
+    endedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutStreamsInput
+    destinations?: StreamDestinationCreateNestedManyWithoutStreamInput
+    scenes?: SceneCreateNestedManyWithoutStreamInput
+    recording?: RecordingCreateNestedOneWithoutStreamInput
+    analytics?: StreamAnalyticCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageCreateNestedManyWithoutStreamInput
+  }
+
+  export type StreamUncheckedCreateWithoutGiftsInput = {
+    id?: string
+    userId: string
+    title: string
+    description?: string | null
+    thumbnailUrl?: string | null
+    status?: $Enums.StreamStatus
+    streamKey?: string
+    ingestUrl?: string | null
+    viewerCount?: number
+    peakViewers?: number
+    startedAt?: Date | string | null
+    endedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    destinations?: StreamDestinationUncheckedCreateNestedManyWithoutStreamInput
+    scenes?: SceneUncheckedCreateNestedManyWithoutStreamInput
+    recording?: RecordingUncheckedCreateNestedOneWithoutStreamInput
+    analytics?: StreamAnalyticUncheckedCreateNestedManyWithoutStreamInput
+    comments?: StreamCommentUncheckedCreateNestedManyWithoutStreamInput
+    reactions?: StreamReactionUncheckedCreateNestedManyWithoutStreamInput
+    chatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutStreamInput
+  }
+
+  export type StreamCreateOrConnectWithoutGiftsInput = {
+    where: StreamWhereUniqueInput
+    create: XOR<StreamCreateWithoutGiftsInput, StreamUncheckedCreateWithoutGiftsInput>
+  }
+
+  export type UserCreateWithoutGiftsSentInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountCreateNestedManyWithoutUserInput
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    streams?: StreamCreateNestedManyWithoutUserInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutGiftsSentInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    streams?: StreamUncheckedCreateNestedManyWithoutUserInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutGiftsSentInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutGiftsSentInput, UserUncheckedCreateWithoutGiftsSentInput>
+  }
+
+  export type UserCreateWithoutGiftsReceivedInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountCreateNestedManyWithoutUserInput
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    streams?: StreamCreateNestedManyWithoutUserInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutGiftsReceivedInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    streams?: StreamUncheckedCreateNestedManyWithoutUserInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutGiftsReceivedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutGiftsReceivedInput, UserUncheckedCreateWithoutGiftsReceivedInput>
+  }
+
+  export type StreamUpsertWithoutGiftsInput = {
+    update: XOR<StreamUpdateWithoutGiftsInput, StreamUncheckedUpdateWithoutGiftsInput>
+    create: XOR<StreamCreateWithoutGiftsInput, StreamUncheckedCreateWithoutGiftsInput>
+    where?: StreamWhereInput
+  }
+
+  export type StreamUpdateToOneWithWhereWithoutGiftsInput = {
+    where?: StreamWhereInput
+    data: XOR<StreamUpdateWithoutGiftsInput, StreamUncheckedUpdateWithoutGiftsInput>
+  }
+
+  export type StreamUpdateWithoutGiftsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStreamStatusFieldUpdateOperationsInput | $Enums.StreamStatus
+    streamKey?: StringFieldUpdateOperationsInput | string
+    ingestUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewerCount?: IntFieldUpdateOperationsInput | number
+    peakViewers?: IntFieldUpdateOperationsInput | number
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStreamsNestedInput
+    destinations?: StreamDestinationUpdateManyWithoutStreamNestedInput
+    scenes?: SceneUpdateManyWithoutStreamNestedInput
+    recording?: RecordingUpdateOneWithoutStreamNestedInput
+    analytics?: StreamAnalyticUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUpdateManyWithoutStreamNestedInput
+  }
+
+  export type StreamUncheckedUpdateWithoutGiftsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStreamStatusFieldUpdateOperationsInput | $Enums.StreamStatus
+    streamKey?: StringFieldUpdateOperationsInput | string
+    ingestUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewerCount?: IntFieldUpdateOperationsInput | number
+    peakViewers?: IntFieldUpdateOperationsInput | number
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinations?: StreamDestinationUncheckedUpdateManyWithoutStreamNestedInput
+    scenes?: SceneUncheckedUpdateManyWithoutStreamNestedInput
+    recording?: RecordingUncheckedUpdateOneWithoutStreamNestedInput
+    analytics?: StreamAnalyticUncheckedUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUncheckedUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUncheckedUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUncheckedUpdateManyWithoutStreamNestedInput
+  }
+
+  export type UserUpsertWithoutGiftsSentInput = {
+    update: XOR<UserUpdateWithoutGiftsSentInput, UserUncheckedUpdateWithoutGiftsSentInput>
+    create: XOR<UserCreateWithoutGiftsSentInput, UserUncheckedCreateWithoutGiftsSentInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutGiftsSentInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutGiftsSentInput, UserUncheckedUpdateWithoutGiftsSentInput>
+  }
+
+  export type UserUpdateWithoutGiftsSentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUpdateManyWithoutUserNestedInput
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    streams?: StreamUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutGiftsSentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    streams?: StreamUncheckedUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithoutGiftsReceivedInput = {
+    update: XOR<UserUpdateWithoutGiftsReceivedInput, UserUncheckedUpdateWithoutGiftsReceivedInput>
+    create: XOR<UserCreateWithoutGiftsReceivedInput, UserUncheckedCreateWithoutGiftsReceivedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutGiftsReceivedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutGiftsReceivedInput, UserUncheckedUpdateWithoutGiftsReceivedInput>
+  }
+
+  export type UserUpdateWithoutGiftsReceivedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUpdateManyWithoutUserNestedInput
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    streams?: StreamUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutGiftsReceivedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    streams?: StreamUncheckedUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutPayoutRequestsInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountCreateNestedManyWithoutUserInput
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    streams?: StreamCreateNestedManyWithoutUserInput
+    destinations?: DestinationCreateNestedManyWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+  }
+
+  export type UserUncheckedCreateWithoutPayoutRequestsInput = {
+    id?: string
+    email: string
+    username: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    bio?: string | null
+    passwordHash?: string | null
+    emailVerified?: boolean
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    oauthAccounts?: OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    streams?: StreamUncheckedCreateNestedManyWithoutUserInput
+    destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+  }
+
+  export type UserCreateOrConnectWithoutPayoutRequestsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPayoutRequestsInput, UserUncheckedCreateWithoutPayoutRequestsInput>
+  }
+
+  export type UserUpsertWithoutPayoutRequestsInput = {
+    update: XOR<UserUpdateWithoutPayoutRequestsInput, UserUncheckedUpdateWithoutPayoutRequestsInput>
+    create: XOR<UserCreateWithoutPayoutRequestsInput, UserUncheckedCreateWithoutPayoutRequestsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPayoutRequestsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPayoutRequestsInput, UserUncheckedUpdateWithoutPayoutRequestsInput>
+  }
+
+  export type UserUpdateWithoutPayoutRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUpdateManyWithoutUserNestedInput
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    streams?: StreamUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUpdateManyWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPayoutRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    oauthAccounts?: OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    streams?: StreamUncheckedUpdateManyWithoutUserNestedInput
+    destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
   }
 
   export type UserCreateWithoutMediaAssetsInput = {
@@ -29142,6 +42980,15 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMediaAssetsInput = {
@@ -29164,6 +43011,15 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMediaAssetsInput = {
@@ -29202,6 +43058,15 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMediaAssetsInput = {
@@ -29224,6 +43089,15 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutProjectsInput = {
@@ -29246,6 +43120,15 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectsInput = {
@@ -29268,6 +43151,15 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectsInput = {
@@ -29402,6 +43294,15 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectsInput = {
@@ -29424,6 +43325,15 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ClipUpsertWithWhereUniqueWithoutProjectInput = {
@@ -29684,6 +43594,15 @@ export namespace Prisma {
     destinations?: DestinationCreateNestedManyWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -29706,6 +43625,15 @@ export namespace Prisma {
     destinations?: DestinationUncheckedCreateNestedManyWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     mediaAssets?: MediaAssetUncheckedCreateNestedManyWithoutUserInput
+    socialFollowing?: SocialFollowUncheckedCreateNestedManyWithoutFollowerInput
+    socialFollowers?: SocialFollowUncheckedCreateNestedManyWithoutFolloweeInput
+    streamComments?: StreamCommentUncheckedCreateNestedManyWithoutUserInput
+    streamReactions?: StreamReactionUncheckedCreateNestedManyWithoutUserInput
+    liveChatMessages?: LiveChatMessageUncheckedCreateNestedManyWithoutUserInput
+    creatorWallet?: CreatorWalletUncheckedCreateNestedOneWithoutUserInput
+    giftsSent?: CreatorGiftUncheckedCreateNestedManyWithoutSenderInput
+    giftsReceived?: CreatorGiftUncheckedCreateNestedManyWithoutReceiverInput
+    payoutRequests?: PayoutRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -29744,6 +43672,15 @@ export namespace Prisma {
     destinations?: DestinationUpdateManyWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -29766,6 +43703,15 @@ export namespace Prisma {
     destinations?: DestinationUncheckedUpdateManyWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     mediaAssets?: MediaAssetUncheckedUpdateManyWithoutUserNestedInput
+    socialFollowing?: SocialFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    socialFollowers?: SocialFollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    streamComments?: StreamCommentUncheckedUpdateManyWithoutUserNestedInput
+    streamReactions?: StreamReactionUncheckedUpdateManyWithoutUserNestedInput
+    liveChatMessages?: LiveChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    creatorWallet?: CreatorWalletUncheckedUpdateOneWithoutUserNestedInput
+    giftsSent?: CreatorGiftUncheckedUpdateManyWithoutSenderNestedInput
+    giftsReceived?: CreatorGiftUncheckedUpdateManyWithoutReceiverNestedInput
+    payoutRequests?: PayoutRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OAuthAccountCreateManyUserInput = {
@@ -29852,6 +43798,65 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type SocialFollowCreateManyFollowerInput = {
+    id?: string
+    followeeId: string
+    createdAt?: Date | string
+  }
+
+  export type SocialFollowCreateManyFolloweeInput = {
+    id?: string
+    followerId: string
+    createdAt?: Date | string
+  }
+
+  export type StreamCommentCreateManyUserInput = {
+    id?: string
+    streamId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type StreamReactionCreateManyUserInput = {
+    id?: string
+    streamId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type LiveChatMessageCreateManyUserInput = {
+    id?: string
+    streamId: string
+    body: string
+    createdAt?: Date | string
+  }
+
+  export type CreatorGiftCreateManySenderInput = {
+    id?: string
+    streamId?: string | null
+    receiverId: string
+    coinAmount: number
+    giftType: string
+    createdAt?: Date | string
+  }
+
+  export type CreatorGiftCreateManyReceiverInput = {
+    id?: string
+    streamId?: string | null
+    senderId: string
+    coinAmount: number
+    giftType: string
+    createdAt?: Date | string
+  }
+
+  export type PayoutRequestCreateManyUserInput = {
+    id?: string
+    amountCents: number
+    status?: string
+    requestedAt?: Date | string
+    processedAt?: Date | string | null
+  }
+
   export type OAuthAccountUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     provider?: EnumOAuthProviderFieldUpdateOperationsInput | $Enums.OAuthProvider
@@ -29927,6 +43932,10 @@ export namespace Prisma {
     scenes?: SceneUpdateManyWithoutStreamNestedInput
     recording?: RecordingUpdateOneWithoutStreamNestedInput
     analytics?: StreamAnalyticUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUpdateManyWithoutStreamNestedInput
   }
 
   export type StreamUncheckedUpdateWithoutUserInput = {
@@ -29947,6 +43956,10 @@ export namespace Prisma {
     scenes?: SceneUncheckedUpdateManyWithoutStreamNestedInput
     recording?: RecordingUncheckedUpdateOneWithoutStreamNestedInput
     analytics?: StreamAnalyticUncheckedUpdateManyWithoutStreamNestedInput
+    comments?: StreamCommentUncheckedUpdateManyWithoutStreamNestedInput
+    reactions?: StreamReactionUncheckedUpdateManyWithoutStreamNestedInput
+    chatMessages?: LiveChatMessageUncheckedUpdateManyWithoutStreamNestedInput
+    gifts?: CreatorGiftUncheckedUpdateManyWithoutStreamNestedInput
   }
 
   export type StreamUncheckedUpdateManyWithoutUserInput = {
@@ -30118,6 +44131,183 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SocialFollowUpdateWithoutFollowerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    followee?: UserUpdateOneRequiredWithoutSocialFollowersNestedInput
+  }
+
+  export type SocialFollowUncheckedUpdateWithoutFollowerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    followeeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SocialFollowUncheckedUpdateManyWithoutFollowerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    followeeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SocialFollowUpdateWithoutFolloweeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    follower?: UserUpdateOneRequiredWithoutSocialFollowingNestedInput
+  }
+
+  export type SocialFollowUncheckedUpdateWithoutFolloweeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    followerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SocialFollowUncheckedUpdateManyWithoutFolloweeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    followerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StreamCommentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stream?: StreamUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type StreamCommentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StreamCommentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StreamReactionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stream?: StreamUpdateOneRequiredWithoutReactionsNestedInput
+  }
+
+  export type StreamReactionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StreamReactionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LiveChatMessageUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stream?: StreamUpdateOneRequiredWithoutChatMessagesNestedInput
+  }
+
+  export type LiveChatMessageUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LiveChatMessageUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreatorGiftUpdateWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coinAmount?: IntFieldUpdateOperationsInput | number
+    giftType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stream?: StreamUpdateOneWithoutGiftsNestedInput
+    receiver?: UserUpdateOneRequiredWithoutGiftsReceivedNestedInput
+  }
+
+  export type CreatorGiftUncheckedUpdateWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: NullableStringFieldUpdateOperationsInput | string | null
+    receiverId?: StringFieldUpdateOperationsInput | string
+    coinAmount?: IntFieldUpdateOperationsInput | number
+    giftType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreatorGiftUncheckedUpdateManyWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: NullableStringFieldUpdateOperationsInput | string | null
+    receiverId?: StringFieldUpdateOperationsInput | string
+    coinAmount?: IntFieldUpdateOperationsInput | number
+    giftType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreatorGiftUpdateWithoutReceiverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coinAmount?: IntFieldUpdateOperationsInput | number
+    giftType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stream?: StreamUpdateOneWithoutGiftsNestedInput
+    sender?: UserUpdateOneRequiredWithoutGiftsSentNestedInput
+  }
+
+  export type CreatorGiftUncheckedUpdateWithoutReceiverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: NullableStringFieldUpdateOperationsInput | string | null
+    senderId?: StringFieldUpdateOperationsInput | string
+    coinAmount?: IntFieldUpdateOperationsInput | number
+    giftType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreatorGiftUncheckedUpdateManyWithoutReceiverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    streamId?: NullableStringFieldUpdateOperationsInput | string | null
+    senderId?: StringFieldUpdateOperationsInput | string
+    coinAmount?: IntFieldUpdateOperationsInput | number
+    giftType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PayoutRequestUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amountCents?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    requestedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type PayoutRequestUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amountCents?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    requestedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type PayoutRequestUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amountCents?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    requestedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type InvoiceCreateManySubscriptionInput = {
     id?: string
     stripeInvoiceId: string
@@ -30182,6 +44372,36 @@ export namespace Prisma {
     bitrate?: number | null
     droppedFrames?: number | null
     latencyMs?: number | null
+  }
+
+  export type StreamCommentCreateManyStreamInput = {
+    id?: string
+    userId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type StreamReactionCreateManyStreamInput = {
+    id?: string
+    userId: string
+    type: string
+    createdAt?: Date | string
+  }
+
+  export type LiveChatMessageCreateManyStreamInput = {
+    id?: string
+    userId: string
+    body: string
+    createdAt?: Date | string
+  }
+
+  export type CreatorGiftCreateManyStreamInput = {
+    id?: string
+    senderId: string
+    receiverId: string
+    coinAmount: number
+    giftType: string
+    createdAt?: Date | string
   }
 
   export type StreamDestinationUpdateWithoutStreamInput = {
@@ -30264,6 +44484,96 @@ export namespace Prisma {
     latencyMs?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
+  export type StreamCommentUpdateWithoutStreamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStreamCommentsNestedInput
+  }
+
+  export type StreamCommentUncheckedUpdateWithoutStreamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StreamCommentUncheckedUpdateManyWithoutStreamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StreamReactionUpdateWithoutStreamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStreamReactionsNestedInput
+  }
+
+  export type StreamReactionUncheckedUpdateWithoutStreamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StreamReactionUncheckedUpdateManyWithoutStreamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LiveChatMessageUpdateWithoutStreamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLiveChatMessagesNestedInput
+  }
+
+  export type LiveChatMessageUncheckedUpdateWithoutStreamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LiveChatMessageUncheckedUpdateManyWithoutStreamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreatorGiftUpdateWithoutStreamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coinAmount?: IntFieldUpdateOperationsInput | number
+    giftType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneRequiredWithoutGiftsSentNestedInput
+    receiver?: UserUpdateOneRequiredWithoutGiftsReceivedNestedInput
+  }
+
+  export type CreatorGiftUncheckedUpdateWithoutStreamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    coinAmount?: IntFieldUpdateOperationsInput | number
+    giftType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreatorGiftUncheckedUpdateManyWithoutStreamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    coinAmount?: IntFieldUpdateOperationsInput | number
+    giftType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StreamDestinationCreateManyDestinationInput = {
     streamId: string
     status?: string
@@ -30338,6 +44648,42 @@ export namespace Prisma {
     assetUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WalletLedgerEntryCreateManyWalletInput = {
+    id?: string
+    type: $Enums.WalletTxType
+    amountCents: number
+    balanceAfter: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type WalletLedgerEntryUpdateWithoutWalletInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumWalletTxTypeFieldUpdateOperationsInput | $Enums.WalletTxType
+    amountCents?: IntFieldUpdateOperationsInput | number
+    balanceAfter?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WalletLedgerEntryUncheckedUpdateWithoutWalletInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumWalletTxTypeFieldUpdateOperationsInput | $Enums.WalletTxType
+    amountCents?: IntFieldUpdateOperationsInput | number
+    balanceAfter?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WalletLedgerEntryUncheckedUpdateManyWithoutWalletInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumWalletTxTypeFieldUpdateOperationsInput | $Enums.WalletTxType
+    amountCents?: IntFieldUpdateOperationsInput | number
+    balanceAfter?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClipCreateManyProjectInput = {
@@ -30518,6 +44864,10 @@ export namespace Prisma {
      */
     export type SceneCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SceneCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use CreatorWalletCountOutputTypeDefaultArgs instead
+     */
+    export type CreatorWalletCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CreatorWalletCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use ProjectCountOutputTypeDefaultArgs instead
      */
     export type ProjectCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ProjectCountOutputTypeDefaultArgs<ExtArgs>
@@ -30569,6 +44919,38 @@ export namespace Prisma {
      * @deprecated Use StreamAnalyticDefaultArgs instead
      */
     export type StreamAnalyticArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StreamAnalyticDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SocialFollowDefaultArgs instead
+     */
+    export type SocialFollowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SocialFollowDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StreamCommentDefaultArgs instead
+     */
+    export type StreamCommentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StreamCommentDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StreamReactionDefaultArgs instead
+     */
+    export type StreamReactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StreamReactionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use LiveChatMessageDefaultArgs instead
+     */
+    export type LiveChatMessageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = LiveChatMessageDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CreatorWalletDefaultArgs instead
+     */
+    export type CreatorWalletArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CreatorWalletDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use WalletLedgerEntryDefaultArgs instead
+     */
+    export type WalletLedgerEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = WalletLedgerEntryDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CreatorGiftDefaultArgs instead
+     */
+    export type CreatorGiftArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CreatorGiftDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PayoutRequestDefaultArgs instead
+     */
+    export type PayoutRequestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PayoutRequestDefaultArgs<ExtArgs>
     /**
      * @deprecated Use MediaAssetDefaultArgs instead
      */
