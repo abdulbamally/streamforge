@@ -1,0 +1,76 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: streamforge-postgres
+    restart: unless-stopped
+    env_file:
+      - ../environments/.env.${ENVIRONMENT}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - streamforge-network
+
+  redis:
+    image: redis:7
+    container_name: streamforge-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - streamforge-network
+
+  auth-service:
+    build:
+      context: ../../..
+      dockerfile: services/auth-service/Dockerfile
+    container_name: streamforge-auth
+    restart: unless-stopped
+    env_file:
+      - ../environments/.env.${ENVIRONMENT}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "4000:4000"
+    networks:
+      - streamforge-network
+
+  media-service:
+    build:
+      context: ../../..
+      dockerfile: services/media-service/Dockerfile
+    container_name: streamforge-media
+    restart: unless-stopped
+    env_file:
+      - ../environments/.env.${ENVIRONMENT}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+    networks:
+      - streamforge-network
+
+networks:
+  streamforge-network:
+
+volumes:
+  postgres_data:

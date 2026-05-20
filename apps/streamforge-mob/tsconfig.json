@@ -1,0 +1,39 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@app":               ["src/app"],
+      "@app/*":             ["src/app/*"],
+      "@features":          ["src/features"],
+      "@features/*":        ["src/features/*"],
+      "@core":              ["src/core"],
+      "@core/*":            ["src/core/*"],
+      "@core/store":        ["src/core/store"],
+      "@core/store/*":      ["src/core/store/*"],
+      "@core/hooks":        ["src/core/hooks"],
+      "@core/hooks/*":      ["src/core/hooks/*"],
+      "@core/api":          ["src/core/api"],
+      "@core/api/*":        ["src/core/api/*"],
+      "@shared":            ["src/shared/index.ts"],
+      "@shared/*":          ["src/shared/*"],
+      "@shared/components": ["src/shared/components"],
+      "@shared/theme":      ["src/shared/theme"],
+      "@shared/constants":  ["src/shared/constants"],
+      "@app/navigation":    ["src/app/navigation"],
+      "@app/providers":     ["src/app/providers"],
+      "@assets":            ["assets"],
+      "@assets/*":          ["assets/*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.d.ts",
+    "expo-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

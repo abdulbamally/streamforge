@@ -6,9 +6,14 @@ import { Button } from "@shared/components/Button";
 import { Input } from "@shared/components/Input";
 import { Colors, Spacing, Typography } from "@shared/theme/tokens";
 import { useCreateStream, useStream } from "../hooks/useStream";
-import type { StudioStackParamList } from "@app/navigation/types";
+type StreamFlowParams = {
+  StreamSetup: { streamId?: string };
+  Destinations: { streamId: string };
+  SceneManager: { streamId: string };
+  LiveStudio: { streamId: string };
+};
 
-type Props = NativeStackScreenProps<StudioStackParamList, "StreamSetup">;
+type Props = NativeStackScreenProps<StreamFlowParams, "StreamSetup">;
 
 export function StreamSetupScreen({ route, navigation }: Props) {
   const streamId = route.params?.streamId;
@@ -98,7 +103,13 @@ export function StreamSetupScreen({ route, navigation }: Props) {
             <Button
               label="Go Live"
               variant="danger"
-              onPress={() => navigation.navigate("LiveStudio", { streamId: stream.id })}
+              onPress={() => {
+                const tabNav = navigation.getParent()?.getParent()
+                tabNav?.navigate('Studio', {
+                  screen: 'LiveStudio',
+                  params: { streamId: stream.id },
+                })
+              }}
               fullWidth
             />
           </>

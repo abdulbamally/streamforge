@@ -1,11 +1,19 @@
+const path = require('path')
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config')
 
-const defaultConfig = getDefaultConfig(__dirname)
+const projectRoot = __dirname
+const monorepoRoot = path.resolve(projectRoot, '../..')
+
+const defaultConfig = getDefaultConfig(projectRoot)
 
 const config = {
+  watchFolders: [monorepoRoot],
   resolver: {
-    // Support .cjs files (needed by some packages)
     sourceExts: [...defaultConfig.resolver.sourceExts, 'cjs'],
+    nodeModulesPaths: [
+      path.resolve(projectRoot, 'node_modules'),
+      path.resolve(monorepoRoot, 'node_modules'),
+    ],
   },
 }
 

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { Platform, StreamDestination } from "@streamforge/api-contract";
@@ -8,9 +8,14 @@ import { Input } from "@shared/components/Input";
 import { PLATFORM_LABELS, PLATFORM_RTMP_URLS } from "@shared/constants";
 import { Colors, Spacing, Typography } from "@shared/theme/tokens";
 import { useAddDestination, useRemoveDestination, useStream } from "../hooks/useStream";
-import type { StudioStackParamList } from "@app/navigation/types";
+import { markStreamConfigured } from "../store/streamConfigStore";
 
-type Props = NativeStackScreenProps<StudioStackParamList, "Destinations">;
+type StreamFlowParams = {
+  Destinations: { streamId: string };
+  SceneManager: { streamId: string };
+};
+
+type Props = NativeStackScreenProps<StreamFlowParams, "Destinations">;
 
 const PLATFORM_OPTIONS: Platform[] = ["YOUTUBE", "TWITCH", "FACEBOOK", "TIKTOK", "INSTAGRAM", "CUSTOM"];
 const RTMP_URL_REGEX = /^rtmps?:\/\/.+/i;
@@ -47,6 +52,12 @@ export function DestinationsScreen({ route, navigation }: Props) {
     [labelValue, rtmpUrlValue, streamKeyValue, addDestination.isPending],
   );
 
+  useEffect(() => {
+    if (stream?.destinations.length) {
+      markStreamConfigured(streamId, stream.title);
+    }
+  }, [stream?.destinations.length, stream?.title, streamId]);
+
   async function handleAdd() {
     if (!canSubmit) return;
     await addDestination.mutateAsync({
@@ -57,6 +68,11 @@ export function DestinationsScreen({ route, navigation }: Props) {
     });
     setLabel("");
     setStreamKey("");
+    if (stream?.title) {
+      markStreamConfigured(streamId, stream.title);
+    } else {
+      markStreamConfigured(streamId);
+    }
   }
 
   function handlePrefillFromDestination(item: StreamDestination) {

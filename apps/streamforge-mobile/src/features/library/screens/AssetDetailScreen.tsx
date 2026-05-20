@@ -99,6 +99,19 @@ export function AssetDetailScreen({ route, navigation }: Props) {
       </Card>
 
       <View style={styles.actions}>
+        {isVideo ? (
+          <Button
+            label="Edit in Editor"
+            onPress={() => {
+              const tabNav = navigation.getParent()?.getParent();
+              tabNav?.navigate("Editor", {
+                screen: "ProjectSetup",
+                params: { assetId: asset.id },
+              });
+            }}
+            fullWidth
+          />
+        ) : null}
         <Button
           label="Open URL"
           variant="secondary"

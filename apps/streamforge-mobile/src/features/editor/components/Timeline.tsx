@@ -12,7 +12,7 @@ import {
 import { Colors, Typography, Spacing } from '@shared/theme/tokens'
 import { ClipItem }    from './ClipItem'
 import { useTimeline } from '../hooks/useTimeline'
-import type { Clip }   from '@streamforge/api-contract'
+import type { TimelineClip } from '../engine/types'
 
 // How many distinct tracks to show (0 = primary, 1-2 = overlays, 3 = audio)
 const TRACK_COUNT  = 4
@@ -21,7 +21,7 @@ const RULER_HEIGHT = 24
 const TRACK_LABEL_WIDTH = 60
 
 interface TimelineProps {
-  onClipPress?: (clip: Clip) => void
+  onClipPress?: (clip: TimelineClip) => void
 }
 
 export function Timeline({ onClipPress }: TimelineProps) {
@@ -93,7 +93,7 @@ export function Timeline({ onClipPress }: TimelineProps) {
             {trackClipList.map(clip => (
               <View
                 key={clip.id}
-                style={[styles.clipWrapper, { left: timeToX(clip.startTime) }]}
+                style={[styles.clipWrapper, { left: timeToX(clip.timelineStart) }]}
               >
                 <ClipItem
                   clip={clip}

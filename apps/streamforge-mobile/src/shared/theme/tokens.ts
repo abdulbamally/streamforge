@@ -35,6 +35,13 @@ export const Colors = {
   // Live indicator
   live:     '#ef4444',
   liveGlow: 'rgba(239,68,68,0.3)',
+  liveCta:  '#70D7D0',
+
+  // Settings / stream UI (reference palette)
+  settingsBg:     '#0B0E14',
+  settingsAccent: '#70D7D0',
+  settingsBorder: '#1F2228',
+  profileRing:    '#8A2BE2',
 
   // Plan badges
   planFree:       '#666666',

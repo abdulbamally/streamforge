@@ -37,7 +37,7 @@ services:
       timeout: 3s
       retries: 10
 
-  # ─── Social service (StreamForge Live) ────────────────────────
+  # ─── Social service (StreamForge Live) ──────────────────────── 
   social-service:
     build:
       context: .

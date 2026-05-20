@@ -3,7 +3,7 @@
 //  Base: /api/v1/auth  &  /api/v1/users  &  /api/v1/subscriptions
 // ============================================================
 
-import { apiFetch, buildQuery } from './client'
+import { apiFetch } from './client'
 import type {
   User,
   UserWithSubscription,
@@ -12,6 +12,8 @@ import type {
   PlanInfo,
   ApiResponse,
 } from './types'
+
+const AUTH = { service: 'auth' as const }
 
 // ─── Request DTOs ─────────────────────────────────────────────
 export interface RegisterDto {
@@ -64,166 +66,125 @@ export interface CreateRegionalCheckoutDto extends CreateCheckoutDto {
 
 // ─── Response DTOs ────────────────────────────────────────────
 export interface AuthResponse {
-  user:        User
-  accessToken: string
-  expiresIn:   number
+  user:         User
+  accessToken:  string
+  expiresIn:    number
+  /** Present in JSON for mobile clients (web uses HttpOnly cookie). */
+  refreshToken?: string
 }
 
 export interface RefreshResponse {
-  accessToken: string
-  expiresIn:   number
+  accessToken:  string
+  expiresIn:    number
+  refreshToken?: string
 }
 
 // ─── Auth API ─────────────────────────────────────────────────
 export const authApi = {
 
-  /**
-   * Register a new user account.
-   * Returns access token + user. Refresh token set as HttpOnly cookie.
-   */
   register: (dto: RegisterDto): Promise<AuthResponse> =>
-    apiFetch('/api/v1/auth/register', { method: 'POST', body: JSON.stringify(dto) }),
+    apiFetch('/api/v1/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(dto),
+      ...AUTH,
+    }),
 
-  /**
-   * Login with email/username and password.
-   */
   login: (dto: LoginDto): Promise<AuthResponse> =>
-    apiFetch('/api/v1/auth/login', { method: 'POST', body: JSON.stringify(dto) }),
+    apiFetch('/api/v1/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(dto),
+      ...AUTH,
+    }),
 
-  /**
-   * Refresh access token.
-   * On mobile: pass refreshToken in body (no cookie support).
-   * On web: cookie is used automatically.
-   */
   refresh: (refreshToken?: string): Promise<RefreshResponse> =>
     apiFetch('/api/v1/auth/refresh', {
       method: 'POST',
-      body:   JSON.stringify(refreshToken ? { refreshToken } : {}),
+      body: JSON.stringify(refreshToken ? { refreshToken } : {}),
+      ...AUTH,
     }),
 
-  /**
-   * Logout and revoke refresh token.
-   */
-  logout: (): Promise<{ message: string }> =>
-    apiFetch('/api/v1/auth/logout', { method: 'POST' }),
+  logout: (refreshToken?: string): Promise<{ message: string }> =>
+    apiFetch('/api/v1/auth/logout', {
+      method: 'POST',
+      body: refreshToken ? JSON.stringify({ refreshToken }) : undefined,
+      ...AUTH,
+    }),
 
-  /**
-   * Verify email address with token from email link.
-   */
   verifyEmail: (token: string): Promise<{ message: string }> =>
     apiFetch('/api/v1/auth/verify-email', {
       method: 'POST',
-      body:   JSON.stringify({ token }),
+      body: JSON.stringify({ token }),
+      ...AUTH,
     }),
 
-  /**
-   * Resend email verification link (requires auth).
-   */
   resendVerification: (): Promise<{ message: string }> =>
-    apiFetch('/api/v1/auth/resend-verification', { method: 'POST' }),
+    apiFetch('/api/v1/auth/resend-verification', { method: 'POST', ...AUTH }),
 
-  /**
-   * Request password reset email.
-   * Always returns success (prevents email enumeration).
-   */
   forgotPassword: (dto: ForgotPasswordDto): Promise<{ message: string }> =>
     apiFetch('/api/v1/auth/forgot-password', {
       method: 'POST',
-      body:   JSON.stringify(dto),
+      body: JSON.stringify(dto),
+      ...AUTH,
     }),
 
-  /**
-   * Reset password using token from email link.
-   * Invalidates all existing sessions.
-   */
   resetPassword: (dto: ResetPasswordDto): Promise<{ message: string }> =>
     apiFetch('/api/v1/auth/reset-password', {
       method: 'POST',
-      body:   JSON.stringify(dto),
+      body: JSON.stringify(dto),
+      ...AUTH,
     }),
 
-  /**
-   * Change password (requires auth).
-   * Invalidates all existing sessions — user must log in again.
-   */
   changePassword: (dto: ChangePasswordDto): Promise<{ message: string }> =>
     apiFetch('/api/v1/auth/change-password', {
       method: 'POST',
-      body:   JSON.stringify(dto),
+      body: JSON.stringify(dto),
+      ...AUTH,
     }),
 }
 
 // ─── User API ─────────────────────────────────────────────────
 export const userApi = {
 
-  /**
-   * Get current authenticated user with subscription details.
-   */
   getMe: (): Promise<UserWithSubscription> =>
-    apiFetch('/api/v1/users/me'),
+    apiFetch('/api/v1/users/me', AUTH),
 
-  /**
-   * Update current user's profile.
-   */
   updateMe: (dto: UpdateProfileDto): Promise<User> =>
     apiFetch('/api/v1/users/me', {
       method: 'PATCH',
-      body:   JSON.stringify(dto),
+      body: JSON.stringify(dto),
+      ...AUTH,
     }),
 
-  /**
-   * Get public profile of any user by username.
-   */
   getByUsername: (username: string): Promise<Pick<User, 'id' | 'username' | 'displayName' | 'avatarUrl' | 'bio' | 'createdAt'>> =>
-    apiFetch(`/api/v1/users/${username}`),
+    apiFetch(`/api/v1/users/${username}`, AUTH),
 
-  /**
-   * Delete own account (soft delete).
-   */
   deleteAccount: (): Promise<{ message: string }> =>
-    apiFetch('/api/v1/users/me', { method: 'DELETE' }),
+    apiFetch('/api/v1/users/me', { method: 'DELETE', ...AUTH }),
 }
 
 // ─── Subscription API ─────────────────────────────────────────
 export const subscriptionApi = {
 
-  /**
-   * Get all available plans and their limits.
-   * No auth required.
-   */
   getPlans: (): Promise<{ plans: PlanInfo[] }> =>
-    apiFetch('/api/v1/subscriptions/plans'),
+    apiFetch('/api/v1/subscriptions/plans', AUTH),
 
-  /**
-   * Get current user's subscription details.
-   */
   getMySubscription: (): Promise<Subscription> =>
-    apiFetch('/api/v1/subscriptions/me'),
+    apiFetch('/api/v1/subscriptions/me', AUTH),
 
-  /**
-   * Create a Stripe checkout session.
-   * Returns a URL — open in WebView or browser.
-   */
   createCheckout: (dto: CreateCheckoutDto): Promise<{ url: string }> =>
     apiFetch('/api/v1/subscriptions/checkout', {
       method: 'POST',
-      body:   JSON.stringify(dto),
+      body: JSON.stringify(dto),
+      ...AUTH,
     }),
 
-  /**
-   * Create a regional checkout session for a specific payment provider.
-   * If not implemented server-side yet, callers should gracefully fallback.
-   */
   createRegionalCheckout: (dto: CreateRegionalCheckoutDto): Promise<{ url: string }> =>
     apiFetch('/api/v1/subscriptions/checkout/regional', {
       method: 'POST',
       body: JSON.stringify(dto),
+      ...AUTH,
     }),
 
-  /**
-   * Create a Stripe billing portal session.
-   * Returns a URL — open in WebView or browser.
-   */
   createPortal: (): Promise<{ url: string }> =>
-    apiFetch('/api/v1/subscriptions/portal', { method: 'POST' }),
+    apiFetch('/api/v1/subscriptions/portal', { method: 'POST', ...AUTH }),
 }

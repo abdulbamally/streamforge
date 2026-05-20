@@ -9,10 +9,11 @@ import { RootNavigator }    from './src/app/navigation/RootNavigator'
 import { setupApiClient }   from './src/core/api/setup'
 import { Colors }           from './src/shared/theme/tokens'
 
-// Configure API client before anything renders
-setupApiClient()
-
 export default function App() {
+  useEffect(() => {
+    setupApiClient()
+  }, [])
+
   return (
     <AppProviders>
       <StatusBar

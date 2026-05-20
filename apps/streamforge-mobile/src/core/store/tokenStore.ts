@@ -3,48 +3,61 @@
 //  Manages access token, refresh token, and auto-refresh logic
 // ============================================================
 
-import { create }  from 'zustand'
-import { MMKV }    from 'react-native-mmkv'
+import { create } from 'zustand'
 import { authApi } from '@streamforge/api-contract'
+import { getStorage } from '../storage/mmkvStorage'
 
-const storage = new MMKV({ id: 'streamforge-tokens' })
+const STORAGE_ID = 'streamforge-tokens'
 
 const KEYS = {
-  ACCESS_TOKEN:  'access_token',
+  ACCESS_TOKEN: 'access_token',
   REFRESH_TOKEN: 'refresh_token',
-  EXPIRES_AT:    'expires_at',
+  EXPIRES_AT: 'expires_at',
+}
+
+function tokenStorage() {
+  return getStorage(STORAGE_ID)
 }
 
 interface TokenState {
-  accessToken:  string | null
+  accessToken: string | null
   refreshToken: string | null
-  expiresAt:    number | null   // unix ms
+  expiresAt: number | null
 
-  // Actions
-  setTokens:    (access: string, refresh: string, expiresIn: number) => void
-  clearTokens:  () => void
-  refresh:      () => Promise<string | null>
-  isExpired:    () => boolean
+  hydrateFromStorage: () => void
+  setTokens: (access: string, refresh: string, expiresIn: number) => void
+  clearTokens: () => void
+  refresh: () => Promise<string | null>
+  isExpired: () => boolean
 }
 
 export const useTokenStore = create<TokenState>((set, get) => ({
-  // Hydrate from MMKV on store creation
-  accessToken:  storage.getString(KEYS.ACCESS_TOKEN)  ?? null,
-  refreshToken: storage.getString(KEYS.REFRESH_TOKEN) ?? null,
-  expiresAt:    storage.getNumber(KEYS.EXPIRES_AT)    ?? null,
+  accessToken: null,
+  refreshToken: null,
+  expiresAt: null,
+
+  hydrateFromStorage: () => {
+    const storage = tokenStorage()
+    set({
+      accessToken: storage.getString(KEYS.ACCESS_TOKEN) ?? null,
+      refreshToken: storage.getString(KEYS.REFRESH_TOKEN) ?? null,
+      expiresAt: storage.getNumber(KEYS.EXPIRES_AT) ?? null,
+    })
+  },
 
   setTokens: (access, refresh, expiresIn) => {
     const expiresAt = Date.now() + expiresIn * 1000
+    const storage = tokenStorage()
 
-    // Persist to MMKV
-    storage.set(KEYS.ACCESS_TOKEN,  access)
+    storage.set(KEYS.ACCESS_TOKEN, access)
     storage.set(KEYS.REFRESH_TOKEN, refresh)
-    storage.set(KEYS.EXPIRES_AT,    expiresAt)
+    storage.set(KEYS.EXPIRES_AT, expiresAt)
 
     set({ accessToken: access, refreshToken: refresh, expiresAt })
   },
 
   clearTokens: () => {
+    const storage = tokenStorage()
     storage.delete(KEYS.ACCESS_TOKEN)
     storage.delete(KEYS.REFRESH_TOKEN)
     storage.delete(KEYS.EXPIRES_AT)
@@ -54,7 +67,6 @@ export const useTokenStore = create<TokenState>((set, get) => ({
   isExpired: () => {
     const { expiresAt } = get()
     if (!expiresAt) return true
-    // Consider expired 60 seconds before actual expiry
     return Date.now() >= expiresAt - 60_000
   },
 
@@ -64,9 +76,11 @@ export const useTokenStore = create<TokenState>((set, get) => ({
 
     try {
       const result = await authApi.refresh(refreshToken)
-      // Note: refresh endpoint only returns new access token
-      // Refresh token is rotated server-side via cookie (web) or returned in body (mobile)
-      setTokens(result.accessToken, refreshToken, result.expiresIn)
+      setTokens(
+        result.accessToken,
+        result.refreshToken ?? refreshToken,
+        result.expiresIn,
+      )
       return result.accessToken
     } catch {
       clearTokens()
@@ -75,6 +89,5 @@ export const useTokenStore = create<TokenState>((set, get) => ({
   },
 }))
 
-// Convenience selector
-export const getAccessToken  = () => useTokenStore.getState().accessToken
+export const getAccessToken = () => useTokenStore.getState().accessToken
 export const getRefreshToken = () => useTokenStore.getState().refreshToken

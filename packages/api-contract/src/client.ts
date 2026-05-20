@@ -16,8 +16,13 @@ export type ApiServiceName =
   | 'monetization'
 
 export interface ClientConfig {
-  baseUrl:          string   // e.g. 'https://api.streamforge.app'
-  /** Optional service hosts (dev: different localhost ports). Falls back to baseUrl. */
+  /** Default host — used when a service has no dedicated base URL. */
+  baseUrl: string
+  /** Per-service hosts (dev: different localhost ports). Falls back to baseUrl. */
+  authBaseUrl?:         string
+  streamBaseUrl?:       string
+  mediaBaseUrl?:        string
+  aiBaseUrl?:           string
   socialBaseUrl?:       string
   realtimeBaseUrl?:     string
   /** WebSocket origin only (no path), e.g. ws://localhost:3006 */
@@ -44,16 +49,27 @@ export function getConfig(): ClientConfig {
 function resolveServiceBaseUrl(service?: ApiServiceName): string {
   const config = getConfig()
   const root = config.baseUrl.replace(/\/$/, '')
-  if (service === 'social' && config.socialBaseUrl) {
-    return config.socialBaseUrl.replace(/\/$/, '')
+
+  const pick = (url?: string) => (url ? url.replace(/\/$/, '') : root)
+
+  switch (service) {
+    case 'auth':
+      return pick(config.authBaseUrl)
+    case 'stream':
+      return pick(config.streamBaseUrl)
+    case 'media':
+      return pick(config.mediaBaseUrl)
+    case 'ai':
+      return pick(config.aiBaseUrl)
+    case 'social':
+      return pick(config.socialBaseUrl)
+    case 'realtime':
+      return pick(config.realtimeBaseUrl)
+    case 'monetization':
+      return pick(config.monetizationBaseUrl)
+    default:
+      return root
   }
-  if (service === 'realtime' && config.realtimeBaseUrl) {
-    return config.realtimeBaseUrl.replace(/\/$/, '')
-  }
-  if (service === 'monetization' && config.monetizationBaseUrl) {
-    return config.monetizationBaseUrl.replace(/\/$/, '')
-  }
-  return root
 }
 
 // ─── Core fetch wrapper ───────────────────────────────────────

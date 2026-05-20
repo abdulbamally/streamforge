@@ -1,105 +1,83 @@
 // ============================================================
-//  useTimeline — Timeline playback and scrubbing logic
+//  useTimeline — Layout + controls (playback in playbackStore)
 // ============================================================
 
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback } from 'react'
 import { useEditorStore } from '../store/editorStore'
+import { usePlaybackStore } from '../store/playbackStore'
+import { useUiStore } from '../store/uiStore'
+import { getClipAtTime } from '../engine/timelineEngine'
 
 export function useTimeline() {
-  const {
-    currentTime,
-    duration,
-    isPlaying,
-    playbackRate,
-    zoom,
-    scrollOffset,
-    selectedClipId,
-    clips,
-    setCurrentTime,
-    setPlaying,
-    setZoom,
-    setScrollOffset,
-    selectClip,
-  } = useEditorStore()
+  const clips = useEditorStore((s) => s.clips)
+  const selectedClipId = useEditorStore((s) => s.selectedClipId)
+  const selectClip = useEditorStore((s) => s.selectClip)
 
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const currentTime = usePlaybackStore((s) => s.currentTime)
+  const duration = usePlaybackStore((s) => s.duration)
+  const isPlaying = usePlaybackStore((s) => s.isPlaying)
+  const playbackRate = usePlaybackStore((s) => s.playbackRate)
+  const setCurrentTime = usePlaybackStore((s) => s.setCurrentTime)
+  const setPlaying = usePlaybackStore((s) => s.setPlaying)
 
-  // ── Playback ticker ────────────────────────────────────────
-  useEffect(() => {
-    if (isPlaying) {
-      intervalRef.current = setInterval(() => {
-        const next = useEditorStore.getState().currentTime + (0.1 * playbackRate)
-        if (next >= duration) {
-          useEditorStore.getState().setPlaying(false)
-          useEditorStore.getState().setCurrentTime(duration)
-        } else {
-          useEditorStore.getState().setCurrentTime(next)
-        }
-      }, 100)
-    } else {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
-        intervalRef.current = null
-      }
-    }
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current)
-    }
-  }, [isPlaying, playbackRate, duration])
+  const zoom = useUiStore((s) => s.zoom)
+  const scrollOffsetPx = useUiStore((s) => s.scrollOffsetPx)
+  const setZoom = useUiStore((s) => s.setZoom)
+  const setScrollOffsetPx = useUiStore((s) => s.setScrollOffsetPx)
 
-  // ── Controls ───────────────────────────────────────────────
-  const play  = useCallback(() => setPlaying(true),  [setPlaying])
+  const play = useCallback(() => setPlaying(true), [setPlaying])
   const pause = useCallback(() => setPlaying(false), [setPlaying])
 
   const togglePlay = useCallback(() => {
-    const { isPlaying: playing, currentTime: ct, duration: dur } = useEditorStore.getState()
+    const { isPlaying: playing, currentTime: ct, duration: dur } =
+      usePlaybackStore.getState()
     if (playing) {
       setPlaying(false)
     } else {
-      // If at end, restart from beginning
       if (ct >= dur) setCurrentTime(0)
       setPlaying(true)
     }
   }, [setPlaying, setCurrentTime])
 
-  const seekTo = useCallback((time: number) => {
-    setCurrentTime(Math.max(0, Math.min(time, duration)))
-  }, [setCurrentTime, duration])
-
-  const seekBySeconds = useCallback((delta: number) => {
-    const ct = useEditorStore.getState().currentTime
-    seekTo(ct + delta)
-  }, [seekTo])
-
-  const zoomIn  = useCallback(() => setZoom(Math.min(zoom * 1.5, 10)),   [zoom, setZoom])
-  const zoomOut = useCallback(() => setZoom(Math.max(zoom / 1.5, 0.25)), [zoom, setZoom])
-
-  // ── Timeline pixel calculations ────────────────────────────
-  // How many pixels = 1 second at current zoom
-  const PIXELS_PER_SECOND = 50 * zoom
-
-  const timeToX    = useCallback((t: number) => t * PIXELS_PER_SECOND,    [PIXELS_PER_SECOND])
-  const xToTime    = useCallback((x: number) => x / PIXELS_PER_SECOND,    [PIXELS_PER_SECOND])
-  const totalWidth = duration * PIXELS_PER_SECOND
-
-  // ── Clip at current playhead ───────────────────────────────
-  const activeClips = clips.filter(
-    c => c.startTime <= currentTime && c.endTime >= currentTime
+  const seekTo = useCallback(
+    (time: number) => {
+      setCurrentTime(Math.max(0, Math.min(time, duration)))
+    },
+    [setCurrentTime, duration],
   )
 
+  const seekBySeconds = useCallback(
+    (delta: number) => {
+      seekTo(usePlaybackStore.getState().currentTime + delta)
+    },
+    [seekTo],
+  )
+
+  const zoomIn = useCallback(() => setZoom(Math.min(zoom * 1.5, 10)), [zoom, setZoom])
+  const zoomOut = useCallback(() => setZoom(Math.max(zoom / 1.5, 0.25)), [zoom, setZoom])
+
+  const PIXELS_PER_SECOND = 50 * zoom
+  const timeToX = useCallback((t: number) => t * PIXELS_PER_SECOND, [PIXELS_PER_SECOND])
+  const xToTime = useCallback((x: number) => x / PIXELS_PER_SECOND, [PIXELS_PER_SECOND])
+  const totalWidth = duration * PIXELS_PER_SECOND
+
+  const activeClips = clips.filter(
+    (c) => currentTime >= c.timelineStart && currentTime < c.timelineStart + c.duration,
+  )
+
+  const activeClip = getClipAtTime(clips, currentTime)
+
   return {
-    // State
+    clips,
     currentTime,
     duration,
     isPlaying,
     playbackRate,
     zoom,
-    scrollOffset,
+    scrollOffset: scrollOffsetPx,
     selectedClipId,
-    clips,
     activeClips,
-
-    // Controls
+    activeClip,
     play,
     pause,
     togglePlay,
@@ -107,16 +85,12 @@ export function useTimeline() {
     seekBySeconds,
     zoomIn,
     zoomOut,
-    setScrollOffset,
+    setScrollOffset: setScrollOffsetPx,
     selectClip,
-
-    // Layout helpers
     timeToX,
     xToTime,
     totalWidth,
     PIXELS_PER_SECOND,
-
-    // Progress 0-1
     progress: duration > 0 ? currentTime / duration : 0,
   }
 }

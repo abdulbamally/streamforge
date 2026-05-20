@@ -1,20 +1,21 @@
 module.exports = {
-  presets: ['module:@react-native/babel-preset'],
+  presets: ["module:@react-native/babel-preset"],
   plugins: [
+    "react-native-worklets-core/plugin",
     [
-      'module-resolver',
+      "module-resolver",
       {
-        root: ['./src'],
-        extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
+        root: ["./src"],
+        extensions: [".ios.js", ".android.js", ".js", ".ts", ".tsx", ".json"],
         alias: {
-          '@app':      './src/app',
-          '@features': './src/features',
-          '@core':     './src/core',
-          '@shared':   './src/shared',
-          '@assets':   './assets',
+          "@app": "./src/app",
+          "@features": "./src/features",
+          "@core": "./src/core",
+          "@shared": "./src/shared",
+          "@assets": "./assets",
         },
       },
     ],
-    'react-native-reanimated/plugin', // Must be last
+    "react-native-reanimated/plugin", // Must be last
   ],
-}
+};

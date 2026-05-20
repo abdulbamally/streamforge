@@ -1,141 +1,182 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useCallback } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  useWindowDimensions,
+} from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Card, Screen } from "@shared/components";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "@shared/components/Button";
 import { Colors, Spacing, Typography } from "@shared/theme/tokens";
-import { Timeline } from "../components/Timeline";
+import { VideoPreview } from "../components/preview/VideoPreview";
+import { SkiaTimeline } from "../components/timeline/SkiaTimeline";
+import { EditorToolBar } from "../components/toolbar/EditorToolBar";
+import { CutToolPanel } from "../components/tools/CutToolPanel";
 import { Toolbar } from "../components/Toolbar";
-import { useAddClip, useProject } from "../hooks/useProject";
+import { useEditorProject } from "../hooks/useEditorProject";
 import { useEditorStore } from "../store/editorStore";
+import { useUiStore } from "../store/uiStore";
+import { useTimeline } from "../hooks/useTimeline";
+import { pickVideoFromGallery } from "../services/importService";
 import type { EditorStackParamList } from "@app/navigation/types";
+import { isLocalProjectId } from "../services/projectPersistence";
 
 type Props = NativeStackScreenProps<EditorStackParamList, "EditorCanvas">;
 
 export function EditorCanvasScreen({ route, navigation }: Props) {
   const { projectId } = route.params;
-  const { data: project, isLoading } = useProject(projectId);
-  const addClip = useAddClip(projectId);
+  const { height } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
+  const { isLoading, project } = useEditorProject(projectId);
   const clips = useEditorStore((s) => s.clips);
-  const duration = useEditorStore((s) => s.duration);
-  const selectedClipId = useEditorStore((s) => s.selectedClipId);
-  const setActivePanel = useEditorStore((s) => s.setActivePanel);
+  const addClip = useEditorStore((s) => s.addClip);
+  const activeTool = useUiStore((s) => s.activeTool);
+  const { activeClip } = useTimeline();
 
-  async function handleAddDemoClip() {
-    const start = duration;
-    const end = start + 8;
-    await addClip.mutateAsync({
-      assetUrl: "https://cdn.streamforge.app/demo/sample.mp4",
-      startTime: start,
-      endTime: end,
-      trackIndex: 0,
-      trimIn: 0,
-      trimOut: 8,
+  const previewHeight = height * 0.58;
+
+  const handleImport = useCallback(async () => {
+    const result = await pickVideoFromGallery();
+    if (!result) return;
+    const start = clips.reduce(
+      (max, c) => Math.max(max, c.timelineStart + c.duration),
+      0,
+    );
+    addClip({
+      ...result.clip,
+      timelineStart: start,
     });
-  }
+  }, [clips, addClip]);
+
+  const handleExport = useCallback(() => {
+    if (isLocalProjectId(projectId)) {
+      navigation.navigate("ExportProgress", {
+        projectId,
+        exportId: "local",
+      });
+    } else {
+      navigation.navigate("ExportSettings", { projectId });
+    }
+  }, [navigation, projectId]);
 
   if (isLoading) {
     return (
-      <Screen padded>
-        <Text style={styles.title}>Loading editor...</Text>
-      </Screen>
+      <View style={styles.loading}>
+        <Text style={styles.loadingText}>Loading editor...</Text>
+      </View>
     );
   }
 
+  if (!project) {
+    return (
+      <View style={styles.loading}>
+        <Text style={styles.loadingText}>
+          Unable to load project. If this is a cloud project, check your
+          connection and try again.
+        </Text>
+      </View>
+    );
+  }
+
+  const previewUri = activeClip?.sourceUri ?? clips[0]?.sourceUri ?? null;
+
   return (
-    <Screen edges={["bottom"]} padded={false}>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <View>
-            <Text style={styles.title} numberOfLines={1}>
-              {project?.title ?? "Editor"}
-            </Text>
-            <Text style={styles.subtitle}>
-              {project?.resolution ?? "--"} · {project?.fps ?? "--"}fps · {clips.length} clips
-            </Text>
-          </View>
+    <View style={[styles.root, { paddingTop: insets.top }]}>
+      <View style={styles.header}>
+        <View style={styles.headerText}>
+          <Text style={styles.title} numberOfLines={1}>
+            {project?.title ?? "Editor"}
+          </Text>
+          <Text style={styles.subtitle}>
+            {clips.length} clip{clips.length === 1 ? "" : "s"}
+          </Text>
+        </View>
+        <View style={styles.headerActions}>
+          <Button
+            label="Import"
+            size="sm"
+            variant="secondary"
+            onPress={handleImport}
+          />
           <Button
             label="Export"
-            onPress={() => navigation.navigate("ExportSettings", { projectId })}
-            disabled={!clips.length}
             size="sm"
+            onPress={handleExport}
+            disabled={!clips.length}
           />
         </View>
-
-        <Card style={styles.previewCard}>
-          <Text style={styles.previewTitle}>Preview Canvas</Text>
-          <Text style={styles.previewMeta}>
-            Playhead preview area. Selected clip: {selectedClipId ? "Yes" : "None"}
-          </Text>
-          <Button
-            label="Add Demo Clip"
-            variant="secondary"
-            onPress={handleAddDemoClip}
-            loading={addClip.isPending}
-            fullWidth
-          />
-        </Card>
-
-        <View style={styles.timelineWrap}>
-          <Timeline />
-        </View>
-
-        <Toolbar
-          onColorGrade={() => setActivePanel("color")}
-          onEffects={() => setActivePanel("effects")}
-          onExtractAudio={() => setActivePanel("audio")}
-          onAI={() => setActivePanel("ai")}
-          onExport={() => navigation.navigate("ExportSettings", { projectId })}
-        />
       </View>
-    </Screen>
+
+      <View style={[styles.preview, { height: previewHeight }]}>
+        <VideoPreview sourceUri={previewUri} />
+      </View>
+
+      <ScrollView
+        style={styles.workspace}
+        contentContainerStyle={styles.workspaceContent}
+        keyboardShouldPersistTaps="handled"
+      >
+        <SkiaTimeline />
+        {activeTool === "cut" ? <CutToolPanel /> : null}
+        <Toolbar onSplit={undefined} onExport={handleExport} />
+        <EditorToolBar />
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
     backgroundColor: Colors.bg,
+  },
+  loading: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: Colors.bg,
+  },
+  loadingText: {
+    color: Colors.textSecondary,
+    fontFamily: Typography.fontMedium,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: Spacing.lg,
-    paddingTop: Spacing.lg,
-    paddingBottom: Spacing.md,
+    paddingBottom: Spacing.sm,
+  },
+  headerText: {
+    flex: 1,
+    marginRight: Spacing.md,
+  },
+  headerActions: {
+    flexDirection: "row",
+    gap: Spacing.sm,
   },
   title: {
     fontSize: Typography.lg,
     fontFamily: Typography.fontBold,
     color: Colors.textPrimary,
-    maxWidth: 240,
   },
   subtitle: {
     fontSize: Typography.xs,
     fontFamily: Typography.fontMedium,
     color: Colors.textSecondary,
-    marginTop: Spacing.xxs,
+    marginTop: 2,
   },
-  previewCard: {
-    marginHorizontal: Spacing.lg,
-    marginBottom: Spacing.md,
-    gap: Spacing.sm,
-    minHeight: 160,
-    justifyContent: "center",
+  preview: {
+    backgroundColor: Colors.bg,
   },
-  previewTitle: {
-    fontSize: Typography.base,
-    fontFamily: Typography.fontSemiBold,
-    color: Colors.textPrimary,
-  },
-  previewMeta: {
-    fontSize: Typography.xs,
-    fontFamily: Typography.fontRegular,
-    color: Colors.textSecondary,
-  },
-  timelineWrap: {
+  workspace: {
     flex: 1,
-    minHeight: 320,
+    minHeight: 200,
+  },
+  workspaceContent: {
+    paddingHorizontal: Spacing.lg,
+    paddingBottom: Spacing.xxl,
   },
 });

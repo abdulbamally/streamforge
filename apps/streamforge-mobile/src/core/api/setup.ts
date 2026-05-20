@@ -4,35 +4,12 @@
 // ============================================================
 
 import { configureApiClient } from '@streamforge/api-contract'
-import { useTokenStore }       from '../store/tokenStore'
+import { apiConfig } from '../config/api.config'
+import { useTokenStore } from '../store/tokenStore'
 
-const API_BASE_URL    = __DEV__
-  ? 'http://localhost:3001'          // dev — points to auth service
-  : 'https://api.streamforge.app'   // prod — API gateway
+export const STREAM_WS_URL = apiConfig.realtimeWsUrl
+export const REALTIME_WS_URL = apiConfig.realtimeWsUrl
 
-const STREAM_WS_URL   = __DEV__
-  ? 'ws://localhost:3002'
-  : 'wss://stream.streamforge.app'
-
-const SOCIAL_BASE_URL = __DEV__
-  ? 'http://localhost:3005'
-  : 'https://api.streamforge.app'
-
-const REALTIME_HTTP_BASE = __DEV__
-  ? 'http://localhost:3006'
-  : 'https://api.streamforge.app'
-
-const REALTIME_WS_URL = __DEV__
-  ? 'ws://localhost:3006'
-  : 'wss://api.streamforge.app'
-
-const MONETIZATION_BASE_URL = __DEV__
-  ? 'http://localhost:3007'
-  : 'https://api.streamforge.app'
-
-export { STREAM_WS_URL, REALTIME_WS_URL }
-
-// Navigation ref — set this after NavigationContainer mounts
 let _navigateToLogin: (() => void) | null = null
 
 export function setNavigateToLogin(fn: () => void) {
@@ -41,11 +18,15 @@ export function setNavigateToLogin(fn: () => void) {
 
 export function setupApiClient() {
   configureApiClient({
-    baseUrl:        API_BASE_URL,
-    socialBaseUrl:       SOCIAL_BASE_URL,
-    realtimeBaseUrl:     REALTIME_HTTP_BASE,
-    realtimeWsUrl:       REALTIME_WS_URL,
-    monetizationBaseUrl: MONETIZATION_BASE_URL,
+    baseUrl: apiConfig.authBaseUrl,
+    authBaseUrl: apiConfig.authBaseUrl,
+    streamBaseUrl: apiConfig.streamBaseUrl,
+    mediaBaseUrl: apiConfig.mediaBaseUrl,
+    aiBaseUrl: apiConfig.aiBaseUrl,
+    socialBaseUrl: apiConfig.socialBaseUrl,
+    realtimeBaseUrl: apiConfig.realtimeBaseUrl,
+    realtimeWsUrl: apiConfig.realtimeWsUrl,
+    monetizationBaseUrl: apiConfig.monetizationBaseUrl,
     getAccessToken: () => useTokenStore.getState().accessToken,
     onTokenExpired: () => useTokenStore.getState().refresh(),
     onUnauthorized: () => {

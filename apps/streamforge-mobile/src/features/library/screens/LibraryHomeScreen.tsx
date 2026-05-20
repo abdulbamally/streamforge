@@ -1,8 +1,16 @@
 import React, { useMemo, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Image as ImageIcon, Film, Music, RefreshCw, Upload } from "lucide-react-native";
-import DocumentPicker, { types as pickerTypes } from "react-native-document-picker";
+import {
+  Image as ImageIcon,
+  Film,
+  Music,
+  RefreshCw,
+  Upload,
+} from "lucide-react-native";
+import DocumentPicker, {
+  types as pickerTypes,
+} from "react-native-document-picker";
 import { Card, EmptyState, Screen, Skeleton } from "@shared/components";
 import { Button } from "@shared/components/Button";
 import { Colors, IconSize, Spacing, Typography } from "@shared/theme/tokens";
@@ -14,15 +22,28 @@ type Tab = "video" | "image" | "audio" | "recording";
 type Props = NativeStackScreenProps<LibraryStackParamList, "LibraryHome">;
 
 const TAB_META: Record<Tab, { label: string; icon: React.ReactNode }> = {
-  video: { label: "Videos", icon: <Film size={IconSize.sm} color={Colors.textSecondary} /> },
-  image: { label: "Images", icon: <ImageIcon size={IconSize.sm} color={Colors.textSecondary} /> },
-  audio: { label: "Audio", icon: <Music size={IconSize.sm} color={Colors.textSecondary} /> },
-  recording: { label: "Recordings", icon: <RefreshCw size={IconSize.sm} color={Colors.textSecondary} /> },
+  video: {
+    label: "Videos",
+    icon: <Film size={IconSize.sm} color={Colors.textSecondary} />,
+  },
+  image: {
+    label: "Images",
+    icon: <ImageIcon size={IconSize.sm} color={Colors.textSecondary} />,
+  },
+  audio: {
+    label: "Audio",
+    icon: <Music size={IconSize.sm} color={Colors.textSecondary} />,
+  },
+  recording: {
+    label: "Recordings",
+    icon: <RefreshCw size={IconSize.sm} color={Colors.textSecondary} />,
+  },
 };
 
 function formatSize(bytes: number) {
   if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
-  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  if (bytes < 1024 * 1024 * 1024)
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
 }
 
@@ -31,7 +52,12 @@ export function LibraryHomeScreen({ navigation }: Props) {
   const toast = useToast();
   const uploadAsset = useUploadAsset();
   const assetTypeFilter = tab === "recording" ? undefined : tab;
-  const { data: fetchedAssets, isLoading, isFetching, refetch } = useAssets(assetTypeFilter);
+  const {
+    data: fetchedAssets,
+    isLoading,
+    isFetching,
+    refetch,
+  } = useAssets(assetTypeFilter);
 
   const assets = useMemo(() => {
     if (!fetchedAssets) return [];
@@ -43,13 +69,14 @@ export function LibraryHomeScreen({ navigation }: Props) {
     });
   }, [fetchedAssets, tab]);
 
-  const pickUploadType = tab === "video"
-    ? [pickerTypes.video]
-    : tab === "image"
-      ? [pickerTypes.images]
-      : tab === "audio"
-        ? [pickerTypes.audio]
-        : [pickerTypes.video];
+  const pickUploadType =
+    tab === "video"
+      ? [pickerTypes.video]
+      : tab === "image"
+        ? [pickerTypes.images]
+        : tab === "audio"
+          ? [pickerTypes.audio]
+          : [pickerTypes.video];
 
   const handleUpload = async () => {
     try {
@@ -79,7 +106,7 @@ export function LibraryHomeScreen({ navigation }: Props) {
       <View style={styles.header}>
         <View>
           <Text style={styles.title}>Library</Text>
-          <Text style={styles.subtitle}>Manage your media assets</Text>
+          <Text style={styles.subtitle}>Manage all your media assets</Text>
         </View>
         <Button
           label="Upload"
@@ -109,7 +136,9 @@ export function LibraryHomeScreen({ navigation }: Props) {
             onPress={() => setTab(key)}
           >
             {TAB_META[key].icon}
-            <Text style={[styles.tabText, tab === key && styles.tabTextActive]}>{TAB_META[key].label}</Text>
+            <Text style={[styles.tabText, tab === key && styles.tabTextActive]}>
+              {TAB_META[key].label}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -125,7 +154,9 @@ export function LibraryHomeScreen({ navigation }: Props) {
           {assets.map((asset) => (
             <TouchableOpacity
               key={asset.id}
-              onPress={() => navigation.navigate("AssetDetail", { assetId: asset.id })}
+              onPress={() =>
+                navigation.navigate("AssetDetail", { assetId: asset.id })
+              }
               activeOpacity={0.8}
             >
               <Card style={styles.assetCard}>
@@ -140,7 +171,7 @@ export function LibraryHomeScreen({ navigation }: Props) {
           ))}
         </View>
       ) : (
-        <EmptyState title="No assets in this tab" message="Upload media to start building edits and scenes." />
+        <EmptyState title="No assets" message="Upload media to start editing" />
       )}
     </Screen>
   );

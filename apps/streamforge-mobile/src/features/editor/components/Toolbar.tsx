@@ -18,6 +18,7 @@ import {
 import { Colors, Typography, Spacing, Radius, IconSize } from '@shared/theme/tokens'
 import { useTimeline }   from '../hooks/useTimeline'
 import { useEditorStore } from '../store/editorStore'
+import { useTimelineSplit } from './timeline/SkiaTimeline'
 
 interface ToolbarProps {
   onTrim?:        () => void
@@ -61,7 +62,8 @@ export function Toolbar({
   onExport,
 }: ToolbarProps) {
   const { togglePlay, isPlaying, seekBySeconds, currentTime, duration } = useTimeline()
-  const { selectedClipId, activePanel } = useEditorStore()
+  const selectedClipId = useEditorStore((s) => s.selectedClipId)
+  const splitAtPlayhead = useTimelineSplit()
 
   const hasSelection = !!selectedClipId
 
@@ -112,7 +114,7 @@ export function Toolbar({
         <ToolButton
           icon={<SplitSquareHorizontal size={IconSize.md} color={hasSelection ? Colors.textPrimary : Colors.textTertiary} />}
           label="Split"
-          onPress={onSplit ?? (() => {})}
+          onPress={onSplit ?? splitAtPlayhead}
           disabled={!hasSelection}
         />
         <ToolButton
@@ -123,24 +125,22 @@ export function Toolbar({
         />
         <View style={styles.separator} />
         <ToolButton
-          icon={<Palette size={IconSize.md} color={activePanel === 'color' ? Colors.brand : Colors.textPrimary} />}
+          icon={<Palette size={IconSize.md} color={Colors.textTertiary} />}
           label="Color"
           onPress={onColorGrade ?? (() => {})}
-          active={activePanel === 'color'}
-          disabled={!hasSelection}
+          disabled
         />
         <ToolButton
-          icon={<Sliders size={IconSize.md} color={activePanel === 'effects' ? Colors.brand : Colors.textPrimary} />}
+          icon={<Sliders size={IconSize.md} color={Colors.textTertiary} />}
           label="Effects"
           onPress={onEffects ?? (() => {})}
-          active={activePanel === 'effects'}
-          disabled={!hasSelection}
+          disabled
         />
         <ToolButton
-          icon={<Sparkles size={IconSize.md} color={activePanel === 'ai' ? Colors.brand : Colors.textPrimary} />}
+          icon={<Sparkles size={IconSize.md} color={Colors.textTertiary} />}
           label="AI"
           onPress={onAI ?? (() => {})}
-          active={activePanel === 'ai'}
+          disabled
         />
       </ScrollView>
     </View>

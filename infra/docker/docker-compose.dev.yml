@@ -1,0 +1,14 @@
+services:
+  auth-service:
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ../../services/auth-service:/app
+    command: pnpm dev
+
+  media-service:
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ../../services/media-service:/app
+    command: pnpm dev

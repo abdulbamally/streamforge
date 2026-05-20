@@ -32,9 +32,12 @@ export function useLogin() {
   })
 
   const onSubmit = form.handleSubmit(async (values) => {
-    await login(values.identifier, values.password, (errorMessage) => {
-      toast.error(errorMessage)
-    })
+    await login(
+      values.identifier,
+      values.password,
+      (errorMessage) => toast.error(errorMessage),
+      values.rememberMe,
+    )
   })
 
   return {

@@ -1,44 +1,88 @@
-import React, { useMemo, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Card, Screen } from "@shared/components";
-import { Input } from "@shared/components/Input";
-import { Button } from "@shared/components/Button";
-import { ASPECT_RATIOS, EXPORT_FPS_OPTIONS, EXPORT_RESOLUTIONS } from "@shared/constants";
-import { Colors, Spacing, Typography } from "@shared/theme/tokens";
-import { useCreateProject } from "../hooks/useProject";
-import type { EditorStackParamList } from "@app/navigation/types";
+import React, { useMemo, useState } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import type { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { Card, Screen } from '@shared/components'
+import { Input } from '@shared/components/Input'
+import { Button } from '@shared/components/Button'
+import { ASPECT_RATIOS, EXPORT_FPS_OPTIONS, EXPORT_RESOLUTIONS } from '@shared/constants'
+import { Colors, Spacing, Typography } from '@shared/theme/tokens'
+import { useCreateProject } from '../hooks/useProject'
+import { createLocalProject } from '../services/projectPersistence'
+import { pickVideoFromGallery } from '../services/importService'
+import { useEditorStore } from '../store/editorStore'
+import type { EditorStackParamList } from '@app/navigation/types'
 
-type Props = NativeStackScreenProps<EditorStackParamList, "ProjectSetup">;
+type Props = NativeStackScreenProps<EditorStackParamList, 'ProjectSetup'>
 
-export function ProjectSetupScreen({ navigation }: Props) {
-  const createProject = useCreateProject();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [resolution, setResolution] = useState("1920x1080");
-  const [fps, setFps] = useState<number>(30);
-  const [aspectRatio, setAspectRatio] = useState("16:9");
+function parseResolution(res: string): { width: number; height: number } | undefined {
+  const [w, h] = res.split('x').map(Number)
+  if (w && h) return { width: w, height: h }
+  return undefined
+}
 
-  const cleanedTitle = useMemo(() => title.trim(), [title]);
-  const titleError = title.length > 0 && cleanedTitle.length < 3 ? "Use at least 3 characters" : undefined;
-  const canSubmit = cleanedTitle.length >= 3 && !createProject.isPending;
+export function ProjectSetupScreen({ navigation, route }: Props) {
+  const createProject = useCreateProject()
+  const loadProject = useEditorStore((s) => s.loadProject)
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [resolution, setResolution] = useState('1920x1080')
+  const [fps, setFps] = useState<number>(30)
+  const [aspectRatio, setAspectRatio] = useState('16:9')
+  const [importing, setImporting] = useState(false)
 
-  async function handleCreate() {
-    if (!canSubmit) return;
+  const cleanedTitle = useMemo(() => title.trim(), [title])
+  const titleError = title.length > 0 && cleanedTitle.length < 3 ? 'Use at least 3 characters' : undefined
+  const canSubmit = cleanedTitle.length >= 3 && !createProject.isPending
+
+  async function handleCreateLocal() {
+    if (!canSubmit) return
+    const project = createLocalProject({
+      title: cleanedTitle,
+      fps,
+      resolution: parseResolution(resolution),
+      aspectRatio,
+    })
+    loadProject(project)
+    navigation.replace('EditorCanvas', { projectId: project.id })
+  }
+
+  async function handleCreateCloud() {
+    if (!canSubmit) return
     const project = await createProject.mutateAsync({
       title: cleanedTitle,
       description: description.trim() || undefined,
       resolution,
       fps,
       aspectRatio,
-    });
-    navigation.replace("EditorCanvas", { projectId: project.id });
+    })
+    navigation.replace('EditorCanvas', { projectId: project.id })
+  }
+
+  async function handleImportAndEdit() {
+    setImporting(true)
+    try {
+      const result = await pickVideoFromGallery()
+      if (!result) return
+      const project = createLocalProject({
+        title: cleanedTitle.length >= 3 ? cleanedTitle : result.clip.label ?? 'Imported edit',
+        fps: result.metadata.fps ?? fps,
+        resolution:
+          result.metadata.width && result.metadata.height
+            ? { width: result.metadata.width, height: result.metadata.height }
+            : parseResolution(resolution),
+        aspectRatio,
+      })
+      loadProject({ ...project, clips: [result.clip] })
+      navigation.replace('EditorCanvas', { projectId: project.id })
+    } finally {
+      setImporting(false)
+    }
   }
 
   return (
     <Screen padded scrollable>
-      <Text style={styles.title}>Project Setup</Text>
-      <Text style={styles.subtitle}>Configure canvas and playback defaults.</Text>
+      <Text style={styles.title}>New Project</Text>
+      <Text style={styles.subtitle}>Create locally (offline) or sync to cloud.</Text>
 
       <Card style={styles.formCard}>
         <Input
@@ -49,12 +93,12 @@ export function ProjectSetupScreen({ navigation }: Props) {
           error={titleError}
         />
         <Input
-          label="Description (optional)"
-          placeholder="Quick edit for YouTube upload"
+          label="Description (optional, cloud only)"
+          placeholder="Quick edit for YouTube"
           value={description}
           onChangeText={setDescription}
           multiline
-          numberOfLines={3}
+          numberOfLines={2}
         />
       </Card>
 
@@ -90,32 +134,31 @@ export function ProjectSetupScreen({ navigation }: Props) {
         </View>
       </Card>
 
-      <Card style={styles.sectionCard}>
-        <Text style={styles.sectionTitle}>Aspect Ratio</Text>
-        <View style={styles.chipRow}>
-          {ASPECT_RATIOS.map((item) => (
-            <TouchableOpacity
-              key={item.value}
-              style={[styles.chip, aspectRatio === item.value && styles.chipActive]}
-              onPress={() => setAspectRatio(item.value)}
-            >
-              <Text style={[styles.chipText, aspectRatio === item.value && styles.chipTextActive]}>
-                {item.value}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </Card>
-
-      <Button
-        label="Create Project"
-        onPress={handleCreate}
-        loading={createProject.isPending}
-        disabled={!canSubmit}
-        fullWidth
-      />
+      <View style={styles.actions}>
+        <Button
+          label="Import video & edit"
+          onPress={handleImportAndEdit}
+          loading={importing}
+          fullWidth
+        />
+        <Button
+          label="Create local project"
+          variant="secondary"
+          onPress={handleCreateLocal}
+          disabled={!canSubmit}
+          fullWidth
+        />
+        <Button
+          label="Create cloud project"
+          variant="ghost"
+          onPress={handleCreateCloud}
+          loading={createProject.isPending}
+          disabled={!canSubmit}
+          fullWidth
+        />
+      </View>
     </Screen>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -145,8 +188,8 @@ const styles = StyleSheet.create({
     color: Colors.textPrimary,
   },
   chipRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: Spacing.xs,
   },
   chip: {
@@ -169,4 +212,9 @@ const styles = StyleSheet.create({
   chipTextActive: {
     color: Colors.brandLight,
   },
-});
+  actions: {
+    gap: Spacing.sm,
+    marginTop: Spacing.md,
+    marginBottom: Spacing.xxl,
+  },
+})

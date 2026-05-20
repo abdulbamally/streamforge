@@ -1,110 +1,82 @@
 // ============================================================
-//  Editor Store — Timeline and editing state
+//  Editor Store — Project + clips (local timeline model)
 // ============================================================
 
-import { create }    from 'zustand'
-import type { Project, Clip, Export } from '@streamforge/api-contract'
+import { create } from 'zustand'
+import type { EditProject, TimelineClip } from '../engine/types'
+import { applyCommand, type EditorCommand } from '../engine/commands'
+import { getTotalDuration } from '../engine/timelineEngine'
+import { saveProject } from '../services/projectPersistence'
+import { usePlaybackStore } from './playbackStore'
+import { useUiStore } from './uiStore'
 
 interface EditorState {
-  // Project
-  project:         Project | null
-  clips:           Clip[]
-  exports:         Export[]
+  project: EditProject | null
+  clips: TimelineClip[]
+  selectedClipId: string | null
 
-  // Timeline playback
-  currentTime:     number     // seconds
-  duration:        number     // total timeline duration
-  isPlaying:       boolean
-  playbackRate:    number
-
-  // Selection
-  selectedClipId:  string | null
-  selectedTrack:   number
-
-  // Timeline view
-  zoom:            number     // 1 = 1s per 50px, 2 = 1s per 100px etc
-  scrollOffset:    number     // horizontal scroll in seconds
-
-  // UI panels
-  activePanel:     'effects' | 'color' | 'audio' | 'ai' | null
-
-  // Actions
-  setProject:       (project: Project) => void
-  setClips:         (clips: Clip[]) => void
-  addClip:          (clip: Clip) => void
-  removeClip:       (clipId: string) => void
-  updateClip:       (clipId: string, updates: Partial<Clip>) => void
-  selectClip:       (clipId: string | null) => void
-  setCurrentTime:   (time: number) => void
-  setPlaying:       (playing: boolean) => void
-  setPlaybackRate:  (rate: number) => void
-  setZoom:          (zoom: number) => void
-  setScrollOffset:  (offset: number) => void
-  setActivePanel:   (panel: EditorState['activePanel']) => void
-  addExport:        (exp: Export) => void
-  updateExport:     (exportId: string, updates: Partial<Export>) => void
-  reset:            () => void
+  loadProject: (project: EditProject) => void
+  setClips: (clips: TimelineClip[]) => void
+  selectClip: (clipId: string | null) => void
+  runCommand: (command: EditorCommand) => void
+  addClip: (clip: TimelineClip) => void
+  persist: () => void
+  reset: () => void
 }
 
-const initialState = {
-  project:        null,
-  clips:          [],
-  exports:        [],
-  currentTime:    0,
-  duration:       0,
-  isPlaying:      false,
-  playbackRate:   1,
-  selectedClipId: null,
-  selectedTrack:  0,
-  zoom:           1,
-  scrollOffset:   0,
-  activePanel:    null,
+function syncDuration(clips: TimelineClip[]) {
+  return getTotalDuration(clips)
 }
 
 export const useEditorStore = create<EditorState>((set, get) => ({
-  ...initialState,
+  project: null,
+  clips: [],
+  selectedClipId: null,
 
-  setProject: (project) => set({ project }),
+  loadProject: (project) => {
+    set({
+      project,
+      clips: project.clips,
+      selectedClipId: null,
+    })
+    usePlaybackStore.getState().setDuration(syncDuration(project.clips))
+    usePlaybackStore.getState().setCurrentTime(0)
+  },
 
   setClips: (clips) => {
-    // Recalculate total duration from clips
-    const duration = clips.reduce((max, c) => Math.max(max, c.endTime), 0)
-    set({ clips, duration })
+    const project = get().project
+    if (!project) return
+    const updated: EditProject = {
+      ...project,
+      clips,
+      updatedAt: Date.now(),
+    }
+    set({ project: updated, clips })
+    usePlaybackStore.getState().setDuration(syncDuration(clips))
+    saveProject(updated)
+  },
+
+  selectClip: (selectedClipId) => set({ selectedClipId }),
+
+  runCommand: (command) => {
+    const next = applyCommand(get().clips, command)
+    get().setClips(next)
   },
 
   addClip: (clip) => {
-    const clips   = [...get().clips, clip]
-    const duration = clips.reduce((max, c) => Math.max(max, c.endTime), 0)
-    set({ clips, duration })
+    const clips = [...get().clips, clip]
+    get().setClips(clips)
+    set({ selectedClipId: clip.id })
   },
 
-  removeClip: (clipId) => {
-    const clips    = get().clips.filter(c => c.id !== clipId)
-    const duration = clips.reduce((max, c) => Math.max(max, c.endTime), 0)
-    set({ clips, duration, selectedClipId: null })
+  persist: () => {
+    const project = get().project
+    if (project) saveProject({ ...project, clips: get().clips, updatedAt: Date.now() })
   },
 
-  updateClip: (clipId, updates) => {
-    set(state => ({
-      clips: state.clips.map(c => c.id === clipId ? { ...c, ...updates } : c),
-    }))
+  reset: () => {
+    set({ project: null, clips: [], selectedClipId: null })
+    usePlaybackStore.getState().reset()
+    useUiStore.getState().reset()
   },
-
-  selectClip:      (clipId)  => set({ selectedClipId: clipId }),
-  setCurrentTime:  (time)    => set({ currentTime: Math.max(0, time) }),
-  setPlaying:      (playing) => set({ isPlaying: playing }),
-  setPlaybackRate: (rate)    => set({ playbackRate: rate }),
-  setZoom:         (zoom)    => set({ zoom: Math.max(0.25, Math.min(zoom, 10)) }),
-  setScrollOffset: (offset)  => set({ scrollOffset: Math.max(0, offset) }),
-  setActivePanel:  (panel)   => set({ activePanel: panel }),
-
-  addExport: (exp) => set(state => ({ exports: [exp, ...state.exports] })),
-
-  updateExport: (exportId, updates) => {
-    set(state => ({
-      exports: state.exports.map(e => e.id === exportId ? { ...e, ...updates } : e),
-    }))
-  },
-
-  reset: () => set({ ...initialState }),
 }))
