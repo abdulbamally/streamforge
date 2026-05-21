@@ -62,7 +62,7 @@ export function Toolbar({
   onExport,
 }: ToolbarProps) {
   const { togglePlay, isPlaying, seekBySeconds, currentTime, duration } = useTimeline()
-  const selectedClipId = useEditorStore((s) => s.selectedClipId)
+  const selectedClipId = useEditorStore((s) => s.selection.selectedClipId)
   const splitAtPlayhead = useTimelineSplit()
 
   const hasSelection = !!selectedClipId

@@ -1,6 +1,4 @@
-import { create } from 'zustand'
-
-export type EditorTool = 'cut' | 'audio' | 'text' | 'effects' | 'speed'
+import { useEditorStore, type EditorState, type EditorTool } from './editorStore'
 
 interface UiState {
   zoom: number
@@ -16,20 +14,30 @@ interface UiState {
   reset: () => void
 }
 
-const initial = {
-  zoom: 1,
-  scrollOffsetPx: 0,
-  activeTool: 'cut' as EditorTool,
-  exportProgress: 0,
-  isExporting: false,
+function uiFacade(state: EditorState): UiState {
+  return {
+    zoom: state.timeline.zoomLevel,
+    scrollOffsetPx: state.timeline.scrollOffsetX,
+    activeTool: state.selection.activeTool,
+    exportProgress: state.ui.exportProgress,
+    isExporting: state.ui.isExporting,
+    setZoom: state.setZoomLevel,
+    setScrollOffsetPx: state.setScrollOffset,
+    setActiveTool: state.setActiveTool,
+    setExportProgress: state.setExportProgress,
+    setIsExporting: state.setIsExporting,
+    reset: state.reset,
+  }
 }
 
-export const useUiStore = create<UiState>((set) => ({
-  ...initial,
-  setZoom: (zoom) => set({ zoom: Math.max(0.25, Math.min(zoom, 10)) }),
-  setScrollOffsetPx: (scrollOffsetPx) => set({ scrollOffsetPx: Math.max(0, scrollOffsetPx) }),
-  setActiveTool: (activeTool) => set({ activeTool }),
-  setExportProgress: (exportProgress) => set({ exportProgress }),
-  setIsExporting: (isExporting) => set({ isExporting }),
-  reset: () => set({ ...initial }),
-}))
+type UiStoreHook = {
+  <T>(selector: (state: UiState) => T): T
+  getState: () => UiState
+}
+
+export const useUiStore = ((selector) =>
+  useEditorStore((state) => selector(uiFacade(state)))) as UiStoreHook
+
+useUiStore.getState = () => uiFacade(useEditorStore.getState())
+
+export type { EditorTool }

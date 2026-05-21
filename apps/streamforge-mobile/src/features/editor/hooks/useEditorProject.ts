@@ -1,13 +1,11 @@
 import { useEffect } from 'react'
 import { useProject } from './useProject'
 import { useEditorStore } from '../store/editorStore'
-import { usePlaybackStore } from '../store/playbackStore'
 import {
   isLocalProjectId,
   loadProject,
 } from '../services/projectPersistence'
 import { timelineClipsFromApi } from '../utils/clipMappers'
-import { getTotalDuration } from '../engine/timelineEngine'
 
 export function useEditorProject(projectId: string) {
   const isLocal = isLocalProjectId(projectId)
@@ -33,7 +31,6 @@ export function useEditorProject(projectId: string) {
         fps: apiProject.fps ?? undefined,
         aspectRatio: apiProject.aspectRatio ?? undefined,
       })
-      usePlaybackStore.getState().setDuration(getTotalDuration(clips))
     }
   }, [isLocal, projectId, apiProject, loadProjectToStore])
 

@@ -3,7 +3,7 @@
 // ============================================================
 
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Spacing, Radius } from '@shared/theme/tokens'
 import type { TimelineClip } from '../engine/types'
 

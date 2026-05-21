@@ -5,9 +5,9 @@ import { CheckCircle2 } from "lucide-react-native";
 import { Card, Screen } from "@shared/components";
 import { Button } from "@shared/components/Button";
 import { Colors, IconSize, Spacing, Typography } from "@shared/theme/tokens";
-import type { EditorStackParamList } from "@app/navigation/types";
+import type { MainShellStackParamList } from "@app/navigation/types";
 
-type Props = NativeStackScreenProps<EditorStackParamList, "ExportComplete">;
+type Props = NativeStackScreenProps<MainShellStackParamList, "ExportComplete">;
 
 export function ExportCompleteScreen({ route, navigation }: Props) {
   const { projectId, outputUrl } = route.params;
@@ -29,7 +29,7 @@ export function ExportCompleteScreen({ route, navigation }: Props) {
 
       <View style={styles.actions}>
         <Button label="Back to Editor" onPress={() => navigation.replace("EditorCanvas", { projectId })} fullWidth />
-        <Button label="Open Projects" variant="secondary" onPress={() => navigation.navigate("ProjectsList")} fullWidth />
+        <Button label="Open Projects" variant="secondary" onPress={() => navigation.navigate("Tabs")} fullWidth />
       </View>
     </Screen>
   );

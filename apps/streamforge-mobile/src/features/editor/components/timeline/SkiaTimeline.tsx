@@ -7,7 +7,7 @@ import { View, StyleSheet, Dimensions } from 'react-native'
 import { Canvas, Rect, Line } from '@shopify/react-native-skia'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, { useSharedValue, runOnJS } from 'react-native-reanimated'
-import { Colors, Typography } from '@shared/theme/tokens'
+import { Colors } from '@shared/theme/tokens'
 import { useTimeline } from '../../hooks/useTimeline'
 import { useEditorStore } from '../../store/editorStore'
 import { layoutClips } from '../../engine/timelineEngine'
@@ -88,9 +88,6 @@ export function SkiaTimeline() {
             />
             {ticks.map((tick) => {
               const x = tick * PIXELS_PER_SECOND
-              const m = Math.floor(tick / 60)
-              const s = Math.floor(tick % 60)
-              const label = `${m}:${String(s).padStart(2, '0')}`
               return (
                 <React.Fragment key={tick}>
                   <Line

@@ -8,7 +8,7 @@ import { DeleteClipCommand } from '../../engine/commands'
 
 export function CutToolPanel() {
   const split = useTimelineSplit()
-  const selectedClipId = useEditorStore((s) => s.selectedClipId)
+  const selectedClipId = useEditorStore((s) => s.selection.selectedClipId)
   const runCommand = useEditorStore((s) => s.runCommand)
 
   return (

@@ -10,7 +10,7 @@ import { getClipAtTime } from '../engine/timelineEngine'
 
 export function useTimeline() {
   const clips = useEditorStore((s) => s.clips)
-  const selectedClipId = useEditorStore((s) => s.selectedClipId)
+  const selectedClipId = useEditorStore((s) => s.selection.selectedClipId)
   const selectClip = useEditorStore((s) => s.selectClip)
 
   const currentTime = usePlaybackStore((s) => s.currentTime)

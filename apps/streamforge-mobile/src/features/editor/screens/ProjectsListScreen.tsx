@@ -1,14 +1,20 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
-import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import type {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
 import { FolderPlus, ChevronRight, Film } from "lucide-react-native";
 import { Card, EmptyState, Screen, Skeleton } from "@shared/components";
 import { Button } from "@shared/components/Button";
 import { Colors, IconSize, Spacing, Typography } from "@shared/theme/tokens";
 import { useProjects } from "../hooks/useProject";
 import { listLocalProjects } from "../services/projectPersistence";
-import type { EditorStackParamList } from "@app/navigation/types";
+import type {
+  EditorStackParamList,
+  MainShellStackParamList,
+} from "@app/navigation/types";
 
 type Props = NativeStackScreenProps<EditorStackParamList, "ProjectsList">;
 
@@ -32,6 +38,9 @@ export function ProjectsListScreen({ navigation }: Props) {
   const hasCloud = (apiProjects?.length ?? 0) > 0;
   const showSyncError = !!error && !hasLocal && !hasCloud;
   const showLocalOnlyError = !!error && hasLocal && !hasCloud;
+  const shellNavigation = navigation
+    .getParent()
+    ?.getParent() as NativeStackNavigationProp<MainShellStackParamList> | undefined;
 
   return (
     <Screen padded>
@@ -44,7 +53,7 @@ export function ProjectsListScreen({ navigation }: Props) {
           label="New"
           size="sm"
           icon={<FolderPlus size={IconSize.sm} color={Colors.textPrimary} />}
-          onPress={() => navigation.navigate("ProjectSetup", {})}
+          onPress={() => shellNavigation?.navigate("ProjectSetup", {})}
         />
       </View>
 
@@ -63,7 +72,7 @@ export function ProjectsListScreen({ navigation }: Props) {
           <Button
             label="Create local project"
             variant="secondary"
-            onPress={() => navigation.navigate("ProjectSetup", {})}
+            onPress={() => shellNavigation?.navigate("ProjectSetup", {})}
           />
         </Card>
       ) : hasLocal || hasCloud ? (
@@ -87,7 +96,7 @@ export function ProjectsListScreen({ navigation }: Props) {
             <TouchableOpacity
               key={project.id}
               onPress={() =>
-                navigation.navigate("EditorCanvas", { projectId: project.id })
+                shellNavigation?.navigate("EditorCanvas", { projectId: project.id })
               }
               activeOpacity={0.8}
             >
@@ -113,7 +122,7 @@ export function ProjectsListScreen({ navigation }: Props) {
             <TouchableOpacity
               key={project.id}
               onPress={() =>
-                navigation.navigate("EditorCanvas", { projectId: project.id })
+                shellNavigation?.navigate("EditorCanvas", { projectId: project.id })
               }
               activeOpacity={0.8}
             >
@@ -140,7 +149,7 @@ export function ProjectsListScreen({ navigation }: Props) {
           message="Create a local project or connect to sync cloud projects."
           action={{
             label: "Create project",
-            onPress: () => navigation.navigate("ProjectSetup", {}),
+            onPress: () => shellNavigation?.navigate("ProjectSetup", {}),
           }}
         />
       )}

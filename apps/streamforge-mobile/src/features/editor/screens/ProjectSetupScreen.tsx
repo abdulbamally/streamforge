@@ -4,15 +4,15 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Card, Screen } from '@shared/components'
 import { Input } from '@shared/components/Input'
 import { Button } from '@shared/components/Button'
-import { ASPECT_RATIOS, EXPORT_FPS_OPTIONS, EXPORT_RESOLUTIONS } from '@shared/constants'
+import { EXPORT_FPS_OPTIONS, EXPORT_RESOLUTIONS } from '@shared/constants'
 import { Colors, Spacing, Typography } from '@shared/theme/tokens'
 import { useCreateProject } from '../hooks/useProject'
 import { createLocalProject } from '../services/projectPersistence'
 import { pickVideoFromGallery } from '../services/importService'
 import { useEditorStore } from '../store/editorStore'
-import type { EditorStackParamList } from '@app/navigation/types'
+import type { MainShellStackParamList } from '@app/navigation/types'
 
-type Props = NativeStackScreenProps<EditorStackParamList, 'ProjectSetup'>
+type Props = NativeStackScreenProps<MainShellStackParamList, 'ProjectSetup'>
 
 function parseResolution(res: string): { width: number; height: number } | undefined {
   const [w, h] = res.split('x').map(Number)
@@ -20,14 +20,14 @@ function parseResolution(res: string): { width: number; height: number } | undef
   return undefined
 }
 
-export function ProjectSetupScreen({ navigation, route }: Props) {
+export function ProjectSetupScreen({ navigation }: Props) {
   const createProject = useCreateProject()
   const loadProject = useEditorStore((s) => s.loadProject)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [resolution, setResolution] = useState('1920x1080')
   const [fps, setFps] = useState<number>(30)
-  const [aspectRatio, setAspectRatio] = useState('16:9')
+  const [aspectRatio] = useState('16:9')
   const [importing, setImporting] = useState(false)
 
   const cleanedTitle = useMemo(() => title.trim(), [title])

@@ -7,9 +7,9 @@ import { Button } from "@shared/components/Button";
 import { EXPORT_FORMATS, EXPORT_FPS_OPTIONS, EXPORT_RESOLUTIONS } from "@shared/constants";
 import { Colors, Spacing, Typography } from "@shared/theme/tokens";
 import { useExportProject } from "../hooks/useProject";
-import type { EditorStackParamList } from "@app/navigation/types";
+import type { MainShellStackParamList } from "@app/navigation/types";
 
-type Props = NativeStackScreenProps<EditorStackParamList, "ExportSettings">;
+type Props = NativeStackScreenProps<MainShellStackParamList, "ExportSettings">;
 
 export function ExportSettingsScreen({ route, navigation }: Props) {
   const { projectId } = route.params;

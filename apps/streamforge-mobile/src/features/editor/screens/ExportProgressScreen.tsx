@@ -8,9 +8,9 @@ import { useExportStatus } from '../hooks/useProject'
 import { useEditorStore } from '../store/editorStore'
 import { exportProject } from '../services/exportService'
 import { isLocalProjectId } from '../services/projectPersistence'
-import type { EditorStackParamList } from '@app/navigation/types'
+import type { MainShellStackParamList } from '@app/navigation/types'
 
-type Props = NativeStackScreenProps<EditorStackParamList, 'ExportProgress'>
+type Props = NativeStackScreenProps<MainShellStackParamList, 'ExportProgress'>
 
 export function ExportProgressScreen({ route, navigation }: Props) {
   const { projectId, exportId } = route.params
