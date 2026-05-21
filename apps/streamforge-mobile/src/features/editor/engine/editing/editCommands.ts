@@ -308,8 +308,20 @@ export function applyCommand(command: EditCommand, context: EditCommandContext):
     case 'DELETE_CLIP':
       return deleteClip(command, context)
     case 'ADD_CLIP':
+    case 'ADD_TEXT_CLIP':
+    case 'ADD_STICKER_CLIP':
       return addClip(command, context)
     case 'UPDATE_CLIP':
+    case 'UPDATE_CLIP_TRANSFORM':
+    case 'UPDATE_CLIP_OPACITY':
+    case 'UPDATE_CLIP_VOLUME':
+    case 'UPDATE_TEXT_PROPERTIES':
+    case 'ADD_FILTER_ASSIGNMENT':
+    case 'UPDATE_FILTER_ASSIGNMENT':
+    case 'REMOVE_FILTER_ASSIGNMENT':
+    case 'ADD_TRANSITION_ASSIGNMENT':
+    case 'UPDATE_TRANSITION_ASSIGNMENT':
+    case 'REMOVE_TRANSITION_ASSIGNMENT':
       return updateClip(command, context)
     case 'LOCK_TRACK':
     case 'UNLOCK_TRACK':

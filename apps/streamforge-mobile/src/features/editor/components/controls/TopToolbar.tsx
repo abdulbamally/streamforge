@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { ArrowLeft, Download, FolderUp } from 'lucide-react-native'
+import { ArrowLeft, FolderUp } from 'lucide-react-native'
+import { ExportButton } from '../export/ExportButton'
 import {
   EditorColors,
   EditorSpacing,
@@ -38,13 +39,7 @@ export function TopToolbar({
       </View>
       <View style={styles.actions}>
         <EditorControlButton Icon={FolderUp} label="Import" onPress={onImport} />
-        <EditorControlButton
-          Icon={Download}
-          label="Export"
-          onPress={onExport}
-          disabled={!canExport}
-          variant="accent"
-        />
+        <ExportButton onPress={onExport} disabled={!canExport} />
       </View>
     </View>
   )

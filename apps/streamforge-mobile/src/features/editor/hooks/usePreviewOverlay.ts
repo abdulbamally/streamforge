@@ -7,6 +7,7 @@ export function usePreviewOverlay() {
   const selectedClipId = useEditorStore((state) => state.selection.selectedClipId)
   const currentTime = useEditorStore((state) => state.playback.currentTime)
   const overlays = useEditorStore((state) => state.overlays)
+  const property = useEditorStore((state) => state.property)
 
   return useMemo(
     () =>
@@ -14,9 +15,9 @@ export function usePreviewOverlay() {
         tracks,
         selectedClipId,
         currentTime,
-        showSafeArea: overlays.showSafeAreaGuides,
-        showTransform: overlays.showTransformHandles,
+        showSafeArea: property.safeAreaEnabled,
+        showTransform: property.previewOverlayEnabled || overlays.showTransformHandles,
       }),
-    [currentTime, overlays.showSafeAreaGuides, overlays.showTransformHandles, selectedClipId, tracks],
+    [currentTime, overlays.showTransformHandles, property.previewOverlayEnabled, property.safeAreaEnabled, selectedClipId, tracks],
   )
 }

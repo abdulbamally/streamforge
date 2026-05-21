@@ -17,8 +17,11 @@ import { Platform } from 'react-native'
  * - iOS simulator: localhost
  * - Physical device: your Mac's IP on the same Wi‑Fi network
  */
+const PHYSICAL_DEVICE_HOST = '10.222.241.105'
+
 export const DEV_MACHINE_HOST =
-  Platform.OS === 'android' ? '10.0.2.2' : 'localhost'
+  PHYSICAL_DEVICE_HOST ||
+  (Platform.OS === 'android' ? '10.0.2.2' : 'localhost')
 
 const dev = (port: number) => `http://${DEV_MACHINE_HOST}:${port}`
 

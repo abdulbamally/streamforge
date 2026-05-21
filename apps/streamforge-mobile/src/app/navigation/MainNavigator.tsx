@@ -4,6 +4,7 @@
 
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { CustomTabBar } from "./CustomTabBar";
@@ -62,6 +63,10 @@ const StreamingStack =
 const EditorStack = createNativeStackNavigator<EditorStackParamList>();
 const LibraryStack = createNativeStackNavigator<LibraryStackParamList>();
 const SettingsStack = createNativeStackNavigator<SettingsStackParamList>();
+
+function renderCustomTabBar(props: BottomTabBarProps) {
+  return <CustomTabBar {...props} />;
+}
 
 function StudioNavigator() {
   return (
@@ -137,20 +142,6 @@ function EditorNavigator() {
       }}
     >
       <EditorStack.Screen name="ProjectsList" component={ProjectsListScreen} />
-      <EditorStack.Screen name="ProjectSetup" component={ProjectSetupScreen} />
-      <EditorStack.Screen name="EditorCanvas" component={EditorCanvasScreen} />
-      <EditorStack.Screen
-        name="ExportSettings"
-        component={ExportSettingsScreen}
-      />
-      <EditorStack.Screen
-        name="ExportProgress"
-        component={ExportProgressScreen}
-      />
-      <EditorStack.Screen
-        name="ExportComplete"
-        component={ExportCompleteScreen}
-      />
     </EditorStack.Navigator>
   );
 }
@@ -218,7 +209,7 @@ function MainTabNavigator() {
   return (
     <Tab.Navigator
       initialRouteName="Live"
-      tabBar={(props) => <CustomTabBar {...props} />}
+      tabBar={renderCustomTabBar}
       screenOptions={{ headerShown: false }}
     >
       <Tab.Screen name="Library" component={LibraryNavigator} />
@@ -241,6 +232,24 @@ export function MainNavigator() {
   return (
     <ShellStack.Navigator screenOptions={{ headerShown: false }}>
       <ShellStack.Screen name="Tabs" component={MainTabNavigator} />
+      <ShellStack.Screen name="ProjectSetup" component={ProjectSetupScreen} />
+      <ShellStack.Screen
+        name="EditorCanvas"
+        component={EditorCanvasScreen}
+        options={{ animation: "fade" }}
+      />
+      <ShellStack.Screen
+        name="ExportSettings"
+        component={ExportSettingsScreen}
+      />
+      <ShellStack.Screen
+        name="ExportProgress"
+        component={ExportProgressScreen}
+      />
+      <ShellStack.Screen
+        name="ExportComplete"
+        component={ExportCompleteScreen}
+      />
       <ShellStack.Screen
         name="Settings"
         component={SettingsNavigator}

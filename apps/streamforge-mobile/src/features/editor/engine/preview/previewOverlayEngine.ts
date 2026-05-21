@@ -33,7 +33,7 @@ export function getPreviewOverlayState({
       clip,
       visible,
       showSafeArea,
-      showTransform: showTransform || visible,
+      showTransform: showTransform && visible,
     }
   }
 

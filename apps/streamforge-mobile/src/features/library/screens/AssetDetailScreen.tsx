@@ -1,6 +1,9 @@
 import React, { useMemo, useState } from "react";
 import { View, Text, StyleSheet, Linking, Image } from "react-native";
-import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import type {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
 import Video from "react-native-video";
 import { Music2 } from "lucide-react-native";
 import { Card, ConfirmModal, Screen } from "@shared/components";
@@ -8,7 +11,10 @@ import { Button } from "@shared/components/Button";
 import { useToast } from "@core/hooks/useToast";
 import { Colors, Spacing, Typography } from "@shared/theme/tokens";
 import { useAssets, useDeleteAsset } from "../hooks/useAssets";
-import type { LibraryStackParamList } from "@app/navigation/types";
+import type {
+  LibraryStackParamList,
+  MainShellStackParamList,
+} from "@app/navigation/types";
 
 type Props = NativeStackScreenProps<LibraryStackParamList, "AssetDetail">;
 
@@ -103,11 +109,10 @@ export function AssetDetailScreen({ route, navigation }: Props) {
           <Button
             label="Edit in Editor"
             onPress={() => {
-              const tabNav = navigation.getParent()?.getParent();
-              tabNav?.navigate("Editor", {
-                screen: "ProjectSetup",
-                params: { assetId: asset.id },
-              });
+              const shellNavigation = navigation
+                .getParent()
+                ?.getParent() as NativeStackNavigationProp<MainShellStackParamList> | undefined;
+              shellNavigation?.navigate("ProjectSetup", { assetId: asset.id });
             }}
             fullWidth
           />

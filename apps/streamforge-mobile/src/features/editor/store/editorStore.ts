@@ -38,12 +38,23 @@ import { saveProject } from '../services/projectPersistence'
 import type { EditorProject, EditorTool } from '../types/editor.types'
 import {
   DEFAULT_CLIP_TRANSFORM,
+  type ClipTransform,
   type TimelineClip,
   type TimelineClipType,
 } from '../types/clip.types'
+import type { FilterAssignment, FilterType } from '../types/filter.types'
 import type { MediaAsset, WaveformData } from '../types/media.types'
 import type { PlaybackStatus } from '../types/playback.types'
+import type { InspectorMode, PropertyTab, TransformGestureState } from '../types/property.types'
+import type { TextClipProperties } from '../types/text.types'
+import { DEFAULT_TEXT_PROPERTIES } from '../types/text.types'
+import type { TransitionAssignment, TransitionSide, TransitionType } from '../types/transition.types'
 import type { TimelineTrack } from '../types/track.types'
+import type {
+  ExportOutput,
+  ExportSettings,
+  RenderJob,
+} from '../types/export.types'
 import type {
   EditCommand,
   EditCommandPayload,
@@ -71,6 +82,41 @@ import {
   initialMediaSlice,
   removeAssetFromSlice,
 } from './mediaSlice'
+import type { PropertySlice } from './propertySlice'
+import {
+  defaultInspectorModeForClip,
+  initialPropertySlice,
+} from './propertySlice'
+import type { ExportSlice } from './exportSlice'
+import { initialExportSlice } from './exportSlice'
+import { clampOpacity, clampVolume } from '../engine/properties/audioOperations'
+import { createFilterAssignment, clampFilterIntensity } from '../engine/properties/filterOperations'
+import {
+  canAddFilter,
+  canAddTransition,
+  canUpdateClipOpacity,
+  canUpdateClipTransform,
+  canUpdateClipVolume,
+  canUpdateTextProperties,
+} from '../engine/properties/propertyValidation'
+import { mergeTextProperties } from '../engine/properties/textOperations'
+import { createTransitionAssignment, clampTransitionDuration } from '../engine/properties/transitionOperations'
+import { mergeTransform, resetTransform } from '../engine/properties/transformOperations'
+import {
+  cancelExportJob,
+  createExportJob,
+  startExportJob,
+} from '../engine/export/exportService'
+import { mergeExportSettings } from '../engine/export/exportSettings'
+import { serializeProject } from '../engine/serialization/projectSerializer'
+import {
+  clearRecoverySnapshot,
+  getLatestRecoveryEntry,
+  loadLatestRecoverySnapshot,
+  saveEditorSnapshot,
+  type EditorRecoveryEntry,
+} from '../services/editorSnapshotPersistence'
+import { recoverEditorStateFromSnapshot } from '../engine/recovery/editorRecovery'
 
 type RenderingSlice = {
   previewReady: boolean
@@ -102,6 +148,8 @@ type EditorInitialState = {
   ui: UiSlice
   history: HistorySlice
   media: MediaSlice
+  property: PropertySlice
+  export: ExportSlice
 }
 
 export interface EditorState extends EditorInitialState {
@@ -173,6 +221,49 @@ export interface EditorState extends EditorInitialState {
     options?: { startTime?: number; trackId?: string },
   ) => boolean
 
+  openInspector: (mode: InspectorMode) => void
+  closeInspector: () => void
+  setSelectedPropertyTab: (tab: PropertyTab) => void
+  setPreviewOverlayEnabled: (value: boolean) => void
+  setSafeAreaEnabled: (value: boolean) => void
+  setActiveTransformGesture: (value: TransformGestureState) => void
+  updateSelectedClipTransform: (patch: Partial<ClipTransform>, commit?: boolean) => boolean
+  resetSelectedClipTransform: () => boolean
+  updateSelectedClipOpacity: (opacity: number, commit?: boolean) => boolean
+  updateSelectedClipVolume: (volume: number, commit?: boolean) => boolean
+  updateSelectedTextProperties: (patch: Partial<TextClipProperties>, commit?: boolean) => boolean
+  addTextClip: () => boolean
+  addStickerClip: () => boolean
+  addFilterToSelectedClip: (type: FilterType) => boolean
+  updateSelectedClipFilter: (filterId: string, patch: Partial<FilterAssignment>) => boolean
+  removeFilterFromSelectedClip: (filterId: string) => boolean
+  addTransitionToSelectedClip: (type: TransitionType, side: TransitionSide) => boolean
+  updateSelectedClipTransition: (transitionId: string, patch: Partial<TransitionAssignment>) => boolean
+  removeTransitionFromSelectedClip: (transitionId: string) => boolean
+
+  setExportSettings: (settings: ExportSettings) => void
+  updateExportSetting: <K extends keyof ExportSettings>(
+    key: K,
+    value: ExportSettings[K],
+  ) => void
+  openExportSettings: () => void
+  closeExportSettings: () => void
+  createRenderJob: (job: RenderJob) => void
+  updateRenderJob: (jobId: string, updates: Partial<RenderJob>) => void
+  setActiveJob: (jobId: string | null) => void
+  addExportOutput: (output: ExportOutput) => void
+  setLastExportError: (error: string | null) => void
+  resetExportState: () => void
+  cancelActiveExport: () => void
+  prepareExport: () => boolean
+  startActiveExport: () => Promise<boolean>
+  retryActiveExport: () => Promise<boolean>
+  dismissExportComplete: () => void
+  saveRecoverySnapshot: (reason?: EditorRecoveryEntry['reason']) => EditorRecoveryEntry | null
+  getRecoveryEntry: () => EditorRecoveryEntry | null
+  restoreRecoverySnapshot: () => boolean
+  clearRecoverySnapshot: () => void
+
   setActiveGesture: (gesture: TimelineGesture) => void
   setIsDraggingClip: (value: boolean) => void
   setIsDraggingPlayhead: (value: boolean) => void
@@ -223,6 +314,8 @@ const initialState: EditorInitialState = {
   },
   history: initialHistorySlice,
   media: initialMediaSlice,
+  property: initialPropertySlice,
+  export: initialExportSlice,
 }
 
 function clipTypeFromLegacy(clip: LegacyTimelineClip): TimelineClipType {
@@ -496,6 +589,80 @@ function createStoreSnapshot(state: EditorState): EditCommandSnapshot {
   })
 }
 
+function findClipAndTrack(tracks: TimelineTrack[], clipId: string | null) {
+  if (!clipId) return null
+  for (const track of tracks) {
+    const clip = track.clips.find((item) => item.id === clipId)
+    if (clip) return { clip, track }
+  }
+  return null
+}
+
+function getOrCreateTrack(
+  tracks: TimelineTrack[],
+  type: TimelineClipType,
+  fallbackName: string,
+  height: number,
+) {
+  const existing = tracks.find((track) => track.type === type && !track.isLocked)
+  if (existing) return { tracks, track: existing }
+  const track: TimelineTrack = {
+    id: `track-${type}-${Date.now()}`,
+    name: fallbackName,
+    type,
+    height,
+    isLocked: false,
+    isMuted: false,
+    isVisible: true,
+    clips: [],
+  }
+  return { tracks: [...tracks, track], track }
+}
+
+function createTextClip(trackId: string, startTime: number): TimelineClip {
+  return {
+    id: `clip-text-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    trackId,
+    type: 'text',
+    name: 'Text',
+    startTime,
+    duration: 4,
+    trimStart: 0,
+    trimEnd: 4,
+    color: CLIP_COLORS.text,
+    opacity: 1,
+    volume: 1,
+    transform: DEFAULT_CLIP_TRANSFORM,
+    text: DEFAULT_TEXT_PROPERTIES,
+    textContent: DEFAULT_TEXT_PROPERTIES.content,
+    fontSize: DEFAULT_TEXT_PROPERTIES.fontSize,
+    textColor: DEFAULT_TEXT_PROPERTIES.color,
+    visualStatus: 'ready',
+    layerIndex: 10,
+  }
+}
+
+function createStickerClip(trackId: string, startTime: number): TimelineClip {
+  return {
+    id: `clip-sticker-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    trackId,
+    type: 'sticker',
+    name: 'Sticker',
+    startTime,
+    duration: 4,
+    trimStart: 0,
+    trimEnd: 4,
+    color: CLIP_COLORS.sticker,
+    opacity: 1,
+    transform: {
+      ...DEFAULT_CLIP_TRANSFORM,
+      scale: 0.8,
+    },
+    visualStatus: 'placeholder',
+    layerIndex: 20,
+  }
+}
+
 export const useEditorStore = create<EditorState>((set, get) => ({
   ...initialState,
 
@@ -527,6 +694,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
       gestures: initialGestureSlice,
       history: initialHistorySlice,
       media: initialMediaSlice,
+      export: initialExportSlice,
       rendering: {
         previewReady: false,
         timelineReady: true,
@@ -853,6 +1021,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
     const selectedTrack = get().tracks.find((track) =>
       track.clips.some((clip) => clip.id === clipId),
     )
+    const selectedClip = selectedTrack?.clips.find((clip) => clip.id === clipId)
     set({
       selection: {
         ...get().selection,
@@ -861,6 +1030,23 @@ export const useEditorStore = create<EditorState>((set, get) => ({
         selectedClipIds: clipId ? [clipId] : [],
         selectedElements: clipId ? [clipId] : [],
       },
+      property: clipId
+        ? {
+            ...get().property,
+            inspectorOpen: true,
+            inspectorMode: defaultInspectorModeForClip(selectedClip?.type),
+            selectedPropertyTab:
+              selectedClip?.type === 'audio'
+                ? 'audio'
+                : selectedClip?.type === 'text'
+                  ? 'text'
+                  : 'transform',
+          }
+        : {
+            ...get().property,
+            inspectorOpen: false,
+            inspectorMode: 'none',
+          },
     })
   },
 
@@ -874,7 +1060,15 @@ export const useEditorStore = create<EditorState>((set, get) => ({
   },
 
   clearSelection: () => {
-    set({ selection: initialSelectionSlice })
+    set({
+      selection: initialSelectionSlice,
+      property: {
+        ...get().property,
+        inspectorOpen: false,
+        inspectorMode: 'none',
+        activeTransformGesture: 'none',
+      },
+    })
   },
 
   setActiveTool: (tool) => {
@@ -1357,6 +1551,587 @@ export const useEditorStore = create<EditorState>((set, get) => ({
     return true
   },
 
+  openInspector: (mode) => {
+    set({
+      property: {
+        ...get().property,
+        inspectorOpen: mode !== 'none',
+        inspectorMode: mode,
+      },
+    })
+  },
+
+  closeInspector: () => {
+    set({
+      property: {
+        ...get().property,
+        inspectorOpen: false,
+        inspectorMode: 'none',
+      },
+    })
+  },
+
+  setSelectedPropertyTab: (tab) => {
+    set({
+      property: {
+        ...get().property,
+        selectedPropertyTab: tab,
+      },
+    })
+  },
+
+  setPreviewOverlayEnabled: (value) => {
+    set({
+      property: {
+        ...get().property,
+        previewOverlayEnabled: value,
+      },
+    })
+  },
+
+  setSafeAreaEnabled: (value) => {
+    set({
+      property: {
+        ...get().property,
+        safeAreaEnabled: value,
+      },
+      overlays: {
+        ...get().overlays,
+        showSafeAreaGuides: value,
+      },
+    })
+  },
+
+  setActiveTransformGesture: (value) => {
+    set({
+      property: {
+        ...get().property,
+        activeTransformGesture: value,
+      },
+    })
+  },
+
+  updateSelectedClipTransform: (patch, commit = true) => {
+    const lookup = findClipAndTrack(get().tracks, get().selection.selectedClipId)
+    if (!lookup) return false
+    const validation = canUpdateClipTransform(lookup.clip, lookup.track)
+    if (!validation.valid) {
+      set({ history: { ...get().history, validationError: validation.reason ?? 'Cannot update transform' } })
+      return false
+    }
+    const transform = mergeTransform(lookup.clip.transform, patch)
+    if (!commit) {
+      get().updateClip(lookup.clip.id, { transform })
+      return true
+    }
+    return get().executeEditCommand('UPDATE_CLIP_TRANSFORM', {
+      clipId: lookup.clip.id,
+      patch: { transform },
+    })
+  },
+
+  resetSelectedClipTransform: () => {
+    const lookup = findClipAndTrack(get().tracks, get().selection.selectedClipId)
+    if (!lookup) return false
+    return get().executeEditCommand('UPDATE_CLIP_TRANSFORM', {
+      clipId: lookup.clip.id,
+      patch: { transform: resetTransform() },
+    })
+  },
+
+  updateSelectedClipOpacity: (opacity, commit = true) => {
+    const lookup = findClipAndTrack(get().tracks, get().selection.selectedClipId)
+    if (!lookup) return false
+    const validation = canUpdateClipOpacity(lookup.clip, lookup.track)
+    if (!validation.valid) {
+      set({ history: { ...get().history, validationError: validation.reason ?? 'Cannot update opacity' } })
+      return false
+    }
+    const nextOpacity = clampOpacity(opacity)
+    if (!commit) {
+      get().updateClip(lookup.clip.id, { opacity: nextOpacity })
+      return true
+    }
+    return get().executeEditCommand('UPDATE_CLIP_OPACITY', {
+      clipId: lookup.clip.id,
+      patch: { opacity: nextOpacity },
+    })
+  },
+
+  updateSelectedClipVolume: (volume, commit = true) => {
+    const lookup = findClipAndTrack(get().tracks, get().selection.selectedClipId)
+    if (!lookup) return false
+    const validation = canUpdateClipVolume(lookup.clip, lookup.track)
+    if (!validation.valid) {
+      set({ history: { ...get().history, validationError: validation.reason ?? 'Cannot update volume' } })
+      return false
+    }
+    const nextVolume = clampVolume(volume)
+    if (!commit) {
+      get().updateClip(lookup.clip.id, { volume: nextVolume })
+      return true
+    }
+    return get().executeEditCommand('UPDATE_CLIP_VOLUME', {
+      clipId: lookup.clip.id,
+      patch: { volume: nextVolume },
+    })
+  },
+
+  updateSelectedTextProperties: (patch, commit = true) => {
+    const lookup = findClipAndTrack(get().tracks, get().selection.selectedClipId)
+    if (!lookup) return false
+    const validation = canUpdateTextProperties(lookup.clip, lookup.track)
+    if (!validation.valid) {
+      set({ history: { ...get().history, validationError: validation.reason ?? 'Cannot update text' } })
+      return false
+    }
+    const text = mergeTextProperties(lookup.clip.text, patch)
+    const clipPatch: Partial<TimelineClip> = {
+      text,
+      textContent: text.content,
+      fontSize: text.fontSize,
+      textColor: text.color,
+      name: text.content.slice(0, 24) || 'Text',
+    }
+    if (!commit) {
+      get().updateClip(lookup.clip.id, clipPatch)
+      return true
+    }
+    return get().executeEditCommand('UPDATE_TEXT_PROPERTIES', {
+      clipId: lookup.clip.id,
+      patch: clipPatch,
+    })
+  },
+
+  addTextClip: () => {
+    const { tracks, track } = getOrCreateTrack(get().tracks, 'text', 'Text Track', TRACK_HEIGHT_TEXT)
+    if (tracks !== get().tracks) {
+      set({ tracks, editorProject: { ...get().editorProject, tracks } })
+    }
+    const clip = createTextClip(track.id, Math.max(0, get().playback.currentTime))
+    const ok = get().executeEditCommand('ADD_TEXT_CLIP', { trackId: track.id, clip })
+    if (ok) {
+      set({
+        property: {
+          ...get().property,
+          inspectorOpen: true,
+          inspectorMode: 'text',
+          selectedPropertyTab: 'text',
+        },
+      })
+    }
+    return ok
+  },
+
+  addStickerClip: () => {
+    const { tracks, track } = getOrCreateTrack(get().tracks, 'video', 'Overlay Track', TRACK_HEIGHT_VIDEO)
+    if (tracks !== get().tracks) {
+      set({ tracks, editorProject: { ...get().editorProject, tracks } })
+    }
+    const clip = createStickerClip(track.id, Math.max(0, get().playback.currentTime))
+    const ok = get().executeEditCommand('ADD_STICKER_CLIP', { trackId: track.id, clip })
+    if (ok) {
+      set({
+        property: {
+          ...get().property,
+          inspectorOpen: true,
+          inspectorMode: 'visual',
+          selectedPropertyTab: 'transform',
+        },
+      })
+    }
+    return ok
+  },
+
+  addFilterToSelectedClip: (type) => {
+    const lookup = findClipAndTrack(get().tracks, get().selection.selectedClipId)
+    if (!lookup) return false
+    const validation = canAddFilter(lookup.clip, lookup.track)
+    if (!validation.valid) {
+      set({ history: { ...get().history, validationError: validation.reason ?? 'Cannot add filter' } })
+      return false
+    }
+    const filters = [...(lookup.clip.filters ?? []), createFilterAssignment(type)]
+    return get().executeEditCommand('ADD_FILTER_ASSIGNMENT', {
+      clipId: lookup.clip.id,
+      patch: { filters },
+    })
+  },
+
+  updateSelectedClipFilter: (filterId, patch) => {
+    const lookup = findClipAndTrack(get().tracks, get().selection.selectedClipId)
+    if (!lookup) return false
+    const filters = (lookup.clip.filters ?? []).map((filter) =>
+      filter.id === filterId
+        ? {
+            ...filter,
+            ...patch,
+            intensity: patch.intensity === undefined
+              ? filter.intensity
+              : clampFilterIntensity(patch.intensity),
+          }
+        : filter,
+    )
+    return get().executeEditCommand('UPDATE_FILTER_ASSIGNMENT', {
+      clipId: lookup.clip.id,
+      patch: { filters },
+    })
+  },
+
+  removeFilterFromSelectedClip: (filterId) => {
+    const lookup = findClipAndTrack(get().tracks, get().selection.selectedClipId)
+    if (!lookup) return false
+    const filters = (lookup.clip.filters ?? []).filter((filter) => filter.id !== filterId)
+    return get().executeEditCommand('REMOVE_FILTER_ASSIGNMENT', {
+      clipId: lookup.clip.id,
+      patch: { filters },
+    })
+  },
+
+  addTransitionToSelectedClip: (type, side) => {
+    const lookup = findClipAndTrack(get().tracks, get().selection.selectedClipId)
+    if (!lookup) return false
+    const validation = canAddTransition(lookup.clip, lookup.track)
+    if (!validation.valid) {
+      set({ history: { ...get().history, validationError: validation.reason ?? 'Cannot add transition' } })
+      return false
+    }
+    const transitions = [...(lookup.clip.transitions ?? []), createTransitionAssignment(type, side)]
+    return get().executeEditCommand('ADD_TRANSITION_ASSIGNMENT', {
+      clipId: lookup.clip.id,
+      patch: { transitions },
+    })
+  },
+
+  updateSelectedClipTransition: (transitionId, patch) => {
+    const lookup = findClipAndTrack(get().tracks, get().selection.selectedClipId)
+    if (!lookup) return false
+    const transitions = (lookup.clip.transitions ?? []).map((transition) =>
+      transition.id === transitionId
+        ? {
+            ...transition,
+            ...patch,
+            duration: patch.duration === undefined
+              ? transition.duration
+              : clampTransitionDuration(patch.duration),
+          }
+        : transition,
+    )
+    return get().executeEditCommand('UPDATE_TRANSITION_ASSIGNMENT', {
+      clipId: lookup.clip.id,
+      patch: { transitions },
+    })
+  },
+
+  removeTransitionFromSelectedClip: (transitionId) => {
+    const lookup = findClipAndTrack(get().tracks, get().selection.selectedClipId)
+    if (!lookup) return false
+    const transitions = (lookup.clip.transitions ?? []).filter((transition) => transition.id !== transitionId)
+    return get().executeEditCommand('REMOVE_TRANSITION_ASSIGNMENT', {
+      clipId: lookup.clip.id,
+      patch: { transitions },
+    })
+  },
+
+  setExportSettings: (settings) => {
+    set({
+      export: {
+        ...get().export,
+        exportSettings: mergeExportSettings(get().export.exportSettings, settings),
+      },
+    })
+  },
+
+  updateExportSetting: (key, value) => {
+    set({
+      export: {
+        ...get().export,
+        exportSettings: mergeExportSettings(get().export.exportSettings, {
+          [key]: value,
+        } as Partial<ExportSettings>),
+      },
+    })
+  },
+
+  openExportSettings: () => {
+    set({
+      export: {
+        ...get().export,
+        isExportSettingsOpen: true,
+        lastExportError: null,
+      },
+    })
+  },
+
+  closeExportSettings: () => {
+    set({
+      export: {
+        ...get().export,
+        isExportSettingsOpen: false,
+      },
+    })
+  },
+
+  createRenderJob: (job) => {
+    set({
+      export: {
+        ...get().export,
+        activeJobId: job.id,
+        renderJobs: {
+          ...get().export.renderJobs,
+          [job.id]: job,
+        },
+      },
+    })
+  },
+
+  updateRenderJob: (jobId, updates) => {
+    const existing = get().export.renderJobs[jobId]
+    if (!existing) return
+    const updatedJob = { ...existing, ...updates }
+    set({
+      export: {
+        ...get().export,
+        renderJobs: {
+          ...get().export.renderJobs,
+          [jobId]: updatedJob,
+        },
+        lastExportError: updatedJob.error?.message ?? get().export.lastExportError,
+      },
+      ui: {
+        ...get().ui,
+        exportProgress: updatedJob.progress,
+        isExporting: updatedJob.status === 'rendering' || updatedJob.status === 'preparing' || updatedJob.status === 'saving',
+      },
+    })
+  },
+
+  setActiveJob: (jobId) => {
+    set({
+      export: {
+        ...get().export,
+        activeJobId: jobId,
+      },
+    })
+  },
+
+  addExportOutput: (output) => {
+    set({
+      export: {
+        ...get().export,
+        exportOutputs: {
+          ...get().export.exportOutputs,
+          [output.id]: output,
+        },
+      },
+    })
+  },
+
+  setLastExportError: (error) => {
+    set({
+      export: {
+        ...get().export,
+        lastExportError: error,
+      },
+    })
+  },
+
+  resetExportState: () => {
+    set({
+      export: {
+        ...initialExportSlice,
+        exportSettings: get().export.exportSettings,
+      },
+      ui: {
+        ...get().ui,
+        exportProgress: 0,
+        isExporting: false,
+      },
+    })
+  },
+
+  cancelActiveExport: () => {
+    const jobId = get().export.activeJobId
+    if (!jobId) return
+    cancelExportJob(jobId)
+    get().updateRenderJob(jobId, {
+      status: 'cancelled',
+      progress: 0,
+      currentStep: 'Export cancelled',
+      completedAt: new Date().toISOString(),
+    })
+    set({
+      export: {
+        ...get().export,
+        isExporting: false,
+      },
+      ui: {
+        ...get().ui,
+        isExporting: false,
+        exportProgress: 0,
+      },
+    })
+  },
+
+  prepareExport: () => {
+    const prepared = createExportJob(
+      {
+        project: {
+          ...get().editorProject,
+          tracks: get().tracks,
+          mediaAssetIds: get().media.assetOrder,
+        },
+        tracks: get().tracks,
+        mediaAssets: get().media.mediaAssets,
+      },
+      get().export.exportSettings,
+    )
+
+    set({
+      export: {
+        ...get().export,
+        activeJobId: prepared.job.id,
+        renderJobs: {
+          ...get().export.renderJobs,
+          [prepared.job.id]: prepared.job,
+        },
+        commandPlans: {
+          ...get().export.commandPlans,
+          [prepared.job.id]: prepared.commandPlan,
+        },
+        projectSnapshots: {
+          ...get().export.projectSnapshots,
+          [prepared.snapshot.id]: prepared.snapshot,
+        },
+        lastValidation: prepared.validation,
+        lastExportError: prepared.validation.valid
+          ? null
+          : prepared.validation.errors.map((item) => item.message).join(' '),
+      },
+    })
+
+    return prepared.validation.valid
+  },
+
+  startActiveExport: async () => {
+    const activeJobId = get().export.activeJobId
+    const activeJob = activeJobId ? get().export.renderJobs[activeJobId] : null
+    const commandPlan = activeJobId ? get().export.commandPlans[activeJobId] : null
+    if (!activeJob || !commandPlan || activeJob.status === 'failed') return false
+
+    set({
+      export: {
+        ...get().export,
+        isExportSettingsOpen: false,
+        isExporting: true,
+        exportCompleteOpen: false,
+        lastExportError: null,
+      },
+      ui: {
+        ...get().ui,
+        isExporting: true,
+        exportProgress: 0,
+      },
+    })
+
+    const completed = await startExportJob(activeJob, commandPlan, {
+      onJobUpdate: (jobId, updates) => get().updateRenderJob(jobId, updates),
+      onOutput: (output) => get().addExportOutput(output),
+    })
+
+    set({
+      export: {
+        ...get().export,
+        isExporting: false,
+        exportCompleteOpen: completed.status === 'completed',
+        lastExportError: completed.status === 'failed' ? completed.error?.message ?? 'Export failed' : null,
+      },
+      ui: {
+        ...get().ui,
+        isExporting: false,
+        exportProgress: completed.progress,
+      },
+    })
+    return completed.status === 'completed'
+  },
+
+  retryActiveExport: async () => {
+    const ready = get().prepareExport()
+    if (!ready) return false
+    return get().startActiveExport()
+  },
+
+  dismissExportComplete: () => {
+    set({
+      export: {
+        ...get().export,
+        exportCompleteOpen: false,
+      },
+    })
+  },
+
+  saveRecoverySnapshot: (reason = 'autosave') => {
+    try {
+      const serialized = serializeProject({
+        project: {
+          ...get().editorProject,
+          tracks: get().tracks,
+          mediaAssetIds: get().media.assetOrder,
+        },
+        tracks: get().tracks,
+        mediaAssets: get().media.mediaAssets,
+        exportSettings: get().export.exportSettings,
+      })
+      return saveEditorSnapshot(serialized.snapshot, reason)
+    } catch (error) {
+      set({
+        history: {
+          ...get().history,
+          validationError: `Autosave failed: ${(error as Error).message}`,
+        },
+      })
+      return null
+    }
+  },
+
+  getRecoveryEntry: () => {
+    return getLatestRecoveryEntry(get().editorProject.id)
+  },
+
+  restoreRecoverySnapshot: () => {
+    const snapshot = loadLatestRecoverySnapshot(get().editorProject.id)
+    if (!snapshot) return false
+    const recovered = recoverEditorStateFromSnapshot(snapshot)
+    const duration = Math.max(recovered.editorProject.duration, durationFromTracks(recovered.tracks), 60)
+    set({
+      editorProject: {
+        ...recovered.editorProject,
+        duration,
+      },
+      tracks: recovered.tracks,
+      media: {
+        ...get().media,
+        mediaAssets: recovered.mediaAssets,
+        assetOrder: recovered.assetOrder,
+      },
+      playback: {
+        ...get().playback,
+        duration,
+        currentTime: clampTime(get().playback.currentTime, 0, duration),
+      },
+      timeline: updateTimelineFor(get().timeline, duration, recovered.tracks),
+      history: {
+        ...get().history,
+        validationError: null,
+      },
+    })
+    return true
+  },
+
+  clearRecoverySnapshot: () => {
+    clearRecoverySnapshot(get().editorProject.id)
+  },
+
   setActiveGesture: (gesture) => {
     set({ gestures: { ...get().gestures, activeGesture: gesture } })
   },
@@ -1445,16 +2220,20 @@ export const useEditorStore = create<EditorState>((set, get) => ({
   },
 
   setExportProgress: (progress) => {
+    const clamped = Math.max(0, Math.min(progress, 1))
     set({
       ui: {
         ...get().ui,
-        exportProgress: Math.max(0, Math.min(progress, 1)),
+        exportProgress: clamped,
       },
     })
   },
 
   setIsExporting: (exporting) => {
-    set({ ui: { ...get().ui, isExporting: exporting } })
+    set({
+      ui: { ...get().ui, isExporting: exporting },
+      export: { ...get().export, isExporting: exporting },
+    })
   },
 
   persist: () => {

@@ -1,6 +1,10 @@
 import type { WaveformData } from './media.types'
+import type { BlendMode } from './property.types'
+import type { FilterAssignment } from './filter.types'
+import type { TextClipProperties } from './text.types'
+import type { TransitionAssignment } from './transition.types'
 
-export type TimelineClipType = 'video' | 'audio' | 'text' | 'effect' | 'image'
+export type TimelineClipType = 'video' | 'audio' | 'text' | 'effect' | 'image' | 'sticker'
 
 export type ClipVisualStatus = 'loading' | 'ready' | 'error' | 'placeholder'
 
@@ -11,6 +15,8 @@ export type ClipTransform = {
   rotation: number
   width?: number
   height?: number
+  anchorX?: number
+  anchorY?: number
 }
 
 export const DEFAULT_CLIP_TRANSFORM: ClipTransform = {
@@ -18,6 +24,8 @@ export const DEFAULT_CLIP_TRANSFORM: ClipTransform = {
   y: 0,
   scale: 1,
   rotation: 0,
+  anchorX: 0.5,
+  anchorY: 0.5,
 }
 
 export type TimelineClip = {
@@ -40,6 +48,11 @@ export type TimelineClip = {
   opacity?: number
   volume?: number
   transform?: ClipTransform
+  text?: TextClipProperties
+  filters?: FilterAssignment[]
+  transitions?: TransitionAssignment[]
+  blendMode?: BlendMode
+  layerIndex?: number
   isSelected?: boolean
   visualStatus?: ClipVisualStatus
   textContent?: string

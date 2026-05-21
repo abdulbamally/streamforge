@@ -29,6 +29,11 @@ export type OnboardingStackParamList = {
 export type MainShellStackParamList = {
   Tabs: undefined;
   Settings: undefined;
+  ProjectSetup: { projectId?: string; assetId?: string };
+  EditorCanvas: { projectId: string };
+  ExportSettings: { projectId: string };
+  ExportProgress: { projectId: string; exportId: string };
+  ExportComplete: { projectId: string; exportId: string; outputUrl: string };
 };
 
 // ─── Main Tab Bar ─────────────────────────────────────────────

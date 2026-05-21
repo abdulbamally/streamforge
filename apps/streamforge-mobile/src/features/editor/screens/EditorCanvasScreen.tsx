@@ -10,14 +10,22 @@ import {
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { TopToolbar } from '../components/controls'
+import { PropertyInspector } from '../components/inspector'
 import { MediaBin } from '../components/media'
+import {
+  ExportCompleteModal,
+  ExportProgressModal,
+  ExportSettingsSheet,
+} from '../components/export'
+import { RecoveryBanner } from '../components/recovery'
 import { PreviewContainer } from '../components/preview'
 import { TimelineContainer } from '../components/timeline/TimelineContainer'
 import { BottomToolDock } from '../components/controls/BottomToolDock'
+import { CreativeToolDock } from '../components/tools/CreativeToolDock'
 import { useEditorProject } from '../hooks/useEditorProject'
+import { useEditorAutosave } from '../hooks/useEditorAutosave'
 import { useMediaImport } from '../hooks/useMediaImport'
 import { useEditorStore } from '../store/editorStore'
-import { isLocalProjectId } from '../services/projectPersistence'
 import {
   EditorColors,
   EditorSpacing,
@@ -36,7 +44,9 @@ export function EditorCanvasScreen({ route, navigation }: Props) {
   const tracks = useEditorStore((state) => state.tracks)
   const mediaAssets = useEditorStore((state) => state.media.mediaAssets)
   const currentTime = useEditorStore((state) => state.playback.currentTime)
+  const openExportSettings = useEditorStore((state) => state.openExportSettings)
   const { importMedia } = useMediaImport()
+  useEditorAutosave(!isLoading && !!project)
 
   const previewHeight = Math.max(260, Math.min(height * 0.46, 430))
   const timelineClipCount = tracks.reduce((total, track) => total + track.clips.length, 0)
@@ -67,15 +77,8 @@ export function EditorCanvasScreen({ route, navigation }: Props) {
   }, [importMedia])
 
   const handleExport = useCallback(() => {
-    if (isLocalProjectId(projectId)) {
-      navigation.navigate('ExportProgress', {
-        projectId,
-        exportId: 'local',
-      })
-      return
-    }
-    navigation.navigate('ExportSettings', { projectId })
-  }, [navigation, projectId])
+    openExportSettings()
+  }, [openExportSettings])
 
   if (isLoading) {
     return (
@@ -106,6 +109,9 @@ export function EditorCanvasScreen({ route, navigation }: Props) {
         onImport={handleImport}
         onExport={handleExport}
       />
+      <ExportSettingsSheet />
+      <ExportProgressModal />
+      <ExportCompleteModal />
 
       <View style={{ height: previewHeight }}>
         <PreviewContainer sourceUri={previewUri} />
@@ -119,8 +125,11 @@ export function EditorCanvasScreen({ route, navigation }: Props) {
         ]}
         showsVerticalScrollIndicator={false}
       >
+        <RecoveryBanner />
         <MediaBin />
         <TimelineContainer />
+        <PropertyInspector />
+        <CreativeToolDock />
         <BottomToolDock />
       </ScrollView>
     </View>

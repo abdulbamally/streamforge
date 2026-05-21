@@ -2,17 +2,19 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { usePreviewOverlay } from '../../hooks/usePreviewOverlay'
 import { SafeAreaOverlay } from './SafeAreaOverlay'
+import { PreviewGestureLayer } from './PreviewGestureLayer'
 import { TransformOverlay } from './TransformOverlay'
 
 export function PreviewOverlay() {
   const overlay = usePreviewOverlay()
 
   return (
-    <View pointerEvents="none" style={styles.root}>
+    <View pointerEvents="box-none" style={styles.root}>
       {overlay.showSafeArea ? <SafeAreaOverlay /> : null}
       {overlay.visible && overlay.clip ? (
         <>
-          <TransformOverlay clip={overlay.clip} />
+          {overlay.showTransform ? <PreviewGestureLayer clip={overlay.clip} /> : null}
+          {overlay.showTransform ? <TransformOverlay clip={overlay.clip} /> : null}
           <View style={styles.badge}>
             <Text style={styles.badgeText}>{overlay.clip.name}</Text>
           </View>

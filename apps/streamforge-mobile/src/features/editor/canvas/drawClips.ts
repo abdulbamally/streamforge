@@ -19,6 +19,7 @@ function clipLabelPrefix(type: string): string {
   if (type === 'text') return 'TXT'
   if (type === 'effect') return 'FX'
   if (type === 'image') return 'IMG'
+  if (type === 'sticker') return 'STK'
   return 'VID'
 }
 
@@ -104,6 +105,34 @@ export function drawClips(
           r: 3,
           color: visualStatusColor(clip.visualStatus),
         }),
+        clip.filters?.length
+          ? React.createElement(Circle, {
+              key: `${clip.id}-filter-dot`,
+              cx: safeX + safeWidth - 22,
+              cy: contentY + 11,
+              r: 3,
+              color: '#7c3aed',
+            })
+          : null,
+        clip.transitions?.length
+          ? React.createElement(Circle, {
+              key: `${clip.id}-transition-dot`,
+              cx: safeX + safeWidth - 34,
+              cy: contentY + 11,
+              r: 3,
+              color: '#f59e0b',
+            })
+          : null,
+        clip.opacity !== undefined && clip.opacity < 1
+          ? React.createElement(SkiaText, {
+              key: `${clip.id}-opacity`,
+              x: safeX + safeWidth - 52,
+              y: y + height - 6,
+              text: `${Math.round(clip.opacity * 100)}%`,
+              font,
+              color: EditorColors.textSecondary,
+            })
+          : null,
         selected
           ? React.createElement(RoundedRect, {
               key: `${clip.id}-selection`,
@@ -162,7 +191,7 @@ export function drawClips(
           font,
           color: EditorColors.textPrimary,
         }),
-        safeWidth > 120 && clip.type === 'audio'
+        safeWidth > 120 && (clip.type === 'audio' || clip.type === 'video')
           ? React.createElement(SkiaText, {
               key: `${clip.id}-volume`,
               x: safeX + safeWidth - 48,

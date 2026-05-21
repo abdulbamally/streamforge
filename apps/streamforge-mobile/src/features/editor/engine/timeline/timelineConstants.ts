@@ -23,4 +23,5 @@ export const CLIP_COLORS = {
   text: '#fcd34d',
   effect: '#c4b5fd',
   image: '#f9a8d4',
+  sticker: '#f0abfc',
 } as const

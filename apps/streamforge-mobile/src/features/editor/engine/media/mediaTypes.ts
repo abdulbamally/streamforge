@@ -15,7 +15,7 @@ export function mediaTypeToTrackType(type: MediaAssetType): TimelineTrackType {
 }
 
 export function isVisualClipType(type: TimelineClipType): boolean {
-  return type === 'video' || type === 'image' || type === 'text'
+  return type === 'video' || type === 'image' || type === 'text' || type === 'sticker'
 }
 
 export function isCompatibleTrackType(

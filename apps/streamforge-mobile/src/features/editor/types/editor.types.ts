@@ -13,7 +13,7 @@ export type ProjectSettings = {
 export type RenderSettings = {
   format: string
   bitrate?: number
-  quality?: 'draft' | 'standard' | 'high'
+  quality?: 'draft' | 'standard' | 'high' | 'maximum'
 }
 
 export type EditorProject = {
